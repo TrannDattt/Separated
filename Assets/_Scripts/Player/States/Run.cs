@@ -1,0 +1,37 @@
+using Separated.Data;
+using Separated.Helpers;
+using UnityEngine;
+using static Separated.PlayerControl.PlayerStateMachine;
+
+namespace Separated.PlayerControl
+{
+    public class Run : GroundState
+    {
+        public Run(EPlayerState key, StateDataSO data, Animator animator, PlayerBodyPart bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        {
+        }
+
+        public override void Do()
+        {
+            base.Do();
+
+            _bodyPart.RigidBody.linearVelocity = new ((_stateData as RunStateData).Speed * _inputProvider.MoveDir, _bodyPart.RigidBody.linearVelocityY);
+        }
+
+        public override EPlayerState GetNextState()
+        {
+            if (base.GetNextState() == EPlayerState.None)
+            {
+                if (_inputProvider.MoveDir == 0)
+                {
+                    return EPlayerState.Idle;
+                }
+                return Key;
+            }
+            else
+            {
+                return base.GetNextState();
+            }
+        }
+    }
+}
