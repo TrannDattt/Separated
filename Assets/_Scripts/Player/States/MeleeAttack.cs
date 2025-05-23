@@ -1,8 +1,8 @@
 using Separated.Data;
 using UnityEngine;
-using static Separated.PlayerControl.PlayerStateMachine;
+using static Separated.Player.PlayerStateMachine;
 
-namespace Separated.PlayerControl
+namespace Separated.Player
 {
     public class MeleeAttack : AttackState
     {
@@ -15,7 +15,7 @@ namespace Separated.PlayerControl
         private MeleeAttack _nextAttack;
         private bool _canDoNextAttack;
 
-        public MeleeAttack(EPlayerState key, StateDataSO data, Animator animator, PlayerInput inputProvider, MeleeAttack nextAttack) : base(key, data, animator, inputProvider)
+        public MeleeAttack(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, MeleeAttack nextAttack) : base(key, data, animator, player, inputProvider)
         {
             _nextAttack = nextAttack;
         }

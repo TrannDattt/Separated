@@ -2,7 +2,7 @@ using Separated.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Separated.PlayerControl
+namespace Separated.Player
 {
     [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInput), typeof(PlayerControl))]
     public class PlayerInput : MonoBehaviour
@@ -13,7 +13,7 @@ namespace Separated.PlayerControl
             Dash,
             Attack,
             Skill,
-            Ultimate,
+            // Ultimate,
         }
 
         public float MoveDir { get; private set; }
@@ -21,7 +21,10 @@ namespace Separated.PlayerControl
         public bool JumpInput { get; private set; }
         public bool DashInput { get; private set; }
         public bool AttackInput { get; private set; }
-        public bool SkillInput { get; private set; }
+        public bool Skill1Input { get; private set; }
+        public bool Skill2Input { get; private set; }
+        public bool Skill3Input { get; private set; }
+        public bool Skill4Input { get; private set; }
         public bool UltimateInput { get; private set; }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -34,10 +37,7 @@ namespace Separated.PlayerControl
         {
             if(context.started)
             {
-                // if(GroundSensor.CheckSensor(GroundSensor.EDirection.Down))
-                // {
-                    JumpInput = true;
-                // }
+                JumpInput = true;
             }
         }
 
@@ -56,11 +56,35 @@ namespace Separated.PlayerControl
             }
         }
 
-        public void OnUsingSkill(InputAction.CallbackContext context)
+        public void OnUsingSkill1(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                SkillInput = true;
+                Skill1Input = true;
+            }
+        }
+
+        public void OnUsingSkill2(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                Skill2Input = true;
+            }
+        }
+
+        public void OnUsingSkill3(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                Skill3Input = true;
+            }
+        }
+
+        public void OnUsingSkill4(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                Skill4Input = true;
             }
         }
 
@@ -89,10 +113,10 @@ namespace Separated.PlayerControl
                     break;
 
                 case EInputType.Skill:
-                    SkillInput = false;
-                    break;
-
-                case EInputType.Ultimate:
+                    Skill1Input = false;
+                    Skill2Input = false;
+                    Skill3Input = false;
+                    Skill4Input = false;
                     UltimateInput = false;
                     break;
 

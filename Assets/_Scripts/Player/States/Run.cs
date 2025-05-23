@@ -1,9 +1,9 @@
 using Separated.Data;
 using Separated.Helpers;
 using UnityEngine;
-using static Separated.PlayerControl.PlayerStateMachine;
+using static Separated.Player.PlayerStateMachine;
 
-namespace Separated.PlayerControl
+namespace Separated.Player
 {
     public class Run : GroundState
     {

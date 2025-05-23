@@ -5,7 +5,7 @@ using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
-    public class AttackState : PlayerBaseState, ICanDoDamage
+    public class SkillState : PlayerBaseState, ICanDoDamage
     {
         public virtual float Damage { get; }
         public virtual float PoiseDamage { get; }
@@ -13,21 +13,28 @@ namespace Separated.Player
         public virtual float KnockbackForce { get; }
 
         protected PlayerInput _inputProvider;
-        protected PlayerControl _player;
 
-        public AttackState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider) : base(key, data, animator)
+        // TODO: Make a skill acxercuter class to handle skill logic
+        public SkillState(EPlayerState key, StateDataSO data, Animator animator, PlayerInput inputProvider) : base(key, data, animator)
         {
-            _player = player;
             _inputProvider = inputProvider;
         }
 
         public override void Enter()
         {
-            _inputProvider.UseInput(PlayerInput.EInputType.Attack);
+            _inputProvider.UseInput(PlayerInput.EInputType.Skill);
 
             base.Enter();
+        }
 
-            _player.RigidBody.linearVelocityX = 0;
+        public override void Do()
+        {
+            base.Do();
+
+            if(PlayedTime >= _stateData.PeriodTime)
+            {
+                _isFinish = true;
+            }
         }
 
         public override EPlayerState GetNextState()
@@ -37,7 +44,7 @@ namespace Separated.Player
                 return EPlayerState.Idle;
             }
 
-            return EPlayerState.None;
+            return Key;
         }
     }
 }

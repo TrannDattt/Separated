@@ -2,9 +2,9 @@ using System;
 using Separated.Data;
 using Separated.Helpers;
 using UnityEngine;
-using static Separated.PlayerControl.PlayerStateMachine;
+using static Separated.Player.PlayerStateMachine;
 
-namespace Separated.PlayerControl
+namespace Separated.Player
 {
     public class GroundState : PlayerBaseState
     {
@@ -32,6 +32,31 @@ namespace Separated.PlayerControl
             // TODO: Change to HURT when get take light damage
             // TODO: Change to THROWN_AWAY when get heavy damage
             // TODO: Change to DIE when run out of HP
+
+            if(_inputProvider.Skill1Input)
+            {
+                return EPlayerState.Skill1;
+            }
+
+            if (_inputProvider.Skill2Input)
+            {
+                return EPlayerState.Skill2;
+            }
+
+            if (_inputProvider.Skill3Input)
+            {
+                return EPlayerState.Skill3;
+            }
+
+            if (_inputProvider.Skill4Input)
+            {
+                return EPlayerState.Skill4;
+            }
+
+            if (_inputProvider.UltimateInput)
+            {
+                return EPlayerState.Ultimate;
+            }
             
             if (_inputProvider.AttackInput)
             {

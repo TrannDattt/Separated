@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Separated.Helpers
+namespace Separated.Unit
 {
     public abstract class BaseUnit : MonoBehaviour
     {

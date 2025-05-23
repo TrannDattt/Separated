@@ -17,7 +17,7 @@ namespace Separated.Helpers
             CurState.Enter();
         }
 
-        void Update()
+        protected virtual void Update()
         {
             if(CurState != null)
             {
