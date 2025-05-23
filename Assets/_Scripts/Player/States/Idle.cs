@@ -7,7 +7,7 @@ namespace Separated.PlayerControl
 {
     public class Idle : GroundState
     {
-        public Idle(EPlayerState key, StateDataSO data, Animator animator, PlayerBodyPart bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        public Idle(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
         {
         }
 

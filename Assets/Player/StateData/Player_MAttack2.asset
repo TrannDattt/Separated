@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0dfb0ddeec507499927edfb5c6a4e1, type: 3}
   m_Name: Player_MAttack2
   m_EditorClassIdentifier: 
-  PeriodTime: 1
+  PeriodTime: 0.5
   Damage: 5
   PoiseDamage: 5
-  Cooldown: 1
+  KnockbackDir: {x: 0, y: 0}
+  KnockbackForce: 0

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Separated.PlayerControl
 {
-    [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInput), typeof(PlayerBodyPart))]
+    [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInput), typeof(PlayerControl))]
     public class PlayerInput : MonoBehaviour
     {
         public enum EInputType
@@ -12,6 +12,8 @@ namespace Separated.PlayerControl
             Jump,
             Dash,
             Attack,
+            Skill,
+            Ultimate,
         }
 
         public float MoveDir { get; private set; }
@@ -19,6 +21,8 @@ namespace Separated.PlayerControl
         public bool JumpInput { get; private set; }
         public bool DashInput { get; private set; }
         public bool AttackInput { get; private set; }
+        public bool SkillInput { get; private set; }
+        public bool UltimateInput { get; private set; }
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -52,6 +56,22 @@ namespace Separated.PlayerControl
             }
         }
 
+        public void OnUsingSkill(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                SkillInput = true;
+            }
+        }
+
+        public void OnUsingUltimate(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                UltimateInput = true;
+            }
+        }
+
         public void UseInput(EInputType inputType)
         {
             switch (inputType)
@@ -66,6 +86,14 @@ namespace Separated.PlayerControl
 
                 case EInputType.Attack:
                     AttackInput = false;
+                    break;
+
+                case EInputType.Skill:
+                    SkillInput = false;
+                    break;
+
+                case EInputType.Ultimate:
+                    UltimateInput = false;
                     break;
 
                 default:

@@ -7,6 +7,7 @@ namespace Separated.Data
     {
         public float Damage;
         public float PoiseDamage;
-        public float Cooldown;
+        public Vector2 KnockbackDir;
+        public float KnockbackForce;
     }
 }

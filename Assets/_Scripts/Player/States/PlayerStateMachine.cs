@@ -29,7 +29,7 @@ namespace Separated.PlayerControl{
         [SerializeField] private DashStateData _dashData;
         [SerializeField] private MeleeAttackStateData[] _meleeAttackDatas;
 
-        private PlayerBodyPart _bodyPart;
+        private PlayerControl _bodyPart;
         private PlayerInput _inputProvider;
         private GroundSensor _groundSensor;
         private Animator _animator;
@@ -54,9 +54,26 @@ namespace Separated.PlayerControl{
             ChangeState(EPlayerState.Idle);
         }
 
+        public void UpdateState(EPlayerState key, PlayerBaseState newState)
+        {
+            if (_stateDict.ContainsKey(key))
+            {
+                _stateDict[key] = newState;
+            }
+            else
+            {
+                Debug.LogError($"State {key} not found in state dictionary.");
+            }
+
+            if(CurState.Key == key)
+            {
+                ChangeState(key);
+            }
+        }
+
         void Start()
         {
-            _bodyPart = GetComponent<PlayerBodyPart>();
+            _bodyPart = GetComponent<PlayerControl>();
             _inputProvider = GetComponent<PlayerInput>();
             _groundSensor = GetComponentInChildren<GroundSensor>();
             _animator = GetComponentInChildren<Animator>();

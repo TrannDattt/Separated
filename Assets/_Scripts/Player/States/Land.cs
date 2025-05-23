@@ -6,9 +6,9 @@ namespace Separated.PlayerControl
 {
     public class Land : PlayerBaseState
     {
-        private PlayerBodyPart _bodyPart;
+        private PlayerControl _bodyPart;
 
-        public Land(EPlayerState key, StateDataSO data, Animator animator, PlayerBodyPart bodyPart) : base(key, data, animator)
+        public Land(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart) : base(key, data, animator)
         {
             _bodyPart = bodyPart;
         }

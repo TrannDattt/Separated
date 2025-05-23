@@ -12,7 +12,7 @@ namespace Separated.PlayerControl
         private float _firstVelocityX;
         private float _firstVelocityY;
 
-        public Jump(EPlayerState key, StateDataSO data, Animator animator, PlayerBodyPart bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        public Jump(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
         {
         }
 

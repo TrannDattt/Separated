@@ -14,7 +14,6 @@ namespace Separated.PlayerControl
 
         protected float _startTime;
         protected bool _isFinish;
-        private StateDataSO data;
 
         public PlayerBaseState(EPlayerState key, StateDataSO data, Animator animator) : base(key)
         {
@@ -22,10 +21,11 @@ namespace Separated.PlayerControl
             _animator = animator;
         }
 
-        public PlayerBaseState(EPlayerState key, StateDataSO data) : base(key)
-        {
-            this.data = data;
-        }
+        // public PlayerBaseState(EPlayerState key, StateDataSO[] datas, Animator animator) : base(key)
+        // {
+        //     _stateData = data;
+        //     _animator = animator;
+        // }
 
         protected virtual void PlayAnim(){
 

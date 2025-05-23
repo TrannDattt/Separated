@@ -7,14 +7,14 @@ namespace Separated.PlayerControl
 {
     public class Dash : PlayerBaseState
     {
-        private PlayerBodyPart _bodyPart;
+        private PlayerControl _bodyPart;
         private PlayerInput _inputProvider;
         private GroundSensor _groundSensor;
 
         private float _velocityX;
         private float _velocityXMult;
 
-        public Dash(EPlayerState key, StateDataSO data, Animator animator, PlayerBodyPart bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public Dash(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _bodyPart = bodyPart;
             _inputProvider = inputProvider;

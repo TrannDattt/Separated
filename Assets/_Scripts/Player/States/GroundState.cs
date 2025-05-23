@@ -10,9 +10,9 @@ namespace Separated.PlayerControl
     {
         protected PlayerInput _inputProvider;
         protected GroundSensor _groundSensor;
-        protected PlayerBodyPart _bodyPart;
+        protected PlayerControl _bodyPart;
 
-        public GroundState(EPlayerState key, StateDataSO data, Animator animator, PlayerBodyPart bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public GroundState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;

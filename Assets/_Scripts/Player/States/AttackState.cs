@@ -1,11 +1,17 @@
 using Separated.Data;
+using Separated.Interfaces;
 using UnityEngine;
 using static Separated.PlayerControl.PlayerStateMachine;
 
 namespace Separated.PlayerControl
 {
-    public class AttackState : PlayerBaseState
+    public class AttackState : PlayerBaseState, ICanDoDamage
     {
+        public virtual float Damage { get; }
+        public virtual float PoiseDamage { get; }
+        public virtual Vector2 KnockbackDir { get; }
+        public virtual float KnockbackForce { get; }
+
         protected PlayerInput _inputProvider;
 
         public AttackState(EPlayerState key, StateDataSO data, Animator animator, PlayerInput inputProvider) : base(key, data, animator)

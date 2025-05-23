@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Separated.PlayerControl
 {
-    public class MainBody : PlayerBodyPart
+    public class MainBody : PlayerControl
     {
     }
 }

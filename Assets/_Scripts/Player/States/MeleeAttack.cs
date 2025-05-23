@@ -6,6 +6,12 @@ namespace Separated.PlayerControl
 {
     public class MeleeAttack : AttackState
     {
+        private MeleeAttackStateData _attackData => _stateData as MeleeAttackStateData;
+        public override float Damage => _attackData.Damage;
+        public override float PoiseDamage => _attackData.PoiseDamage;
+        public override Vector2 KnockbackDir => _attackData.KnockbackDir;
+        public override float KnockbackForce => _attackData.KnockbackForce;
+
         private MeleeAttack _nextAttack;
         private bool _canDoNextAttack;
 
