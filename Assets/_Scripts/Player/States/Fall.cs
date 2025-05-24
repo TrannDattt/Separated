@@ -8,7 +8,7 @@ namespace Separated.Player
 {
     public class Fall : AirBorneState
     {
-        private FallStateData _fallData => _stateData as FallStateData;
+        private FallStateData _fallData => _curStateData as FallStateData;
         private float _firstVelocityX;
         private float _firstVelocityY;
 

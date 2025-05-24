@@ -461,23 +461,39 @@ PrefabInstance:
     - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: '_skillDatas.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: cd9e745eec546c345b69e65adb353fcd, type: 2}
+      objectReference: {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
     - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: '_skillDatas.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: cd9e745eec546c345b69e65adb353fcd, type: 2}
+      objectReference: {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
     - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: '_skillDatas.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: cd9e745eec546c345b69e65adb353fcd, type: 2}
+      objectReference: {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
     - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: '_skillDatas.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: cd9e745eec546c345b69e65adb353fcd, type: 2}
+      objectReference: {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
     - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: '_skillDatas.Array.data[4]'
       value: 
-      objectReference: {fileID: 11400000, guid: cd9e745eec546c345b69e65adb353fcd, type: 2}
+      objectReference: {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
+    - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
+      propertyPath: _meleeAttackDatas.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
+      propertyPath: '_meleeAttackDatas.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b510f339d917804287b40ff3afb00cb, type: 2}
+    - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
+      propertyPath: '_meleeAttackDatas.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 97e98ce4b47108e4babd2ddb62cf7bdd, type: 2}
+    - target: {fileID: 1129858454027303619, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
+      propertyPath: '_meleeAttackDatas.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e5d5ff1fe66160c448fb36f0f31ec009, type: 2}
     - target: {fileID: 4408520352714661081, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.82

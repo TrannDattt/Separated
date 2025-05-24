@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Separated.Data;
 using Separated.Helpers;
 using UnityEngine;
@@ -9,7 +10,9 @@ namespace Separated.Player
     {
         public float PlayedTime => Time.time - _startTime;
 
-        protected StateDataSO _stateData;
+        protected StateDataSO _curStateData;
+        protected StateDataSO[] _stateDataList;
+        // protected List<StateDataSO> _stateDataList;
         protected Animator _animator;
 
         protected float _startTime;
@@ -17,15 +20,23 @@ namespace Separated.Player
 
         public PlayerBaseState(EPlayerState key, StateDataSO data, Animator animator) : base(key)
         {
-            _stateData = data;
+            _curStateData = data;
             _animator = animator;
         }
 
-        // public PlayerBaseState(EPlayerState key, StateDataSO[] datas, Animator animator) : base(key)
+        // public PlayerBaseState(EPlayerState key, List<StateDataSO> datas, StateDataSO data, Animator animator) : base(key)
         // {
-        //     _stateData = data;
+        //     _stateDataList = datas;
+        //     _curStateData = data;
         //     _animator = animator;
         // }
+
+        public PlayerBaseState(EPlayerState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
+        {
+            _stateDataList = datas;
+            _curStateData = data;
+            _animator = animator;
+        }
 
         protected virtual void PlayAnim(){
 

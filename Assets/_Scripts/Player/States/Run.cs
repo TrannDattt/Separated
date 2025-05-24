@@ -15,7 +15,7 @@ namespace Separated.Player
         {
             base.Do();
 
-            _bodyPart.RigidBody.linearVelocity = new ((_stateData as RunStateData).Speed * _inputProvider.MoveDir, _bodyPart.RigidBody.linearVelocityY);
+            _bodyPart.RigidBody.linearVelocity = new ((_curStateData as RunStateData).Speed * _inputProvider.MoveDir, _bodyPart.RigidBody.linearVelocityY);
         }
 
         public override EPlayerState GetNextState()

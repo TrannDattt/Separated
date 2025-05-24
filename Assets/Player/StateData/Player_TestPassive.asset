@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0dfb0ddeec507499927edfb5c6a4e1, type: 3}
-  m_Name: Player_MAttack2
-  m_EditorClassIdentifier: 
-  PeriodTime: 0.5
-  Damage: 5
-  PoiseDamage: 5
+  m_Script: {fileID: 11500000, guid: 0e68bb13124f49d43ab1d389b3febad6, type: 3}
+  m_Name: Player_TestPassive
+  m_EditorClassIdentifier: Assembly-CSharp:Separated.Data:PassiveSkillData
+  PeriodTime: 1
+  Damage: 0
+  PoiseDamage: 0
   KnockbackDir: {x: 0, y: 0}
   KnockbackForce: 0
+  SkillType: 1
+  SkillName: 
+  SkillDescription: 

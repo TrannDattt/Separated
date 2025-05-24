@@ -24,7 +24,7 @@ namespace Separated.Player
         {
             base.Do();
 
-            if (PlayedTime >= _stateData.PeriodTime)
+            if (PlayedTime >= _curStateData.PeriodTime)
             {
                 _isFinish = true;
             }

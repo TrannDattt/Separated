@@ -9,11 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0dfb0ddeec507499927edfb5c6a4e1, type: 3}
-  m_Name: Player_MAttack3
+  m_Script: {fileID: 11500000, guid: cc635f7aadf29a74fb93a6642242c798, type: 3}
+  m_Name: Player_TestActive
   m_EditorClassIdentifier: 
-  PeriodTime: 0.7
-  Damage: 7
-  PoiseDamage: 10
+  PeriodTime: 1
+  Damage: 1
+  PoiseDamage: 0
   KnockbackDir: {x: 0, y: 0}
   KnockbackForce: 0
+  SkillType: 2
+  SkillName: 
+  SkillDescription: 
+  Cooldown: 2
+  IsFinishedCooldown: 0

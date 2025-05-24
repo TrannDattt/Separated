@@ -28,7 +28,7 @@ namespace Separated.Player
             // _inputProvider.UseInput(PlayerInput.EInputType.Dash);
             
 
-            _velocityX = (_stateData as DashStateData).Speed * _inputProvider.FaceDir;
+            _velocityX = (_curStateData as DashStateData).Speed * _inputProvider.FaceDir;
             _velocityXMult = _velocityX / _bodyPart.RigidBody.linearVelocityX;
         }
 
@@ -38,7 +38,7 @@ namespace Separated.Player
 
             _bodyPart.RigidBody.linearVelocity = new Vector2(_velocityX, 0);
 
-            if (PlayedTime >= _stateData.PeriodTime)
+            if (PlayedTime >= _curStateData.PeriodTime)
             {
                 _isFinish = true;
             }

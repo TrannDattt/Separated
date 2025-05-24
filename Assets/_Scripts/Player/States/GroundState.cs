@@ -60,7 +60,7 @@ namespace Separated.Player
             
             if (_inputProvider.AttackInput)
             {
-                return EPlayerState.Attack1;
+                return EPlayerState.Attack;
             }
 
             if (_inputProvider.DashInput)

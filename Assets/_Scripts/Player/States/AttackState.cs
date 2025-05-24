@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Separated.Data;
 using Separated.Interfaces;
 using UnityEngine;
@@ -14,12 +15,27 @@ namespace Separated.Player
 
         protected PlayerInput _inputProvider;
         protected PlayerControl _player;
+        protected PlayerStateMachine _stateMachine;
 
-        public AttackState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider) : base(key, data, animator)
+        // public AttackState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider) : base(key, data, animator)
+        // {
+        //     _player = player;
+        //     _inputProvider = inputProvider;
+        // }
+
+        public AttackState(EPlayerState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine) : base(key, datas, data, animator)
         {
             _player = player;
             _inputProvider = inputProvider;
+            _stateMachine = stateMachine;
         }
+
+        // public AttackState(EPlayerState key, List<StateDataSO> datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine) : base(key, datas, data, animator)
+        // {
+        //     _player = player;
+        //     _inputProvider = inputProvider;
+        //     _stateMachine = stateMachine;
+        // }
 
         public override void Enter()
         {

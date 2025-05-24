@@ -1,23 +1,21 @@
 using Separated.Data;
 using Separated.Interfaces;
+using Separated.Skills;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
-    public class SkillState : PlayerBaseState, ICanDoDamage
+    public class SkillState : PlayerBaseState
     {
-        public virtual float Damage { get; }
-        public virtual float PoiseDamage { get; }
-        public virtual Vector2 KnockbackDir { get; }
-        public virtual float KnockbackForce { get; }
-
         protected PlayerInput _inputProvider;
+        protected SkillManager _skillManager;
 
         // TODO: Make a skill acxercuter class to handle skill logic
-        public SkillState(EPlayerState key, StateDataSO data, Animator animator, PlayerInput inputProvider) : base(key, data, animator)
+        public SkillState(EPlayerState key, StateDataSO data, Animator animator, PlayerInput inputProvider, SkillManager skillManager) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
+            _skillManager = skillManager;
         }
 
         public override void Enter()
@@ -31,7 +29,7 @@ namespace Separated.Player
         {
             base.Do();
 
-            if(PlayedTime >= _stateData.PeriodTime)
+            if(PlayedTime >= _curStateData.PeriodTime)
             {
                 _isFinish = true;
             }

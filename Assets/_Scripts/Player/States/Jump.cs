@@ -7,7 +7,7 @@ namespace Separated.Player
 {
     public class Jump : AirBorneState
     {
-        private JumpStateData _jumpData => _stateData as JumpStateData;
+        private JumpStateData _jumpData => _curStateData as JumpStateData;
 
         private float _firstVelocityX;
         private float _firstVelocityY;
@@ -36,7 +36,7 @@ namespace Separated.Player
             _bodyPart.RigidBody.linearVelocity = new Vector2(velocityX, velocityY);
             // _bodyPart.RigidBody.AddForce(Vector2.up);
 
-            if (PlayedTime >= _stateData.PeriodTime)
+            if (PlayedTime >= _curStateData.PeriodTime)
             {
                 _isFinish = true;
             }
