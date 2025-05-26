@@ -21,8 +21,8 @@ namespace Separated.Player
             base.Enter();
 
             _isFinish = true;
-            _firstVelocityX = _bodyPart.RigidBody.linearVelocityX;
-            _firstVelocityY = _bodyPart.RigidBody.linearVelocityY;
+            _firstVelocityX = _player.RigidBody.linearVelocityX;
+            _firstVelocityY = _player.RigidBody.linearVelocityY;
         }
 
         public override void Do()
@@ -31,7 +31,7 @@ namespace Separated.Player
 
             var velocityX = Mathf.Abs(_firstVelocityX) * _inputProvider.MoveDir;
             var velocityY = Mathf.Min(_firstVelocityY + _fallData.Acceleration * PlayedTime, _fallData.MaxFallSpeed);
-            _bodyPart.RigidBody.linearVelocity = new Vector2(velocityX, -1 * velocityY);
+            _player.RigidBody.linearVelocity = new Vector2(velocityX, -1 * velocityY);
         }
 
         public override EPlayerState GetNextState()

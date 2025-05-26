@@ -43,7 +43,7 @@ namespace Separated.Unit
         {
             _collider = GetComponent<BoxCollider2D>();
 
-            _collider.enabled = false;
+            DisableHitbox();
         }
     }
 }

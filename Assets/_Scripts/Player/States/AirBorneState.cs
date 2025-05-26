@@ -7,17 +7,17 @@ using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
-    public class AirBorneState : PlayerBaseState
+    public abstract class AirBorneState : PlayerBaseState
     {
         protected PlayerInput _inputProvider;
         protected GroundSensor _groundSensor;
-        protected PlayerControl _bodyPart;
+        protected PlayerControl _player;
 
-        public AirBorneState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public AirBorneState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
-            _bodyPart = bodyPart;
+            _player = player;
         }
 
         public override void Exit()

@@ -76,8 +76,6 @@ namespace Separated.Player{
             _stateDict.Add(EPlayerState.Ultimate, new SkillState(EPlayerState.Ultimate, _skillDatas[4], _animator, _inputProvider, _skillManager));
 
             ChangeState(EPlayerState.Idle);
-
-            _hitbox.DisableHitbox();
         }
 
         public void UpdateState(EPlayerState key, PlayerBaseState newState, bool forceChange = false)
@@ -97,19 +95,6 @@ namespace Separated.Player{
             }
         }
 
-        // public T GetNextData<T>(T curData, List<T> dataList) where T : StateDataSO
-        // {
-        //     if (curData == null)
-        //     {
-        //         Debug.LogError("Current data is null.");
-        //         return null;
-        //     }
-
-        //     var index = dataList.IndexOf(curData);
-        //     var nextIndex = (index + 1) % dataList.Count;
-        //     return dataList[nextIndex];
-        // }
-
         public T GetNextData<T>(T curData, T[] dataList) where T : StateDataSO
         {
             if (curData == null)
@@ -122,30 +107,6 @@ namespace Separated.Player{
             var nextIndex = (index + 1) % dataList.Length;
             return dataList[nextIndex];
         }
-
-        public T GetRandomData<T>(T[] dataList) where T : StateDataSO
-        {
-            if (dataList == null || dataList.Length == 0)
-            {
-                Debug.LogError("Data list is null or empty.");
-                return null;
-            }
-
-            var randomIndex = Random.Range(0, dataList.Length);
-            return dataList[randomIndex];
-        }
-
-        // public T GetRandomData<T>(List<T> dataList) where T : StateDataSO
-        // {
-        //     if (dataList == null || dataList.Count == 0)
-        //     {
-        //         Debug.LogError("Data list is null or empty.");
-        //         return null;
-        //     }
-
-        //     var randomIndex = Random.Range(0, dataList.Count);
-        //     return dataList[randomIndex];
-        // }
 
         void Awake()
         {

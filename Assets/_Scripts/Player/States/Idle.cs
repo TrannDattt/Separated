@@ -7,15 +7,15 @@ namespace Separated.Player
 {
     public class Idle : GroundState
     {
-        public Idle(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        public Idle(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
         }
 
-        public override void Do()
+        public override void Enter()
         {
-            base.Do();
+            base.Enter();
 
-            _bodyPart.RigidBody.linearVelocity = Vector2.zero;
+            _player.RigidBody.linearVelocity = Vector2.zero;
         }
 
         public override EPlayerState GetNextState()

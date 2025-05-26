@@ -12,6 +12,6 @@ namespace Separated.Data
         public Vector2 KnockbackDir;
         public float KnockbackForce;
 
-        public float Range;
+        public Vector2 Range;
     }
 }

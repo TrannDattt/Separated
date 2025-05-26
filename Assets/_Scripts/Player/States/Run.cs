@@ -7,7 +7,9 @@ namespace Separated.Player
 {
     public class Run : GroundState
     {
-        public Run(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        private RunStateData _runData => _curStateData as RunStateData;
+
+        public Run(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
         }
 
@@ -15,7 +17,7 @@ namespace Separated.Player
         {
             base.Do();
 
-            _bodyPart.RigidBody.linearVelocity = new ((_curStateData as RunStateData).Speed * _inputProvider.MoveDir, _bodyPart.RigidBody.linearVelocityY);
+            _player.RigidBody.linearVelocity = new (_runData.Speed * _inputProvider.MoveDir, _player.RigidBody.linearVelocityY);
         }
 
         public override EPlayerState GetNextState()

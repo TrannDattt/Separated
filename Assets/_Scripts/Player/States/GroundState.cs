@@ -6,17 +6,17 @@ using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
-    public class GroundState : PlayerBaseState
+    public abstract class GroundState : PlayerBaseState
     {
         protected PlayerInput _inputProvider;
         protected GroundSensor _groundSensor;
-        protected PlayerControl _bodyPart;
+        protected PlayerControl _player;
 
-        public GroundState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public GroundState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
-            _bodyPart = bodyPart;
+            _player = player;
         }
 
         public override EPlayerState GetNextState()
@@ -29,11 +29,12 @@ namespace Separated.Player
             {
                 return EPlayerState.Fall;
             }
+            
             // TODO: Change to HURT when get take light damage
             // TODO: Change to THROWN_AWAY when get heavy damage
             // TODO: Change to DIE when run out of HP
 
-            if(_inputProvider.Skill1Input)
+            if (_inputProvider.Skill1Input)
             {
                 return EPlayerState.Skill1;
             }

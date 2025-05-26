@@ -9,22 +9,40 @@ namespace Separated.Enemies
     public class EnemyControl : BaseUnit, IDamageble
     {
         public Rigidbody2D RigidBody { get; private set; }
+        public PlayerControl Player { get; private set; }
 
-        private PlayerControl _player;
+        private UnitNavigator _navigator;
+
+        private void ChangeFaceDir()
+        {
+            if (_navigator.GetMoveDirection(Player.transform, transform).x > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (_navigator.GetMoveDirection(Player.transform, transform).x > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
 
         void OnEnable()
         {
-            _player = PlayerControl.Instance;
+            Player = PlayerControl.Instance;
         }
 
         void Start()
         {
             RigidBody = GetComponent<Rigidbody2D>();
+            _navigator = new UnitNavigator();
+        }
+
+        void Update()
+        {
+            ChangeFaceDir();
         }
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log($"Enemy {gameObject.name} collided with {collision.gameObject.name}.");
             var obj = collision.transform.parent.gameObject;
             if (collision.TryGetComponent(out ICanDoDamage canDoDamageUnit) && !CompareTag(collision.tag))
             {
@@ -44,7 +62,7 @@ namespace Separated.Enemies
 
         public void Knockback(Vector2 knockbackDir, float knockbackForce)
         {
-            var faceDir = _player.InputProvider.FaceDir;
+            var faceDir = Player.InputProvider.FaceDir;
             RigidBody.AddForce(faceDir * knockbackForce * knockbackDir, ForceMode2D.Impulse);
         }
     }

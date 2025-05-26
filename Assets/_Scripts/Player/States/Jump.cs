@@ -23,7 +23,7 @@ namespace Separated.Player
 
             base.Enter();
 
-            _firstVelocityX = _bodyPart.RigidBody.linearVelocityX;
+            _firstVelocityX = _player.RigidBody.linearVelocityX;
             _firstVelocityY = (_jumpData.JumpDistance - .5f * _jumpData.Acceleration * Mathf.Pow(_jumpData.PeriodTime, 2)) / _jumpData.PeriodTime;
         }
 
@@ -33,7 +33,7 @@ namespace Separated.Player
             
             var velocityX = Mathf.Abs(_firstVelocityX) * _inputProvider.MoveDir;
             var velocityY = _firstVelocityY + _jumpData.Acceleration * PlayedTime;
-            _bodyPart.RigidBody.linearVelocity = new Vector2(velocityX, velocityY);
+            _player.RigidBody.linearVelocity = new Vector2(velocityX, velocityY);
             // _bodyPart.RigidBody.AddForce(Vector2.up);
 
             if (PlayedTime >= _curStateData.PeriodTime)

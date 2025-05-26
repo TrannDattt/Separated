@@ -1,37 +1,36 @@
-using System.Collections.Generic;
 using Separated.Data;
 using Separated.Helpers;
 using UnityEngine;
-using static Separated.Player.PlayerStateMachine;
+using static Separated.Enemies.EnemyStateMachine;
 
-namespace Separated.Player
+namespace Separated.Enemies
 {
-    public abstract class PlayerBaseState : BaseState<EPlayerState>
+    public abstract class EnemyBaseState : BaseState<EEnemyState>
     {
         public float PlayedTime => Time.time - _startTime;
-
+        
         protected StateDataSO _curStateData;
         protected StateDataSO[] _stateDataList;
-        // protected List<StateDataSO> _stateDataList;
         protected Animator _animator;
 
         protected float _startTime;
         protected bool _isFinish;
 
-        public PlayerBaseState(EPlayerState key, StateDataSO data, Animator animator) : base(key)
+        protected EnemyBaseState(EEnemyState key, StateDataSO data, Animator animator) : base(key)
         {
             _curStateData = data;
             _animator = animator;
         }
 
-        public PlayerBaseState(EPlayerState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
+        protected EnemyBaseState(EEnemyState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
         {
             _stateDataList = datas;
             _curStateData = data;
             _animator = animator;
         }
 
-        protected virtual void PlayAnim(){
+        protected virtual void PlayAnim()
+        {
             if (_curStateData.Clip != null)
             {
                 _animator.speed = _curStateData.Clip.length / _curStateData.PeriodTime;
@@ -62,7 +61,7 @@ namespace Separated.Player
             // throw new System.NotImplementedException();
         }
 
-        public override EPlayerState GetNextState()
+        public override EEnemyState GetNextState()
         {
             return Key;
         }
