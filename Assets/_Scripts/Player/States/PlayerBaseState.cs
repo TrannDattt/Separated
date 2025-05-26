@@ -39,7 +39,11 @@ namespace Separated.Player
         }
 
         protected virtual void PlayAnim(){
-
+            if (_curStateData.Clip != null)
+            {
+                _animator.speed = _curStateData.Clip.length / _curStateData.PeriodTime;
+                _animator.Play(_curStateData.Clip.name);
+            }
         }
 
         public override void Do()

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3828445fb41d14495495fbed86224d, type: 3}
   m_Name: Player_Fall
   m_EditorClassIdentifier: 
+  StateKey: 5
+  Clip: {fileID: 0}
   PeriodTime: 0.3
   MaxFallTime: 5
   Acceleration: 10

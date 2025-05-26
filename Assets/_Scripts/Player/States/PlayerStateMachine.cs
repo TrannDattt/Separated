@@ -4,6 +4,7 @@ using System.Linq;
 using Separated.Data;
 using Separated.Helpers;
 using Separated.Skills;
+using Separated.Unit;
 using UnityEngine;
 
 namespace Separated.Player{
@@ -47,7 +48,7 @@ namespace Separated.Player{
         private GroundSensor _groundSensor;
         private SkillManager _skillManager;
         private Animator _animator;
-        private SpriteRenderer _spriteRenderer;
+        private UnitHitbox _hitbox;
 
         public void InitSM()
         {
@@ -66,7 +67,7 @@ namespace Separated.Player{
             // _stateDict.Add(EPlayerState.Attack2, attack2);
             // var attack1 = new MeleeAttack(EPlayerState.Attack1, _meleeAttackDatas[0], _animator, _player, _inputProvider, attack2);
             // _stateDict.Add(EPlayerState.Attack1, attack1);
-            _stateDict.Add(EPlayerState.Attack, new MeleeAttack(EPlayerState.Attack, _meleeAttackDatas, _meleeAttackDatas[0], _animator, _player, _inputProvider, this));
+            _stateDict.Add(EPlayerState.Attack, new MeleeAttack(EPlayerState.Attack, _meleeAttackDatas, _meleeAttackDatas[0], _animator, _player, _inputProvider, this, _hitbox));
 
             _stateDict.Add(EPlayerState.Skill1, new SkillState(EPlayerState.Skill1, _skillDatas[0], _animator, _inputProvider, _skillManager));
             _stateDict.Add(EPlayerState.Skill2, new SkillState(EPlayerState.Skill2, _skillDatas[1], _animator, _inputProvider, _skillManager));
@@ -75,6 +76,8 @@ namespace Separated.Player{
             _stateDict.Add(EPlayerState.Ultimate, new SkillState(EPlayerState.Ultimate, _skillDatas[4], _animator, _inputProvider, _skillManager));
 
             ChangeState(EPlayerState.Idle);
+
+            _hitbox.DisableHitbox();
         }
 
         public void UpdateState(EPlayerState key, PlayerBaseState newState, bool forceChange = false)
@@ -144,23 +147,16 @@ namespace Separated.Player{
         //     return dataList[randomIndex];
         // }
 
-        void Start()
+        void Awake()
         {
             _player = GetComponent<PlayerControl>();
             _inputProvider = GetComponent<PlayerInput>();
             _groundSensor = GetComponentInChildren<GroundSensor>();
             _skillManager = GetComponentInChildren<SkillManager>();
             _animator = GetComponentInChildren<Animator>();
-            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _hitbox = GetComponentInChildren<UnitHitbox>();
 
             InitSM();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            _spriteRenderer.flipX = _inputProvider.FaceDir < 0;
         }
     }
 }

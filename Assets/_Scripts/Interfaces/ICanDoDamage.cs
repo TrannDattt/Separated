@@ -12,6 +12,13 @@ namespace Separated.Interfaces
         public void DoDamage(IDamageble target) => target.TakeDamage(Damage);
         public void DoPoiseDamage(IDamageble target) => target.TakePoiseDamage(PoiseDamage);
         public void DoKnockback(IDamageble target) => target.Knockback(KnockbackDir, KnockbackForce);
+
+        public void Do(IDamageble target)
+        {
+            DoDamage(target);
+            DoPoiseDamage(target);
+            DoKnockback(target);
+        }
     }
 
     public interface IDamageble

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43301282749c24549892313c94be4a18, type: 3}
   m_Name: Player_Jump
   m_EditorClassIdentifier: 
+  StateKey: 4
   PeriodTime: 0.6
   JumpDistance: 1.5
   Acceleration: -10

@@ -26,7 +26,7 @@ namespace Separated.Helpers
                 var nextStateKey = CurState.GetNextState();
                 if(!nextStateKey.Equals(CurState.Key)){
                     ChangeState(nextStateKey);
-                    Debug.Log(nextStateKey);
+                    // Debug.Log(nextStateKey);
                 }
 
             }

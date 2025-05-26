@@ -1,13 +1,28 @@
+using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
 
 namespace Separated.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerControl : BaseUnit
+    public class PlayerControl : BaseUnit, IDamageble
     {
         public static PlayerControl Instance { get; private set; }
         public Rigidbody2D RigidBody { get; private set; }
+
+        public PlayerInput InputProvider { get;  private set; }
+
+        private void ChangeFaceDir()
+        {
+            if (InputProvider.FaceDir > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (InputProvider.FaceDir < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
 
         void Awake()
         {
@@ -19,11 +34,33 @@ namespace Separated.Player
             {
                 Destroy(gameObject);
             }
+
+            RigidBody = GetComponent<Rigidbody2D>();
+            InputProvider = GetComponent<PlayerInput>();
         }
 
         protected virtual void Start()
         {
-            RigidBody = GetComponent<Rigidbody2D>();
+        }
+
+        void Update()
+        {
+            ChangeFaceDir();
+        }
+
+        public void TakeDamage(float damage)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void TakePoiseDamage(float poiseDamage)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Knockback(Vector2 knockbackDir, float knockbackForce)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

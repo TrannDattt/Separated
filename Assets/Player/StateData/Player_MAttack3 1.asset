@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0dfb0ddeec507499927edfb5c6a4e1, type: 3}
   m_Name: Player_MAttack3 1
   m_EditorClassIdentifier: 
+  StateKey: 7
+  Clip: {fileID: 7400000, guid: c30217bbf0fe2174c933b6990ae92c86, type: 2}
   PeriodTime: 0.7
+  SkillType: 0
+  Cooldown: 0
+  SkillName: 
+  SkillDescription: 
   Damage: 7
   PoiseDamage: 10
   KnockbackDir: {x: 0, y: 0}
   KnockbackForce: 0
+  Range: 0

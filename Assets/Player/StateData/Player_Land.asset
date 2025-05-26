@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d28d57529033478d02aef8ada049e, type: 3}
   m_Name: Player_Land
   m_EditorClassIdentifier: 
+  StateKey: 6
   PeriodTime: 0.2

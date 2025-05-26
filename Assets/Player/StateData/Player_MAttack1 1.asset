@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0dfb0ddeec507499927edfb5c6a4e1, type: 3}
   m_Name: Player_MAttack1 1
   m_EditorClassIdentifier: 
+  StateKey: 7
+  Clip: {fileID: 7400000, guid: c4932face089a94489f67156db43266b, type: 2}
   PeriodTime: 0.5
+  SkillType: 0
+  Cooldown: 0
+  SkillName: 
+  SkillDescription: 
   Damage: 5
   PoiseDamage: 5
-  KnockbackDir: {x: 0, y: 0}
-  KnockbackForce: 0
+  KnockbackDir: {x: 1, y: 1}
+  KnockbackForce: 3
+  Range: 0

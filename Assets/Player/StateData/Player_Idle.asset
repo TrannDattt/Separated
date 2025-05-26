@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d38fc5f4c33754ca6651ab53aca72f, type: 3}
   m_Name: Player_Idle
   m_EditorClassIdentifier: 
+  StateKey: 1
+  Clip: {fileID: 7400000, guid: a3b60d140ecf29c468bbd5c371b9872a, type: 2}
+  PeriodTime: 1
