@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
 
@@ -8,9 +9,9 @@ namespace Separated.Player
     {
         private PlayerControl _bodyPart;
 
-        public Land(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart) : base(key, data, animator)
+        public Land(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player) : base(key, data, animator)
         {
-            _bodyPart = bodyPart;
+            _bodyPart = player;
         }
 
         public override void Enter()
@@ -30,11 +31,11 @@ namespace Separated.Player
             }
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             if (_isFinish)
             {
-                return EPlayerState.Idle;
+                return EBehaviorState.Idle;
             }
             return Key;
         }

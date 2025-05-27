@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Interfaces;
 using Separated.Skills;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Separated.Player
         protected SkillManager _skillManager;
 
         // TODO: Make a skill acxercuter class to handle skill logic
-        public SkillState(EPlayerState key, StateDataSO data, Animator animator, PlayerInput inputProvider, SkillManager skillManager) : base(key, data, animator)
+        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, PlayerInput inputProvider, SkillManager skillManager) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _skillManager = skillManager;
@@ -35,11 +36,11 @@ namespace Separated.Player
             }
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             if (_isFinish)
             {
-                return EPlayerState.Idle;
+                return EBehaviorState.Idle;
             }
 
             return Key;

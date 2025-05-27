@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using UnityEditor.Overlays;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Separated.Player
         private float _firstVelocityX;
         private float _firstVelocityY;
 
-        public Fall(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        public Fall(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
         }
 
@@ -34,9 +35,9 @@ namespace Separated.Player
             _player.RigidBody.linearVelocity = new Vector2(velocityX, -1 * velocityY);
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
-            if (base.GetNextState() == EPlayerState.None)
+            if (base.GetNextState() == EBehaviorState.None)
             {
                 // TODO: Change to DIE when get fall for too long
 

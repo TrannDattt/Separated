@@ -1,4 +1,6 @@
+using System;
 using Separated.Data;
+using Separated.Helpers;
 using Separated.Interfaces;
 using UnityEngine;
 
@@ -18,6 +20,8 @@ namespace Separated.Unit
         private float _knockbackForce;
 
         private BoxCollider2D _collider;
+
+        public event Action OnDoingDamage;
 
         public void SetAttackData(AttackSkillData data)
         {
@@ -45,5 +49,24 @@ namespace Separated.Unit
 
             DisableHitbox();
         }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            var damageableUnit = collision.GetComponentInParent<IDamageble>();
+            if (damageableUnit != null && !CompareTag(collision.tag))
+            {
+                Debug.Log(collision.gameObject.name + " hit by " + GetGameObject().name);
+                (this as ICanDoDamage).Do(damageableUnit);
+
+                if (CompareTag("Player"))
+                {
+                    OnDoingDamage?.Invoke();
+                    TimeEffect.Instance.SlowTime(.2f, 0.5f);
+                    // CameraEffect.Instance.ShakeCamera(0.1f, 0.05f);
+                }
+            }
+        }
+
+        public GameObject GetGameObject() => transform.parent.parent.gameObject;
     }
 }

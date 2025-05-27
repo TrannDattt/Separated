@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using Separated.Player;
 using Separated.Unit;
@@ -6,18 +7,8 @@ using UnityEngine;
 
 namespace Separated.Enemies
 {
-    public class EnemyStateMachine : BaseStateMachine<EnemyStateMachine.EEnemyState>
+    public class EnemyStateMachine : BaseStateMachine<EBehaviorState>
     {
-        public enum EEnemyState
-        {
-            None,
-            Idle,
-            Run,
-            Attack,
-            Hurt,
-            Die,
-        }
-
         [SerializeField] private IdleStateData _idleData;
         [SerializeField] private RunStateData _runData;
         [SerializeField] private AttackSkillData[] _attackDatas;
@@ -34,18 +25,19 @@ namespace Separated.Enemies
             _navigator = new UnitNavigator();
             _stateDict.Clear();
 
-            _stateDict.Add(EEnemyState.Idle, new Idle(EEnemyState.Idle, _idleData, _animator, _enemy, _navigator));
-            _stateDict.Add(EEnemyState.Run, new Run(EEnemyState.Run, _runData, _animator, _enemy, _navigator));
+            _stateDict.Add(EBehaviorState.Idle, new Idle(EBehaviorState.Idle, _idleData, _animator, _enemy, _navigator));
+            _stateDict.Add(EBehaviorState.Run, new Run(EBehaviorState.Run, _runData, _animator, _enemy, _navigator));
 
             var curAttackData = GetRandomData(_attackDatas);
-            _stateDict.Add(EEnemyState.Attack, new AttackState(EEnemyState.Attack, _attackDatas, curAttackData, _animator, _enemy, this, _hitbox));
-            // _stateDict.Add(EEnemyState.Hurt, new Hurt(EEnemyState.Hurt, _hurtData));
-            // _stateDict.Add(EEnemyState.Die, new Die(EEnemyState.Die, _dieData));
+            _stateDict.Add(EBehaviorState.Attack, new AttackState(EBehaviorState.Attack, _attackDatas, curAttackData, _animator, _enemy, this, _hitbox, _navigator));
+            // _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData));
+            // _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData));
 
             _navigator.SetAttackData(curAttackData);
+            ChangeState(EBehaviorState.Idle);
         }
 
-        public void UpdateState(EEnemyState key, EnemyBaseState newState, bool forceChange = false)
+        public void UpdateState(EBehaviorState key, EnemyBaseState newState, bool forceChange = false)
         {
             if (_stateDict.ContainsKey(key))
             {
@@ -74,11 +66,19 @@ namespace Separated.Enemies
             return dataList[randomIndex];
         }
 
+        protected override void ChangeState(EBehaviorState nextKey)
+        {
+            base.ChangeState(nextKey);
+            // Debug.Log($"Enemy State Changed to: {nextKey}");
+        }
+
         void Start()
         {
             _enemy = GetComponent<EnemyControl>();
             _animator = GetComponentInChildren<Animator>();
             _hitbox = GetComponentInChildren<UnitHitbox>();
+
+            InitSM();
         }
     }
 }

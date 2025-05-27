@@ -19,7 +19,7 @@ namespace Separated.Enemies
             {
                 transform.localScale = new Vector3(1, 1, 1);
             }
-            else if (_navigator.GetMoveDirection(Player.transform, transform).x > 0)
+            else if (_navigator.GetMoveDirection(Player.transform, transform).x < 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
@@ -41,29 +41,30 @@ namespace Separated.Enemies
             ChangeFaceDir();
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-            var obj = collision.transform.parent.gameObject;
-            if (collision.TryGetComponent(out ICanDoDamage canDoDamageUnit) && !CompareTag(collision.tag))
-            {
-                canDoDamageUnit.Do(this);
-            }
-        }
+        // void OnTriggerEnter2D(Collider2D collision)
+        // {
+        //     var canDoDamageUnit = collision.GetComponent<ICanDoDamage>();
+        //     var obj = canDoDamageUnit?.GetGameObject();
+        //     if (canDoDamageUnit != null && !CompareTag(obj.tag))
+        //     {
+        //         Debug.Log($"{obj}, {collision.gameObject}");
+        //         canDoDamageUnit.Do(this);
+        //     }
+        // }
 
         public void TakeDamage(float damage)
         {
-            Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
+            // Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
         }
 
         public void TakePoiseDamage(float poiseDamage)
         {
-            Debug.Log($"Enemy {gameObject.name} took {poiseDamage} poise damage.");
+            // Debug.Log($"Enemy {gameObject.name} took {poiseDamage} poise damage.");
         }
 
         public void Knockback(Vector2 knockbackDir, float knockbackForce)
         {
-            var faceDir = Player.InputProvider.FaceDir;
-            RigidBody.AddForce(faceDir * knockbackForce * knockbackDir, ForceMode2D.Impulse);
+            RigidBody.AddForce(knockbackForce * knockbackDir, ForceMode2D.Impulse);
         }
     }
 }

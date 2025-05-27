@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Separated.Data;
+using Separated.Enums;
 using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
@@ -16,26 +17,13 @@ namespace Separated.Player
         protected PlayerStateMachine _stateMachine;
         protected UnitHitbox _hitbox;
 
-        // public AttackState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider) : base(key, data, animator)
-        // {
-        //     _player = player;
-        //     _inputProvider = inputProvider;
-        // }
-
-        public AttackState(EPlayerState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator)
+        public AttackState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator)
         {
             _player = player;
             _inputProvider = inputProvider;
             _stateMachine = stateMachine;
             _hitbox = hitbox;
         }
-
-        // public AttackState(EPlayerState key, List<StateDataSO> datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine) : base(key, datas, data, animator)
-        // {
-        //     _player = player;
-        //     _inputProvider = inputProvider;
-        //     _stateMachine = stateMachine;
-        // }
 
         public override void Enter()
         {
@@ -56,14 +44,14 @@ namespace Separated.Player
             _hitbox.ResetAttackData();
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             if (_isFinish)
             {
-                return EPlayerState.Idle;
+                return EBehaviorState.Idle;
             }
 
-            return EPlayerState.None;
+            return EBehaviorState.None;
         }
     }
 }

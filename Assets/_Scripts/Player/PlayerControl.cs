@@ -48,19 +48,30 @@ namespace Separated.Player
             ChangeFaceDir();
         }
 
+        // void OnTriggerEnter2D(Collider2D collision)
+        // {
+        //     var canDoDamageUnit = collision.GetComponent<ICanDoDamage>();
+        //     var obj = canDoDamageUnit?.GetGameObject();
+        //     if (canDoDamageUnit != null && !CompareTag(obj.tag))
+        //     {
+        //         Debug.Log($"{obj}, {collision.gameObject}");
+        //         canDoDamageUnit.Do(this);
+        //     }
+        // }
+
         public void TakeDamage(float damage)
         {
-            throw new System.NotImplementedException();
+            // Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
         }
 
         public void TakePoiseDamage(float poiseDamage)
         {
-            throw new System.NotImplementedException();
+            // Debug.Log($"Enemy {gameObject.name} took {poiseDamage} poise damage.");
         }
 
         public void Knockback(Vector2 knockbackDir, float knockbackForce)
         {
-            throw new System.NotImplementedException();
+            RigidBody.AddForce(knockbackForce * knockbackDir, ForceMode2D.Impulse);
         }
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
-    public abstract class PlayerBaseState : BaseState<EPlayerState>
+    public abstract class PlayerBaseState : BaseState<EBehaviorState>
     {
         public float PlayedTime => Time.time - _startTime;
 
@@ -18,13 +19,13 @@ namespace Separated.Player
         protected float _startTime;
         protected bool _isFinish;
 
-        public PlayerBaseState(EPlayerState key, StateDataSO data, Animator animator) : base(key)
+        public PlayerBaseState(EBehaviorState key, StateDataSO data, Animator animator) : base(key)
         {
             _curStateData = data;
             _animator = animator;
         }
 
-        public PlayerBaseState(EPlayerState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
+        public PlayerBaseState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
         {
             _stateDataList = datas;
             _curStateData = data;
@@ -62,7 +63,7 @@ namespace Separated.Player
             // throw new System.NotImplementedException();
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             return Key;
         }

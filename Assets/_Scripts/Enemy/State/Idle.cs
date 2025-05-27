@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
 using static Separated.Enemies.EnemyStateMachine;
@@ -9,7 +10,7 @@ namespace Separated.Enemies
     {
         private IdleStateData _idleData => _curStateData as IdleStateData;
 
-        public Idle(EEnemyState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
+        public Idle(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
             : base(key, data, animator, enemy, navigator)
         {
 
@@ -32,13 +33,13 @@ namespace Separated.Enemies
             }
         }
         
-        public override EEnemyState GetNextState()
+        public override EBehaviorState GetNextState()
         {
-            if (base.GetNextState() == EEnemyState.None)
+            if (base.GetNextState() == EBehaviorState.None)
             {
-                if (_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(3f, .5f)) && !_navigator.CheckInAttackRange(_enemy.Player.transform, _enemy.transform))
+                if (_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(5f, .5f)) && !_navigator.CheckInAttackRange(_enemy.Player.transform, _enemy.transform))
                 {
-                    return EEnemyState.Run;
+                    return EBehaviorState.Run;
                 }
 
                 return Key;

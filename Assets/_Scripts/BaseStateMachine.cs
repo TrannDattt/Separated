@@ -19,12 +19,13 @@ namespace Separated.Helpers
 
         protected virtual void Update()
         {
-            if(CurState != null)
+            if (CurState != null)
             {
                 CurState.Do();
 
                 var nextStateKey = CurState.GetNextState();
-                if(!nextStateKey.Equals(CurState.Key)){
+                if (!nextStateKey.Equals(CurState.Key))
+                {
                     ChangeState(nextStateKey);
                     // Debug.Log(nextStateKey);
                 }

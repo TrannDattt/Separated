@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
 using static Separated.Enemies.EnemyStateMachine;
@@ -9,7 +10,7 @@ namespace Separated.Enemies
     {
         private RunStateData _runData => _curStateData as RunStateData;
 
-        public Run(EEnemyState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
+        public Run(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
             : base(key, data, animator, enemy, navigator)
         {
         }
@@ -29,16 +30,16 @@ namespace Separated.Enemies
             _enemy.RigidBody.linearVelocity = new Vector2(moveDir.x * _runData.Speed, _enemy.RigidBody.linearVelocity.y);
         }
         
-        public override EEnemyState GetNextState()
+        public override EBehaviorState GetNextState()
         {
-            if (base.GetNextState() == EEnemyState.None)
+            if (base.GetNextState() == EBehaviorState.None)
             {
-                if (!_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(3f, .5f)))
+                if (!_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(5f, .5f)))
                 {
-                    return Key;
+                    return EBehaviorState.Idle;
                 }
 
-                return EEnemyState.Idle;
+                return Key;
             }
             
             return base.GetNextState();

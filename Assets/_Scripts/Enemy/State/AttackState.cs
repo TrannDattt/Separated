@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
 using static Separated.Enemies.EnemyStateMachine;
@@ -12,12 +13,14 @@ namespace Separated.Enemies
         private EnemyControl _enemy;
         private EnemyStateMachine _stateMachine;
         private UnitHitbox _hitbox;
+        private UnitNavigator _navigator;
 
-        public AttackState(EEnemyState key, StateDataSO[] datas, StateDataSO data, Animator animator, EnemyControl enemy, EnemyStateMachine stateMachine, UnitHitbox hitbox) : base(key, data, animator)
+        public AttackState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, EnemyControl enemy, EnemyStateMachine stateMachine, UnitHitbox hitbox, UnitNavigator navigator) : base(key, datas, data, animator)
         {
             _enemy = enemy;
             _stateMachine = stateMachine;
             _hitbox = hitbox;
+            _navigator = navigator;
         }
 
         public override void Enter()
@@ -47,15 +50,16 @@ namespace Separated.Enemies
             _hitbox.ResetAttackData();
         }
 
-        public override EEnemyState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             if (_isFinish)
             {
                 var nextAttackData = _stateMachine.GetRandomData(_stateDataList);
-                var nextAttackState = new AttackState(Key, _stateDataList, nextAttackData, _animator, _enemy, _stateMachine, _hitbox);
+                var nextAttackState = new AttackState(Key, _stateDataList, nextAttackData, _animator, _enemy, _stateMachine, _hitbox, _navigator);
                 _stateMachine.UpdateState(Key, nextAttackState);
+                _navigator.SetAttackData(nextAttackData as AttackSkillData);
 
-                return EEnemyState.Idle;
+                return EBehaviorState.Idle;
             }
 
             return Key;

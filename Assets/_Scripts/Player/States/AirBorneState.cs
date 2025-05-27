@@ -1,5 +1,6 @@
 using System.Timers;
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Separated.Player
         protected GroundSensor _groundSensor;
         protected PlayerControl _player;
 
-        public AirBorneState(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public AirBorneState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
@@ -27,25 +28,25 @@ namespace Separated.Player
             _inputProvider.UseInput(PlayerInput.EInputType.Jump);
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             // TODO: Change to AIR_ATTACK when get MOUSE_0 input
             // TODO: Change to THROWN_AWAY when get heavy damage
             if (_inputProvider.DashInput)
             {
-                return EPlayerState.Dash;
+                return EBehaviorState.Dash;
             }
 
             // if(_inputProvider.JumpInput){
-            //     return EPlayerState.Jump;
+            //     return EBehaviorState.Jump;
             // }
 
             if (_isFinish && _groundSensor.CheckSensor(GroundSensor.EDirection.Down))
             {
-                return EPlayerState.Land;
+                return EBehaviorState.Land;
             }
 
-            return EPlayerState.None;
+            return EBehaviorState.None;
         }
     }
 }

@@ -25,16 +25,20 @@ namespace Separated.Unit
             if (target == null) return false;
 
             var distance = target.position - self.position;
-            return distance.x <= range.x && distance.y <= range.y;
+            return Mathf.Abs(distance.x) <= range.x && Mathf.Abs(distance.y) <= range.y;
         }
         
         public bool CheckInAttackRange(Transform target, Transform self)
         {
             if (target == null) return false;
 
+            // Debug.Log(target.position);
+            // Debug.Log(self.position);
             var range = _attackData.Range;
             var distance = target.position - self.position;
-            return distance.x <= range.x && distance.y <= range.y;
+            // Debug.Log(distance.x <= range.x);
+            // Debug.Log(distance.y <= range.y);
+            return Mathf.Abs(distance.x) <= range.x && Mathf.Abs(distance.y) <= range.y;
         }
     }
 }

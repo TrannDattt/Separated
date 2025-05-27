@@ -1,11 +1,12 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using UnityEngine;
 using static Separated.Enemies.EnemyStateMachine;
 
 namespace Separated.Enemies
 {
-    public abstract class EnemyBaseState : BaseState<EEnemyState>
+    public abstract class EnemyBaseState : BaseState<EBehaviorState>
     {
         public float PlayedTime => Time.time - _startTime;
         
@@ -16,13 +17,13 @@ namespace Separated.Enemies
         protected float _startTime;
         protected bool _isFinish;
 
-        protected EnemyBaseState(EEnemyState key, StateDataSO data, Animator animator) : base(key)
+        protected EnemyBaseState(EBehaviorState key, StateDataSO data, Animator animator) : base(key)
         {
             _curStateData = data;
             _animator = animator;
         }
 
-        protected EnemyBaseState(EEnemyState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
+        protected EnemyBaseState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
         {
             _stateDataList = datas;
             _curStateData = data;
@@ -61,7 +62,7 @@ namespace Separated.Enemies
             // throw new System.NotImplementedException();
         }
 
-        public override EEnemyState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             return Key;
         }

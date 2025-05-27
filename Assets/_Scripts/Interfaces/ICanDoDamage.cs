@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Separated.Interfaces
 {
@@ -9,9 +11,16 @@ namespace Separated.Interfaces
         public Vector2 KnockbackDir { get; }
         public float KnockbackForce { get; }
 
+        public GameObject GetGameObject();
         public void DoDamage(IDamageble target) => target.TakeDamage(Damage);
         public void DoPoiseDamage(IDamageble target) => target.TakePoiseDamage(PoiseDamage);
-        public void DoKnockback(IDamageble target) => target.Knockback(KnockbackDir, KnockbackForce);
+        public void DoKnockback(IDamageble target)
+        {
+            var self = GetGameObject();
+            var faceDir = self.transform.localScale.x > 0 ? 1 : -1;
+            var knockbackDir = new Vector2(faceDir * KnockbackDir.x, KnockbackDir.y);
+            target.Knockback(knockbackDir, KnockbackForce);
+        }
 
         public void Do(IDamageble target)
         {

@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
@@ -12,7 +13,7 @@ namespace Separated.Player
         private float _firstVelocityX;
         private float _firstVelocityY;
 
-        public Jump(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, bodyPart, inputProvider, groundSensor)
+        public Jump(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
         }
 
@@ -42,13 +43,13 @@ namespace Separated.Player
             }
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
-            if (base.GetNextState() == EPlayerState.None)
+            if (base.GetNextState() == EBehaviorState.None)
             {
                 if (_isFinish)
                 {
-                    return EPlayerState.Fall;
+                    return EBehaviorState.Fall;
                 }
                 return Key;
             }

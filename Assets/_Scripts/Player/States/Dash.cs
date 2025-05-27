@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Helpers;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
@@ -7,16 +8,16 @@ namespace Separated.Player
 {
     public class Dash : PlayerBaseState
     {
-        private PlayerControl _bodyPart;
+        private PlayerControl _player;
         private PlayerInput _inputProvider;
         private GroundSensor _groundSensor;
 
         private float _velocityX;
         private float _velocityXMult;
 
-        public Dash(EPlayerState key, StateDataSO data, Animator animator, PlayerControl bodyPart, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public Dash(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
-            _bodyPart = bodyPart;
+            _player = player;
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
         }
@@ -29,14 +30,14 @@ namespace Separated.Player
             
 
             _velocityX = (_curStateData as DashStateData).Speed * _inputProvider.FaceDir;
-            _velocityXMult = _velocityX / _bodyPart.RigidBody.linearVelocityX;
+            _velocityXMult = _velocityX / _player.RigidBody.linearVelocityX;
         }
 
         public override void Do()
         {
             base.Do();
 
-            _bodyPart.RigidBody.linearVelocity = new Vector2(_velocityX, 0);
+            _player.RigidBody.linearVelocity = new Vector2(_velocityX, 0);
 
             if (PlayedTime >= _curStateData.PeriodTime)
             {
@@ -49,20 +50,20 @@ namespace Separated.Player
             base.Exit();
 
             _inputProvider.UseInput(PlayerInput.EInputType.Dash);
-            _bodyPart.RigidBody.linearVelocity = new(_bodyPart.RigidBody.linearVelocityX / _velocityXMult, 0);
+            _player.RigidBody.linearVelocity = new(_player.RigidBody.linearVelocityX / _velocityXMult, 0);
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
             if (_isFinish)
             {
                 if(_groundSensor.CheckSensor(GroundSensor.EDirection.Down))
                 {
-                    return EPlayerState.Land;
+                    return EBehaviorState.Land;
                 }
                 else
                 {
-                    return EPlayerState.Fall;
+                    return EBehaviorState.Fall;
                 }
             }
             return Key;

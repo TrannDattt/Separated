@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Separated.Data;
+using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
@@ -9,25 +10,12 @@ namespace Separated.Player
 {
     public class MeleeAttack : AttackState
     {
-        // private List<MeleeAttackStateData> _attackDataList => _stateDataList.ConvertAll(x => x as MeleeAttackStateData);
-
-        // private MeleeAttack _nextAttack;
         private bool _canDoNextAttack;
 
-        // public MeleeAttack(EPlayerState key, List<StateDataSO> datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine) : base(key, datas, data, animator, player, inputProvider, stateMachine)
-        // {
-
-        // }
-
-        public MeleeAttack(EPlayerState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator, player, inputProvider, stateMachine, hitbox)
+        public MeleeAttack(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator, player, inputProvider, stateMachine, hitbox)
         {
 
         }
-
-        // public MeleeAttack(EPlayerState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, MeleeAttack nextAttack) : base(key, data, animator, player, inputProvider)
-        // {
-        //     _nextAttack = nextAttack;
-        // }
 
         public override void Enter()
         {
@@ -52,9 +40,9 @@ namespace Separated.Player
             }
         }
 
-        public override EPlayerState GetNextState()
+        public override EBehaviorState GetNextState()
         {
-            if (base.GetNextState() == EPlayerState.None)
+            if (base.GetNextState() == EBehaviorState.None)
             {
                 if (_canDoNextAttack && _inputProvider.AttackInput)
                 {
