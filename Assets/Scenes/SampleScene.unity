@@ -978,6 +978,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6970893734836748409, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7878993563295586991, guid: 94fdd2c228921ce4db8d52f4ca601cdd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.14
