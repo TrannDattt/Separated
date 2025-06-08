@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Player_Fall
   m_EditorClassIdentifier: 
   StateKey: 5
-  Clip: {fileID: 0}
+  Clip: {fileID: 7400000, guid: c4867d6b477ae924b9330ef56a786204, type: 2}
   PeriodTime: 0.3
   MaxFallTime: 5
-  Acceleration: 10
-  MaxFallSpeed: 10
+  FallSpeedX: 2
+  MaxFallSpeedY: -5

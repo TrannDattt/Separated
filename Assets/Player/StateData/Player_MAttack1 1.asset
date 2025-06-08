@@ -21,6 +21,6 @@ MonoBehaviour:
   SkillDescription: 
   Damage: 5
   PoiseDamage: 5
-  KnockbackDir: {x: 1, y: 1}
+  KnockbackDir: {x: 0.5, y: 0.5}
   KnockbackForce: 3
   Range: {x: 0, y: 0}

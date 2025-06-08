@@ -11,7 +11,17 @@ namespace Separated.Enemies
         public Rigidbody2D RigidBody { get; private set; }
         public PlayerControl Player { get; private set; }
 
+        bool IDamageble.CanTakeDamage { get; set; }
+
         private UnitNavigator _navigator;
+
+        public override void Init()
+        {
+            base.Init();
+
+            RigidBody = GetComponent<Rigidbody2D>();
+            _navigator = new UnitNavigator();
+        }
 
         private void ChangeFaceDir()
         {
@@ -25,15 +35,15 @@ namespace Separated.Enemies
             }
         }
 
-        void OnEnable()
+        void Awake()
         {
-            Player = PlayerControl.Instance;
+            Init();
         }
 
         void Start()
         {
-            RigidBody = GetComponent<Rigidbody2D>();
-            _navigator = new UnitNavigator();
+            Player = PlayerControl.Instance;
+            Debug.Log(Player);
         }
 
         void Update()
@@ -52,18 +62,22 @@ namespace Separated.Enemies
         //     }
         // }
 
-        public void TakeDamage(float damage)
+        public override void TakeDamage(float damage)
         {
+            base.TakeDamage(damage);
             // Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
         }
 
-        public void TakePoiseDamage(float poiseDamage)
+        public override void TakePoiseDamage(float poiseDamage)
         {
+            base.TakePoiseDamage(poiseDamage);
             // Debug.Log($"Enemy {gameObject.name} took {poiseDamage} poise damage.");
         }
 
-        public void Knockback(Vector2 knockbackDir, float knockbackForce)
+        public override void Knockback(Vector2 knockbackDir, float knockbackForce)
         {
+            base.Knockback(knockbackDir, knockbackForce);
+            
             RigidBody.AddForce(knockbackForce * knockbackDir, ForceMode2D.Impulse);
         }
     }

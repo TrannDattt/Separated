@@ -33,14 +33,14 @@ namespace Separated.Player
 
             _player.RigidBody.linearVelocityX = 0;
             _hitbox.SetAttackData(_attackData);
-            _hitbox.EnableHitbox();
+            // _hitbox.EnableHitbox();
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            _hitbox.DisableHitbox();
+            // _hitbox.DisableHitbox();
             _hitbox.ResetAttackData();
         }
 

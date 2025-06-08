@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Run State Data
   m_EditorClassIdentifier: 
   StateKey: 2
-  Clip: {fileID: 0}
+  Clip: {fileID: 7400000, guid: 7374181618c3e0742a590c67249d86fc, type: 2}
   PeriodTime: 1
   Speed: 2.5

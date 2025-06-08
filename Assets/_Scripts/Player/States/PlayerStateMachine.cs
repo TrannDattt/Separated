@@ -89,5 +89,10 @@ namespace Separated.Player{
 
             InitSM();
         }
+
+        // void Start()
+        // {
+        //     _hitbox.DisableHitbox();
+        // }
     }
 }

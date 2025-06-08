@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Player_Jump
   m_EditorClassIdentifier: 
   StateKey: 4
+  Clip: {fileID: 7400000, guid: 195b77be7733d3347a86d18c9bbbc098, type: 2}
   PeriodTime: 0.6
-  JumpDistance: 1.5
-  Acceleration: -10
+  JumpSpeedX: 2
+  JumpSpeedY: 5
   JumpCount: 1

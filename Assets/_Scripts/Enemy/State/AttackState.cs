@@ -29,7 +29,7 @@ namespace Separated.Enemies
 
             _enemy.RigidBody.linearVelocityX = 0;
             _hitbox.SetAttackData(_attackData);
-            _hitbox.EnableHitbox();
+            // _hitbox.EnableHitbox();
         }
 
         public override void Do()
@@ -46,7 +46,7 @@ namespace Separated.Enemies
         {
             base.Exit();
 
-            _hitbox.DisableHitbox();
+            // _hitbox.DisableHitbox();
             _hitbox.ResetAttackData();
         }
 

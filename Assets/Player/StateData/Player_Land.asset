@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Player_Land
   m_EditorClassIdentifier: 
   StateKey: 6
-  PeriodTime: 0.2
+  Clip: {fileID: 7400000, guid: c5f509a2eb3e54a46ae473ecda9d9399, type: 2}
+  PeriodTime: 0.1

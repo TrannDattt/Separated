@@ -7,26 +7,19 @@ namespace Separated.Helpers
     {
         public void SlowTime(float duration, float scale)
         {
-            StopAllCoroutines();
+            // StopAllCoroutines();
             StartCoroutine(SlowTimeCoroutine(duration, scale));
 
             IEnumerator SlowTimeCoroutine(float duration, float scale)
             {
                 Time.timeScale = scale;
-                Time.fixedDeltaTime = 0.02f * scale;
+                Time.fixedDeltaTime = 0.02f / scale;
 
                 yield return new WaitForSecondsRealtime(duration);
 
                 Time.timeScale = 1f;
                 Time.fixedDeltaTime = 0.02f;
             }
-        }
-
-
-        protected override void Awake()
-        {
-            base.Awake();
-            DontDestroyOnLoad(gameObject);
         }
     }
 }

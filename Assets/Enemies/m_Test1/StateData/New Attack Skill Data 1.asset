@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: New Attack Skill Data 1
   m_EditorClassIdentifier: 
   StateKey: 7
-  Clip: {fileID: 0}
-  PeriodTime: 1
+  Clip: {fileID: 7400000, guid: 78e9824faf9e77b4ebe1c0302fee767c, type: 2}
+  PeriodTime: 5
   SkillType: 0
   Cooldown: 0
   SkillName: 
   SkillDescription: 
-  Damage: 0
+  Damage: 30
   PoiseDamage: 0
   KnockbackDir: {x: 1, y: 1}
   KnockbackForce: 3

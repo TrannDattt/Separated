@@ -55,7 +55,7 @@ namespace Separated.Unit
             var damageableUnit = collision.GetComponentInParent<IDamageble>();
             if (damageableUnit != null && !CompareTag(collision.tag))
             {
-                Debug.Log(collision.gameObject.name + " hit by " + GetGameObject().name);
+                // Debug.Log(collision.gameObject.name + " hit by " + GetGameObject().name);
                 (this as ICanDoDamage).Do(damageableUnit);
 
                 if (CompareTag("Player"))

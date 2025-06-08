@@ -1,6 +1,7 @@
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
+using Unity.Properties;
 using UnityEngine;
 using static Separated.Player.PlayerStateMachine;
 
@@ -10,8 +11,7 @@ namespace Separated.Player
     {
         private JumpStateData _jumpData => _curStateData as JumpStateData;
 
-        private float _firstVelocityX;
-        private float _firstVelocityY;
+        private float _acceleration;
 
         public Jump(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
@@ -24,17 +24,18 @@ namespace Separated.Player
 
             base.Enter();
 
-            _firstVelocityX = _player.RigidBody.linearVelocityX;
-            _firstVelocityY = (_jumpData.JumpDistance - .5f * _jumpData.Acceleration * Mathf.Pow(_jumpData.PeriodTime, 2)) / _jumpData.PeriodTime;
+            _firstVelocityX = _jumpData.JumpSpeedX;
+            _acceleration = -_jumpData.JumpSpeedY / _jumpData.PeriodTime;
+            // _firstVelocityX = _player.RigidBody.linearVelocityX;
+            // _firstVelocityY = (_jumpData.JumpDistance - .5f * _jumpData.Acceleration * Mathf.Pow(_jumpData.PeriodTime, 2)) / _jumpData.PeriodTime;
         }
 
         public override void Do()
         {
             base.Do();
             
-            var velocityX = Mathf.Abs(_firstVelocityX) * _inputProvider.MoveDir;
-            var velocityY = _firstVelocityY + _jumpData.Acceleration * PlayedTime;
-            _player.RigidBody.linearVelocity = new Vector2(velocityX, velocityY);
+            var velocityY = _jumpData.JumpSpeedY + _acceleration * PlayedTime;
+            _player.RigidBody.linearVelocityY = velocityY;
             // _bodyPart.RigidBody.AddForce(Vector2.up);
 
             if (PlayedTime >= _curStateData.PeriodTime)

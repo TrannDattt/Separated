@@ -1,3 +1,5 @@
+using System;
+using Separated.Data;
 using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
@@ -11,6 +13,19 @@ namespace Separated.Player
         public Rigidbody2D RigidBody { get; private set; }
 
         public PlayerInput InputProvider { get;  private set; }
+
+        bool IDamageble.CanTakeDamage { get; set; }
+
+        public override void Init()
+        {
+            base.Init();
+
+            CurStatData = ScriptableObject.CreateInstance<PlayerStatDataSO>();
+            CurStatData.CopyData(StatData);
+
+            RigidBody = GetComponent<Rigidbody2D>();
+            InputProvider = GetComponent<PlayerInput>();
+        }
 
         private void ChangeFaceDir()
         {
@@ -35,12 +50,7 @@ namespace Separated.Player
                 Destroy(gameObject);
             }
 
-            RigidBody = GetComponent<Rigidbody2D>();
-            InputProvider = GetComponent<PlayerInput>();
-        }
-
-        protected virtual void Start()
-        {
+            Init();
         }
 
         void Update()
@@ -59,18 +69,21 @@ namespace Separated.Player
         //     }
         // }
 
-        public void TakeDamage(float damage)
+        public override void TakeDamage(float damage)
         {
-            // Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
+            base.TakeDamage(damage);
         }
 
-        public void TakePoiseDamage(float poiseDamage)
+        public override void TakePoiseDamage(float poiseDamage)
         {
+            base.TakePoiseDamage(poiseDamage);
             // Debug.Log($"Enemy {gameObject.name} took {poiseDamage} poise damage.");
         }
 
-        public void Knockback(Vector2 knockbackDir, float knockbackForce)
+        public override void Knockback(Vector2 knockbackDir, float knockbackForce)
         {
+            base.Knockback(knockbackDir, knockbackForce);
+
             RigidBody.AddForce(knockbackForce * knockbackDir, ForceMode2D.Impulse);
         }
     }

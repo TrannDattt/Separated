@@ -66,7 +66,7 @@ namespace Separated.Enemies
             return dataList[randomIndex];
         }
 
-        protected override void ChangeState(EBehaviorState nextKey)
+        public override void ChangeState(EBehaviorState nextKey)
         {
             base.ChangeState(nextKey);
             // Debug.Log($"Enemy State Changed to: {nextKey}");

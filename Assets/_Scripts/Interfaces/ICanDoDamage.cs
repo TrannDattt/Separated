@@ -24,14 +24,20 @@ namespace Separated.Interfaces
 
         public void Do(IDamageble target)
         {
-            DoDamage(target);
-            DoPoiseDamage(target);
-            DoKnockback(target);
+                Debug.Log($"{target} takes {Damage} damage");
+                Debug.Log($"{target} can take damage: {target.CanTakeDamage}");
+            if (target.CanTakeDamage)
+            {
+                DoDamage(target);
+                DoPoiseDamage(target);
+                DoKnockback(target);
+            }
         }
     }
 
     public interface IDamageble
     {
+        public bool CanTakeDamage { get; set; }
         public void TakeDamage(float damage);
         public void TakePoiseDamage(float poiseDamage);
         public void Knockback(Vector2 knockbackDir, float knockbackForce);

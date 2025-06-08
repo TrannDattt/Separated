@@ -14,11 +14,20 @@ namespace Separated.Player
         protected GroundSensor _groundSensor;
         protected PlayerControl _player;
 
+        protected float _firstVelocityX;
+
         public AirBorneState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
             _player = player;
+        }
+
+        public override void Do()
+        {
+            base.Do();
+
+            _player.RigidBody.linearVelocityX = _inputProvider.MoveDir * Mathf.Abs(_firstVelocityX);
         }
 
         public override void Exit()

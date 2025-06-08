@@ -10,7 +10,7 @@ namespace Separated.Helpers
 
         protected Dictionary<T, BaseState<T>> _stateDict = new();
 
-        protected virtual void ChangeState(T nextKey)
+        public virtual void ChangeState(T nextKey)
         {
             CurState?.Exit();
             CurState = _stateDict[nextKey];
