@@ -101,7 +101,12 @@ namespace Separated.Player{
         {
             if (_player.CurStatData.Hp == 0)
             {
-                ChangeState(EBehaviorState.Die);
+                // ChangeState(EBehaviorState.Die);
+            }
+
+            if (_player.CurStatData.Poise == 0)
+            {
+                // ChangeState(EBehaviorState.KnockOut);
             }
 
             if (_player.IsTakingDamage)

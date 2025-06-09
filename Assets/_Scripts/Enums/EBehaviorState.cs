@@ -16,7 +16,7 @@ namespace Separated.Enums
         Skill4,
         Ultimate,
         Hurt,
-        ThrownAway,
+        KnockOut,
         GetUp,
         Die,
     }

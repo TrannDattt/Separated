@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,7 +32,8 @@ namespace Separated.Interfaces
                 DoPoiseDamage(target);
                 DoKnockback(target);
             }
-            else {
+            else
+            {
                 Debug.Log($"{target} cant take damage");
             }
         }

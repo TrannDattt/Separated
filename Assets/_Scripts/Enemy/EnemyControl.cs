@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Interfaces;
 using Separated.Player;
 using Separated.Unit;
@@ -9,6 +10,8 @@ namespace Separated.Enemies
     [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyControl : BaseUnit
     {
+        [field: SerializeField] public EEnemyType EnemyType { get; private set; }
+
         public Rigidbody2D RigidBody { get; private set; }
         public PlayerControl Player { get; private set; }
 

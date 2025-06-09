@@ -18,10 +18,10 @@ namespace Separated.Enemies
         private Animator _animator;
         private UnitNavigator _navigator;
         private UnitHitbox _hitbox;
+        private DropContainer _dropContainer;
 
         public void InitSM()
         {
-            _navigator = new UnitNavigator();
             _stateDict.Clear();
 
             _stateDict.Add(EBehaviorState.Idle, new Idle(EBehaviorState.Idle, _idleData, _animator, _enemy, _navigator));
@@ -31,7 +31,7 @@ namespace Separated.Enemies
             _stateDict.Add(EBehaviorState.Attack, new AttackState(EBehaviorState.Attack, _attackDatas, curAttackData, _animator, _enemy, this, _hitbox, _navigator));
 
             _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _enemy));
-            _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator));
+            _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator, _enemy, _dropContainer));
 
             _navigator.SetAttackData(curAttackData);
             ChangeState(EBehaviorState.Idle);
@@ -77,6 +77,8 @@ namespace Separated.Enemies
             _enemy = GetComponent<EnemyControl>();
             _animator = GetComponentInChildren<Animator>();
             _hitbox = GetComponentInChildren<UnitHitbox>();
+            _navigator = new UnitNavigator();
+            _dropContainer = GetComponentInChildren<DropContainer>();
 
             InitSM();
         }

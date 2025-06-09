@@ -5,11 +5,25 @@ using UnityEngine.UI;
 
 namespace Separated.UIElements
 {
-    public class HpBar : MonoBehaviour
+    public class HpBar : GameUI
     {
         [SerializeField] private Image _fill;
 
         private BaseUnit _unit;
+
+        public override void Show()
+        {
+
+        }
+
+        public override void Hide()
+        {
+
+        }
+
+        public override void Initialize()
+        {
+        }
 
         public void SetUnit(BaseUnit unit)
         {

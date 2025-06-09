@@ -9,12 +9,12 @@ namespace Separated.UIElements
 
         public override void Show()
         {
-            // Implement show logic
+            _playerHpBar.Show();
         }
 
         public override void Hide()
         {
-            // Implement hide logic
+            _playerHpBar.Hide();
         }
 
         public override void Initialize()
