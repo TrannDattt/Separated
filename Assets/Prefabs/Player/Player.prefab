@@ -142,7 +142,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -353,14 +353,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8744351739487256813}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 81add7fb4dd18b54a80bc7ebc283794c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -580,6 +580,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
   - {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
   - {fileID: 11400000, guid: 691bc6b9c85a8d045a61ca0d51395ef4, type: 2}
+  _hurtData: {fileID: 11400000, guid: f6867f38c200d824482fc49b7b7a36b7, type: 2}
+  _dieData: {fileID: 11400000, guid: 3279e433c54285c40b5df4f5626781ee, type: 2}
 --- !u!114 &3403482520521992285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,6 +606,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977a443033d2d2f4094c9b0a60df83f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <StatData>k__BackingField: {fileID: 11400000, guid: b6c97c6c896c3654aa4dcab2b99775fd, type: 2}
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Separated.UIElements.HpBar, Assembly-CSharp
+        m_MethodName: UpdateHpBar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &5767844801943185301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -612,13 +630,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3528965256677438345}
     m_Modifications:
+    - target: {fileID: 1483334083674371432, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483334083674371432, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483334083674371432, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4421495448045010234, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6999999
+      value: 0.77
       objectReference: {fileID: 0}
     - target: {fileID: 4421495448045010234, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4421495448045010234, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -655,6 +685,10 @@ PrefabInstance:
     - target: {fileID: 6722656657701711354, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
       propertyPath: m_Name
       value: Hitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722656657701711354, guid: 8e9fc39120550e14f989f118cb1920b9, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

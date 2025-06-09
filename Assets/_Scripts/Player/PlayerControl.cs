@@ -7,14 +7,12 @@ using UnityEngine;
 namespace Separated.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerControl : BaseUnit, IDamageble
+    public class PlayerControl : BaseUnit
     {
         public static PlayerControl Instance { get; private set; }
         public Rigidbody2D RigidBody { get; private set; }
 
         public PlayerInput InputProvider { get;  private set; }
-
-        bool IDamageble.CanTakeDamage { get; set; }
 
         public override void Init()
         {
@@ -57,17 +55,6 @@ namespace Separated.Player
         {
             ChangeFaceDir();
         }
-
-        // void OnTriggerEnter2D(Collider2D collision)
-        // {
-        //     var canDoDamageUnit = collision.GetComponent<ICanDoDamage>();
-        //     var obj = canDoDamageUnit?.GetGameObject();
-        //     if (canDoDamageUnit != null && !CompareTag(obj.tag))
-        //     {
-        //         Debug.Log($"{obj}, {collision.gameObject}");
-        //         canDoDamageUnit.Do(this);
-        //     }
-        // }
 
         public override void TakeDamage(float damage)
         {

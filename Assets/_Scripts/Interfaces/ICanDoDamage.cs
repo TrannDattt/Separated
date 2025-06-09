@@ -24,13 +24,17 @@ namespace Separated.Interfaces
 
         public void Do(IDamageble target)
         {
-                Debug.Log($"{target} takes {Damage} damage");
-                Debug.Log($"{target} can take damage: {target.CanTakeDamage}");
             if (target.CanTakeDamage)
             {
+                Debug.Log($"{target} takes {Damage} damage");
+                Debug.Log($"{target} can take damage: {target.CanTakeDamage}");
+
                 DoDamage(target);
                 DoPoiseDamage(target);
                 DoKnockback(target);
+            }
+            else {
+                Debug.Log($"{target} cant take damage");
             }
         }
     }

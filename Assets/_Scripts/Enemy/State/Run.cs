@@ -29,7 +29,7 @@ namespace Separated.Enemies
             var moveDir = _navigator.GetMoveDirection(_enemy.Player.transform, _enemy.transform);
             _enemy.RigidBody.linearVelocity = new Vector2(moveDir.x * _runData.Speed, _enemy.RigidBody.linearVelocity.y);
         }
-        
+
         public override EBehaviorState GetNextState()
         {
             if (base.GetNextState() == EBehaviorState.None)
@@ -41,7 +41,7 @@ namespace Separated.Enemies
 
                 return Key;
             }
-            
+
             return base.GetNextState();
         }
     }

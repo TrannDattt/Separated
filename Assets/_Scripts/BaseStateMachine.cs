@@ -29,7 +29,6 @@ namespace Separated.Helpers
                     ChangeState(nextStateKey);
                     // Debug.Log(nextStateKey);
                 }
-
             }
         }
 

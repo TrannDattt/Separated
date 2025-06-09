@@ -12,8 +12,6 @@ namespace Separated.Player
 {
     public class MeleeAttack : AttackState
     {
-        private bool _canDoNextAttack;
-        private bool _attackReseted;
 
         public MeleeAttack(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator, player, inputProvider, stateMachine, hitbox)
         {
@@ -24,9 +22,6 @@ namespace Separated.Player
         {
             base.Enter();
 
-            _canDoNextAttack = false;
-            _attackReseted = false;
-
             RuntimeCoroutine.Instance.StopRuntimeCoroutine(ResetAttackCoroutine());
         }
 
@@ -34,15 +29,9 @@ namespace Separated.Player
         {
             base.Do();
 
-            if (PlayedTime >= .8f * _curStateData.PeriodTime)
-            {
-                _canDoNextAttack = true;
-            }
-
             if (PlayedTime >= _curStateData.PeriodTime)
             {
                 _isFinish = true;
-                _canDoNextAttack = false;
             }
         }
 
@@ -50,28 +39,8 @@ namespace Separated.Player
         {
             if (base.GetNextState() == EBehaviorState.None)
             {
-                // if (_canDoNextAttack && _inputProvider.AttackInput)
-                // {
-                //     var nextAttackData = _stateMachine.GetNextData(_attackData, _stateDataList);
-                //     var newAttackState = new MeleeAttack(Key, _stateDataList, nextAttackData, _animator, _player, _inputProvider, _stateMachine, _hitbox);
-                //     _stateMachine.UpdateState(Key, newAttackState, true);
-                //     return newAttackState.Key;
-                // }
-
-                // if (_isFinish && _inputProvider.AttackInput)
-                // {
-                //     var nextAttackData = _stateMachine.GetNextData(_attackData, _stateDataList);
-                //     var newAttackState = new MeleeAttack(Key, _stateDataList, nextAttackData, _animator, _player, _inputProvider, _stateMachine, _hitbox);
-                //     _stateMachine.UpdateState(Key, newAttackState, true);
-                //     return newAttackState.Key;
-                // }
-
                 return Key;
             }
-
-            // var firstAttackData = _stateDataList[0];
-            // var fisrtAttackState = new MeleeAttack(Key, _stateDataList, firstAttackData, _animator, _player, _inputProvider, _stateMachine, _hitbox);
-            // _stateMachine.UpdateState(Key, fisrtAttackState);
 
             ChooseNextAttackState();
             RuntimeCoroutine.Instance.StartRuntimeCoroutine(ResetAttackCoroutine());

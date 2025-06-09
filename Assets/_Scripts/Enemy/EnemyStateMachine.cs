@@ -1,7 +1,6 @@
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
-using Separated.Player;
 using Separated.Unit;
 using UnityEngine;
 
@@ -12,8 +11,8 @@ namespace Separated.Enemies
         [SerializeField] private IdleStateData _idleData;
         [SerializeField] private RunStateData _runData;
         [SerializeField] private AttackSkillData[] _attackDatas;
-        // [SerializeField] private HurtStateData _hurtData;
-        // [SerializeField] private DieStateData _dieData;
+        [SerializeField] private HurtStateData _hurtData;
+        [SerializeField] private DieStateData _dieData;
 
         private EnemyControl _enemy;
         private Animator _animator;
@@ -30,8 +29,9 @@ namespace Separated.Enemies
 
             var curAttackData = GetRandomData(_attackDatas);
             _stateDict.Add(EBehaviorState.Attack, new AttackState(EBehaviorState.Attack, _attackDatas, curAttackData, _animator, _enemy, this, _hitbox, _navigator));
-            // _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData));
-            // _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData));
+
+            _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _enemy));
+            _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator));
 
             _navigator.SetAttackData(curAttackData);
             ChangeState(EBehaviorState.Idle);
@@ -79,6 +79,22 @@ namespace Separated.Enemies
             _hitbox = GetComponentInChildren<UnitHitbox>();
 
             InitSM();
+        }
+
+        protected override void Update()
+        {
+            if (_enemy.CurStatData.Hp == 0)
+            {
+                ChangeState(EBehaviorState.Die);
+            }
+
+            if (_enemy.IsTakingDamage)
+            {
+                _enemy.IsTakingDamage = false;
+                ChangeState(EBehaviorState.Hurt);
+            }
+
+            base.Update();
         }
     }
 }

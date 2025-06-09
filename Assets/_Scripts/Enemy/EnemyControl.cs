@@ -1,3 +1,4 @@
+using Separated.Data;
 using Separated.Interfaces;
 using Separated.Player;
 using Separated.Unit;
@@ -6,18 +7,19 @@ using UnityEngine;
 namespace Separated.Enemies
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class EnemyControl : BaseUnit, IDamageble
+    public class EnemyControl : BaseUnit
     {
         public Rigidbody2D RigidBody { get; private set; }
         public PlayerControl Player { get; private set; }
-
-        bool IDamageble.CanTakeDamage { get; set; }
 
         private UnitNavigator _navigator;
 
         public override void Init()
         {
             base.Init();
+
+            CurStatData = ScriptableObject.CreateInstance<EnemyStatDataSO>();
+            CurStatData.CopyData(StatData);
 
             RigidBody = GetComponent<Rigidbody2D>();
             _navigator = new UnitNavigator();
@@ -51,21 +53,13 @@ namespace Separated.Enemies
             ChangeFaceDir();
         }
 
-        // void OnTriggerEnter2D(Collider2D collision)
-        // {
-        //     var canDoDamageUnit = collision.GetComponent<ICanDoDamage>();
-        //     var obj = canDoDamageUnit?.GetGameObject();
-        //     if (canDoDamageUnit != null && !CompareTag(obj.tag))
-        //     {
-        //         Debug.Log($"{obj}, {collision.gameObject}");
-        //         canDoDamageUnit.Do(this);
-        //     }
-        // }
-
         public override void TakeDamage(float damage)
         {
             base.TakeDamage(damage);
             // Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
+
+            (this as IDamageble).CanTakeDamage = false;
+            IsTakingDamage = true;
         }
 
         public override void TakePoiseDamage(float poiseDamage)
