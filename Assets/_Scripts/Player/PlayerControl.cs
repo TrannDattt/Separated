@@ -11,8 +11,9 @@ namespace Separated.Player
     {
         public static PlayerControl Instance { get; private set; }
         public Rigidbody2D RigidBody { get; private set; }
+        public PlayerInventoryManager Inventory { get; private set; }
 
-        public PlayerInput InputProvider { get;  private set; }
+        public PlayerInput InputProvider { get; private set; }
 
         public override void Init()
         {
@@ -23,6 +24,8 @@ namespace Separated.Player
 
             RigidBody = GetComponent<Rigidbody2D>();
             InputProvider = GetComponent<PlayerInput>();
+
+            Inventory = GetComponentInChildren<PlayerInventoryManager>();
         }
 
         private void ChangeFaceDir()

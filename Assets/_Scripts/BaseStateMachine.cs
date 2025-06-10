@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Separated.Enemies;
 using UnityEngine;
 
 namespace Separated.Helpers
@@ -26,8 +27,12 @@ namespace Separated.Helpers
                 var nextStateKey = CurState.GetNextState();
                 if (!nextStateKey.Equals(CurState.Key))
                 {
+                    // if (CurState is EnemyBaseState)
+                    // {
+                    //     Debug.Log(CurState.Key);
+                    //     Debug.Log(nextStateKey);
+                    // }
                     ChangeState(nextStateKey);
-                    // Debug.Log(nextStateKey);
                 }
             }
         }

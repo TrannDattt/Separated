@@ -1,5 +1,6 @@
 using System;
 using Separated.Data;
+using Separated.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +11,7 @@ namespace Separated.Unit
         [SerializeField] private LootDropData _dropData;
 
         public UnityEvent<int> OnDropSoul;
-        public UnityEvent<GameObject[]> OnDropItem;
+        public UnityEvent<ItemsDrop[]> OnDropItem;
 
         public void DropValue()
         {

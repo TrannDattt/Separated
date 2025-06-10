@@ -40,7 +40,7 @@ namespace Separated.UIElements
             }
 
             _fill.fillAmount = _unit.CurStatData.Hp / _unit.StatData.Hp;
-            Debug.Log($"Player's health: {_unit.CurStatData.Hp} / {_unit.StatData.Hp}");
+            // Debug.Log($"Player's health: {_unit.CurStatData.Hp} / {_unit.StatData.Hp}");
         }
     }
 }

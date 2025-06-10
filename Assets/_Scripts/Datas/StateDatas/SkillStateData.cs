@@ -8,8 +8,5 @@ namespace Separated.Data
     {
         public ESkillType SkillType;
         public float Cooldown;
-
-        public string SkillName;
-        public string SkillDescription;
     }
 }

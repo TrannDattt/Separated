@@ -87,10 +87,12 @@ namespace Separated.Enemies
         {
             if (_enemy.CurStatData.Hp == 0)
             {
+                _enemy.CurStatData.Hp = -1;
+                // Debug.Log("Change state");
                 ChangeState(EBehaviorState.Die);
             }
 
-            if (_enemy.IsTakingDamage)
+            if (_enemy.IsTakingDamage && _enemy.CurStatData.Hp > 0)
             {
                 _enemy.IsTakingDamage = false;
                 ChangeState(EBehaviorState.Hurt);

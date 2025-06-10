@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Xml.Serialization;
 using Separated.Helpers;
+using Separated.Player;
 using TMPro;
 using UnityEngine;
 
@@ -30,7 +31,14 @@ namespace Separated.UIElements
 
         }
 
-        public void ChangeValue(int amount)
+        public void UpdateCount()
+        {
+            var playerSoul = PlayerControl.Instance.Inventory.SoulHeld;
+
+            StartCoroutine(ChangeValueCoroutine(.5f, playerSoul));
+        }
+
+        public void ShowChangeValue(int amount)
         {
             _changeAmount.text = $"{(amount >= 0 ? '+' : "")} {amount}";
 
@@ -46,8 +54,8 @@ namespace Separated.UIElements
                 StartCoroutine(FadeCoroutine(_changeAmountCanvasGroup, .7f, false));
                 yield return StartCoroutine(LerpCoroutine(_changeAmountCanvasGroup, .7f, _offset * Vector2.up));
 
-                yield return StartCoroutine(ChangeValueCoroutine(.5f, amount));
-            }            
+                UpdateCount();
+            }
         }
 
         private IEnumerator LerpCoroutine(CanvasGroup target, float lerpTime, Vector2 moveDir)
@@ -84,25 +92,29 @@ namespace Separated.UIElements
             target.alpha = isFadeIn ? 1 : 0;
         }
 
-        private IEnumerator ChangeValueCoroutine(float changeTime, int amount)
+        private IEnumerator ChangeValueCoroutine(float changeTime, int targetValue)
         {
             float elapsedTime = 0;
             int startValue = int.Parse(_curValue.text);
-            // int finalValue = Mathf.Max(0, startValue + amount);
-            int finalValue = startValue + amount;
+            int amount = targetValue - startValue;
 
             while (elapsedTime < changeTime)
             {
                 float changeAmount = amount * (float)(elapsedTime / changeTime);
                 int curValue = startValue + (int)changeAmount;
                 _curValue.text = curValue.ToString();
-                Debug.Log(changeAmount);
+                // Debug.Log(changeAmount);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            _curValue.text = finalValue.ToString();
+            _curValue.text = targetValue.ToString();
         }
+
+        // void Awake()
+        // {
+        //     Initialize();
+        // }
     }
 }

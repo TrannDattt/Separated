@@ -1,3 +1,4 @@
+using Separated.Player;
 using UnityEngine;
 
 namespace Separated.Data
@@ -7,6 +8,6 @@ namespace Separated.Data
     public class LootDropData : ScriptableObject
     {
         public int SoulDrop;
-        public GameObject[] ItemsDrop;
+        public ItemsDrop[] ItemsDrop;
     }
 }

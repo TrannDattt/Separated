@@ -25,8 +25,8 @@ namespace Separated.Interfaces
         {
             if (target.CanTakeDamage)
             {
-                Debug.Log($"{target} takes {Damage} damage");
-                Debug.Log($"{target} can take damage: {target.CanTakeDamage}");
+                // Debug.Log($"{target} takes {Damage} damage");
+                // Debug.Log($"{target} can take damage: {target.CanTakeDamage}");
 
                 DoDamage(target);
                 DoPoiseDamage(target);
@@ -34,7 +34,7 @@ namespace Separated.Interfaces
             }
             else
             {
-                Debug.Log($"{target} cant take damage");
+                // Debug.Log($"{target} cant take damage");
             }
         }
     }

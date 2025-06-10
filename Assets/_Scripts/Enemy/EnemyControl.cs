@@ -48,7 +48,6 @@ namespace Separated.Enemies
         void Start()
         {
             Player = PlayerControl.Instance;
-            Debug.Log(Player);
         }
 
         void Update()

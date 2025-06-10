@@ -23,6 +23,7 @@ namespace Separated.Enemies
 
             _isDeath = false;
             _dropContainer.DropValue();
+            Debug.Log("Die");
         }
 
         public override void Do()
@@ -34,6 +35,7 @@ namespace Separated.Enemies
                 _isFinish = true;
                 if (!_isDeath)
                 {
+                    Debug.Log("Drop");
                     _isDeath = true;
                     Exit();
                 }
@@ -45,11 +47,13 @@ namespace Separated.Enemies
             base.Exit();
 
             //TODO: Return enemy to pool
+            // Debug.Log(PlayedTime);
+            _enemy.gameObject.SetActive(false);
         }
 
         public override EBehaviorState GetNextState()
         {
-            return base.GetNextState();
+            return Key;
         }
     }
 }
