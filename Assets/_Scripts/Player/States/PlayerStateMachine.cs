@@ -4,9 +4,9 @@ using System.Linq;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
-using Separated.Skills;
 using Separated.Unit;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Separated.Player{
     public class PlayerStateMachine : BaseStateMachine<EBehaviorState>
@@ -17,16 +17,21 @@ namespace Separated.Player{
         [SerializeField] private FallStateData _fallData;
         [SerializeField] private LandStateData _landData;
         [SerializeField] private DashStateData _dashData;
-        [SerializeField] private AttackSkillData[] _meleeAttackDatas;
+        [SerializeField] private AttackData[] _meleeAttackDatas;
         // [SerializeField] private List<MeleeAttackStateData> _meleeAttackDatas;
         [SerializeField] private SkillStateData[] _skillDatas;
         [SerializeField] private HurtStateData _hurtData;
         [SerializeField] private DieStateData _dieData;
 
+        [SerializeField] private UnityEvent<SkillStateData> _onSkill1Used;
+        [SerializeField] private UnityEvent<SkillStateData> _onSkill2Used;
+        [SerializeField] private UnityEvent<SkillStateData> _onSkill3Used;
+        [SerializeField] private UnityEvent<SkillStateData> _onSkill4Used;
+        [SerializeField] private UnityEvent<SkillStateData> _onUltimateUsed;
+
         private PlayerControl _player;
         private PlayerInput _inputProvider;
         private GroundSensor _groundSensor;
-        private SkillManager _skillManager;
         private Animator _animator;
         private UnitHitbox _hitbox;
 
@@ -43,11 +48,11 @@ namespace Separated.Player{
             _stateDict.Add(EBehaviorState.Dash, new Dash(EBehaviorState.Dash, _dashData, _animator, _player, _inputProvider, _groundSensor));
             
             _stateDict.Add(EBehaviorState.Attack, new MeleeAttack(EBehaviorState.Attack, _meleeAttackDatas, _meleeAttackDatas[0], _animator, _player, _inputProvider, this, _hitbox));
-            _stateDict.Add(EBehaviorState.Skill1, new SkillState(EBehaviorState.Skill1, _skillDatas[0], _animator, _inputProvider, _skillManager));
-            _stateDict.Add(EBehaviorState.Skill2, new SkillState(EBehaviorState.Skill2, _skillDatas[1], _animator, _inputProvider, _skillManager));
-            _stateDict.Add(EBehaviorState.Skill3, new SkillState(EBehaviorState.Skill3, _skillDatas[2], _animator, _inputProvider, _skillManager));
-            _stateDict.Add(EBehaviorState.Skill4, new SkillState(EBehaviorState.Skill4, _skillDatas[3], _animator, _inputProvider, _skillManager));
-            _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _skillDatas[4], _animator, _inputProvider, _skillManager));
+            _stateDict.Add(EBehaviorState.Skill1, new SkillState(EBehaviorState.Skill1, _skillDatas[0], _animator, _inputProvider, _player, _hitbox, _onSkill1Used));
+            _stateDict.Add(EBehaviorState.Skill2, new SkillState(EBehaviorState.Skill2, _skillDatas[1], _animator, _inputProvider, _player, _hitbox, _onSkill2Used));
+            _stateDict.Add(EBehaviorState.Skill3, new SkillState(EBehaviorState.Skill3, _skillDatas[2], _animator, _inputProvider, _player, _hitbox, _onSkill3Used));
+            _stateDict.Add(EBehaviorState.Skill4, new SkillState(EBehaviorState.Skill4, _skillDatas[3], _animator, _inputProvider, _player, _hitbox, _onSkill4Used));
+            _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _skillDatas[4], _animator, _inputProvider, _player, _hitbox, _onUltimateUsed));
 
             _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _player));
             _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator));
@@ -90,7 +95,6 @@ namespace Separated.Player{
             _player = GetComponent<PlayerControl>();
             _inputProvider = GetComponent<PlayerInput>();
             _groundSensor = GetComponentInChildren<GroundSensor>();
-            _skillManager = GetComponentInChildren<SkillManager>();
             _animator = GetComponentInChildren<Animator>();
             _hitbox = GetComponentInChildren<UnitHitbox>();
 

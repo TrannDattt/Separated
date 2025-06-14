@@ -5,9 +5,9 @@ namespace Separated.Unit
 {
     public class UnitNavigator
     {
-        private AttackSkillData _attackData;
+        private AttackData _attackData;
 
-        public void SetAttackData(AttackSkillData attackData)
+        public void SetAttackData(AttackData attackData)
         {
             _attackData = attackData;
         }

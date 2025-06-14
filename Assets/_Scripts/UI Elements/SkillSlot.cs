@@ -31,6 +31,11 @@ namespace Separated.UIElements
             _skillIcon.sprite = skillDescription.SkillIcon;
         }
 
+        public void CooldownSkill(SkillStateData skillData)
+        {
+            StartCoroutine(CooldownCoroutine(skillData));
+        }
+
         public IEnumerator CooldownCoroutine(SkillStateData skillData)
         {
             float time = skillData.Cooldown;

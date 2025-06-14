@@ -23,7 +23,7 @@ namespace Separated.Unit
 
         public event Action OnDoingDamage;
 
-        public void SetAttackData(AttackSkillData data)
+        public void SetAttackData(AttackData data)
         {
             _damage = data.Damage;
             _poiseDamage = data.PoiseDamage;
@@ -31,13 +31,21 @@ namespace Separated.Unit
             _knockbackForce = data.KnockbackForce;
         }
 
-        public void ResetAttackData()
+        public void SetAttackData(AttackPhase data)
         {
-            _damage = 0f;
-            _poiseDamage = 0f;
-            _knockbackDir = Vector2.zero;
-            _knockbackForce = 0f;
+            _damage = data.Damage;
+            _poiseDamage = data.PoiseDamage;
+            _knockbackDir = data.KnockbackDir;
+            _knockbackForce = data.KnockbackForce;
         }
+
+        // public void ResetAttackData()
+        // {
+        //     _damage = 0f;
+        //     _poiseDamage = 0f;
+        //     _knockbackDir = Vector2.zero;
+        //     _knockbackForce = 0f;
+        // }
 
         public void EnableHitbox() => _collider.enabled = true;
 

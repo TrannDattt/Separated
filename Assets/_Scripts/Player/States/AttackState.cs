@@ -10,7 +10,7 @@ namespace Separated.Player
 {
     public class AttackState : PlayerBaseState
     {
-        protected AttackSkillData _attackData => _curStateData as AttackSkillData;
+        protected AttackData _attackData => _curStateData as AttackData;
 
         protected PlayerInput _inputProvider;
         protected PlayerControl _player;
@@ -41,7 +41,7 @@ namespace Separated.Player
             base.Exit();
 
             // _hitbox.DisableHitbox();
-            _hitbox.ResetAttackData();
+            // _hitbox.ResetAttackData();
         }
 
         public override EBehaviorState GetNextState()

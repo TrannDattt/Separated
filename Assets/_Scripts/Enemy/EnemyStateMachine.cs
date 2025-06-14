@@ -10,7 +10,7 @@ namespace Separated.Enemies
     {
         [SerializeField] private IdleStateData _idleData;
         [SerializeField] private RunStateData _runData;
-        [SerializeField] private AttackSkillData[] _attackDatas;
+        [SerializeField] private AttackData[] _attackDatas;
         [SerializeField] private HurtStateData _hurtData;
         [SerializeField] private DieStateData _dieData;
 

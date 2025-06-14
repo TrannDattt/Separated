@@ -8,7 +8,7 @@ namespace Separated.Enemies
 {
     public class AttackState : EnemyBaseState
     {
-        protected AttackSkillData _attackData => _curStateData as AttackSkillData;
+        protected AttackData _attackData => _curStateData as AttackData;
 
         private EnemyControl _enemy;
         private EnemyStateMachine _stateMachine;
@@ -47,7 +47,7 @@ namespace Separated.Enemies
             base.Exit();
 
             // _hitbox.DisableHitbox();
-            _hitbox.ResetAttackData();
+            // _hitbox.ResetAttackData();
         }
 
         public override EBehaviorState GetNextState()
@@ -57,7 +57,7 @@ namespace Separated.Enemies
                 var nextAttackData = _stateMachine.GetRandomData(_stateDataList);
                 var nextAttackState = new AttackState(Key, _stateDataList, nextAttackData, _animator, _enemy, _stateMachine, _hitbox, _navigator);
                 _stateMachine.UpdateState(Key, nextAttackState);
-                _navigator.SetAttackData(nextAttackData as AttackSkillData);
+                _navigator.SetAttackData(nextAttackData as AttackData);
 
                 return EBehaviorState.Idle;
             }

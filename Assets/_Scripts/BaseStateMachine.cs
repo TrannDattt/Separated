@@ -22,8 +22,6 @@ namespace Separated.Helpers
         {
             if (CurState != null)
             {
-                CurState.Do();
-
                 var nextStateKey = CurState.GetNextState();
                 if (!nextStateKey.Equals(CurState.Key))
                 {
@@ -34,6 +32,8 @@ namespace Separated.Helpers
                     // }
                     ChangeState(nextStateKey);
                 }
+
+                CurState.Do();
             }
         }
 

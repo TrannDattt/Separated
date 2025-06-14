@@ -15,4 +15,4 @@ MonoBehaviour:
   StateKey: 13
   Clip: {fileID: 0}
   PeriodTime: 1
-  RecoveryCooldownTime: 10
+  RecoveryCooldownTime: 2
