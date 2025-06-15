@@ -10,7 +10,7 @@ namespace Separated.Enemies
     {
         public float PlayedTime => Time.time - _startTime;
         
-        protected StateDataSO _curStateData;
+        public StateDataSO CurStateData { get; protected set; }
         protected StateDataSO[] _stateDataList;
         protected Animator _animator;
 
@@ -19,23 +19,23 @@ namespace Separated.Enemies
 
         protected EnemyBaseState(EBehaviorState key, StateDataSO data, Animator animator) : base(key)
         {
-            _curStateData = data;
+            CurStateData = data;
             _animator = animator;
         }
 
         protected EnemyBaseState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator) : base(key)
         {
             _stateDataList = datas;
-            _curStateData = data;
+            CurStateData = data;
             _animator = animator;
         }
 
         protected virtual void PlayAnim()
         {
-            if (_curStateData.Clip != null)
+            if (CurStateData.Clip != null)
             {
-                _animator.speed = _curStateData.Clip.length / _curStateData.PeriodTime;
-                _animator.Play(_curStateData.Clip.name);
+                _animator.speed = CurStateData.Clip.length / CurStateData.PeriodTime;
+                _animator.Play(CurStateData.Clip.name);
             }
         }
 

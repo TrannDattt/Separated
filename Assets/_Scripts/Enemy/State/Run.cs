@@ -8,7 +8,7 @@ namespace Separated.Enemies
 {
     public class Run : GroundState
     {
-        private RunStateData _runData => _curStateData as RunStateData;
+        private RunStateData _runData => CurStateData as RunStateData;
 
         public Run(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
             : base(key, data, animator, enemy, navigator)
@@ -34,7 +34,7 @@ namespace Separated.Enemies
         {
             if (base.GetNextState() == EBehaviorState.None)
             {
-                if (!_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(5f, .5f)))
+                if (!_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(10f, .5f)))
                 {
                     return EBehaviorState.Idle;
                 }

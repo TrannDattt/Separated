@@ -17,11 +17,18 @@ namespace Separated.Enemies
             _navigator = navigator;
         }
 
+        public override void Do()
+        {
+            base.Do();
+
+            ChangeFaceDir();
+        }
+
         public override EBehaviorState GetNextState()
         {
             if (_isFinish && _navigator.CheckInAttackRange(_enemy.Player.transform, _enemy.transform))
             {
-                return EBehaviorState.Attack;
+                return EBehaviorState.Skill1;
             }
 
             // TODO: Change to HURT when get take light damage
@@ -29,6 +36,18 @@ namespace Separated.Enemies
             // TODO: Change to DIE when run out of HP
 
             return EBehaviorState.None;
+        }
+
+        private void ChangeFaceDir()
+        {
+            if (_navigator.GetMoveDirection(_enemy.Player.transform, _enemy.transform).x > 0)
+            {
+                _enemy.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (_navigator.GetMoveDirection(_enemy.Player.transform, _enemy.transform).x < 0)
+            {
+                _enemy.transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
     }
 }

@@ -28,17 +28,7 @@ namespace Separated.Enemies
             _navigator = new UnitNavigator();
         }
 
-        private void ChangeFaceDir()
-        {
-            if (_navigator.GetMoveDirection(Player.transform, transform).x > 0)
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (_navigator.GetMoveDirection(Player.transform, transform).x < 0)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-        }
+        public int GetFaceDir() => (int)transform.localScale.x;
 
         void Awake()
         {
@@ -48,11 +38,6 @@ namespace Separated.Enemies
         void Start()
         {
             Player = PlayerControl.Instance;
-        }
-
-        void Update()
-        {
-            ChangeFaceDir();
         }
 
         public override void TakeDamage(float damage)

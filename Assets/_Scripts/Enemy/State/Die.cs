@@ -30,7 +30,7 @@ namespace Separated.Enemies
         {
             base.Do();
 
-            if (PlayedTime > _curStateData.PeriodTime)
+            if (PlayedTime > CurStateData.PeriodTime)
             {
                 _isFinish = true;
                 if (!_isDeath)

@@ -9,7 +9,7 @@ namespace Separated.Enemies
 {
     public class Hurt : VulnerableState
     {
-        private HurtStateData _hurtData => _curStateData as HurtStateData;
+        private HurtStateData _hurtData => CurStateData as HurtStateData;
 
         public Hurt(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy) : base(key, data, animator, enemy)
         {

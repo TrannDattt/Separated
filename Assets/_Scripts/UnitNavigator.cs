@@ -5,11 +5,11 @@ namespace Separated.Unit
 {
     public class UnitNavigator
     {
-        private AttackData _attackData;
+        private SkillStateData _skillData;
 
-        public void SetAttackData(AttackData attackData)
+        public void SetSkillData(SkillStateData skillData)
         {
-            _attackData = attackData;
+            _skillData = skillData;
         }
 
         public Vector2 GetMoveDirection(Transform target, Transform self)
@@ -34,7 +34,7 @@ namespace Separated.Unit
 
             // Debug.Log(target.position);
             // Debug.Log(self.position);
-            var range = _attackData.Range;
+            var range = _skillData.Range;
             var distance = target.position - self.position;
             // Debug.Log(distance.x <= range.x);
             // Debug.Log(distance.y <= range.y);

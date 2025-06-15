@@ -8,7 +8,7 @@ namespace Separated.Enemies
 {
     public class Idle : GroundState
     {
-        private IdleStateData _idleData => _curStateData as IdleStateData;
+        private IdleStateData _idleData => CurStateData as IdleStateData;
 
         public Idle(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
             : base(key, data, animator, enemy, navigator)
@@ -27,7 +27,7 @@ namespace Separated.Enemies
         {
             base.Do();
 
-            if(_idleData.IdleTime > 0 && PlayedTime >= _idleData.IdleTime)
+            if(PlayedTime >= _idleData.IdleTime)
             {
                 _isFinish = true;
             }
@@ -37,7 +37,7 @@ namespace Separated.Enemies
         {
             if (base.GetNextState() == EBehaviorState.None)
             {
-                if (_navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(5f, .5f)) && !_navigator.CheckInAttackRange(_enemy.Player.transform, _enemy.transform))
+                if (_isFinish && _navigator.CheckInTriggerRange(_enemy.Player.transform, _enemy.transform, new(10f, .5f)) && !_navigator.CheckInAttackRange(_enemy.Player.transform, _enemy.transform))
                 {
                     return EBehaviorState.Run;
                 }

@@ -21,7 +21,6 @@ namespace Separated.Data
     [Serializable]
     public abstract class SkillPhase
     {
-        public AnimationClip Clip;
         public ESkillPhaseType SkillType;
         public float PhaseDuration;
 

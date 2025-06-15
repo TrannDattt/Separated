@@ -10,31 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c5f601ceb890564d9e3f4841e7b910e, type: 3}
-  m_Name: Test_Player_Skill
+  m_Name: Test_Enemy_Skill
   m_EditorClassIdentifier: 
   StateKey: 8
-  Clip: {fileID: 7400000, guid: c4932face089a94489f67156db43266b, type: 2}
-  PeriodTime: 0.5
+  Clip: {fileID: 7400000, guid: 78e9824faf9e77b4ebe1c0302fee767c, type: 2}
+  PeriodTime: 1.75
   SkillPhases:
-  - rid: 6819282497443987539
-  - rid: 6819282497443987540
-  Range: {x: 0, y: 0}
-  Cooldown: 5
+  - rid: 6819282513784471620
+  - rid: 6819282513784471621
+  Range: {x: 20, y: 1}
+  Cooldown: 10
   references:
     version: 2
     RefIds:
-    - rid: 6819282497443987539
+    - rid: 6819282513784471620
       type: {class: MovePhase, ns: Separated.Data, asm: Assembly-CSharp}
       data:
         SkillType: 4
-        PhaseDuration: 0.2
-        Speed: 10
-    - rid: 6819282497443987540
+        PhaseDuration: 1.5
+        Speed: 5
+    - rid: 6819282513784471621
       type: {class: AttackPhase, ns: Separated.Data, asm: Assembly-CSharp}
       data:
         SkillType: 1
-        PhaseDuration: 0.3
-        Damage: 4
+        PhaseDuration: 0.25
+        Damage: 30
         PoiseDamage: 0
-        KnockbackDir: {x: 0, y: 0}
-        KnockbackForce: 0
+        KnockbackDir: {x: 1, y: 1}
+        KnockbackForce: 3

@@ -7,14 +7,15 @@ using Separated.Unit;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Separated.Player
+namespace Separated.Enemies
 {
-    public class SkillState : PlayerBaseState
+    public class SkillState : EnemyBaseState
     {
-        private SkillStateData _skillData => _curStateData as SkillStateData;
-        private PlayerInput _inputProvider;
-        private PlayerControl _player;
+        private SkillStateData _skillData => CurStateData as SkillStateData;
+        private EnemyControl _enemy;
+        private EnemyStateMachine _stateMachine;
         private UnitHitbox _hitbox;
+        private UnitNavigator _navigator;
         private UnityEvent<SkillStateData> _onSkillUsed;
 
         private Queue<SkillPhase> _phaseQueue = new();
@@ -24,20 +25,20 @@ namespace Separated.Player
         public bool IsInCoolDown;
 
         // TODO: Use 1 animation for whole skill instead of 1 for each phase
-        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, PlayerInput inputProvider, PlayerControl player, UnitHitbox hitbox, UnityEvent<SkillStateData> onSkillUsed) : base(key, data, animator)
+        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, EnemyStateMachine stateMachine, UnitNavigator navigator, UnitHitbox hitbox, UnityEvent<SkillStateData> onSkillUsed) : base(key, data, animator)
         {
-            _inputProvider = inputProvider;
-            _player = player;
+            _enemy = enemy;
+            _stateMachine = stateMachine;
             _hitbox = hitbox;
+            _navigator = navigator;
             _onSkillUsed = onSkillUsed;
         }
 
         public override void Enter()
         {
-            _inputProvider.UseInput(PlayerInput.EInputType.Skill);
-
             if (IsInCoolDown)
             {
+                // Debug.Log("In cooldown");
                 return;
             }
 
@@ -77,6 +78,9 @@ namespace Separated.Player
         {
             if (IsInCoolDown)
             {
+                var replacedSkill = _stateMachine.GetRandomSkill();
+                _navigator.SetSkillData(CurStateData as SkillStateData);
+                _stateMachine.UpdateState(replacedSkill.Key, replacedSkill, true);
                 return;
             }
 
@@ -85,12 +89,17 @@ namespace Separated.Player
             IsInCoolDown = true;
             RuntimeCoroutine.Instance.StartRuntimeCoroutine(CooldownSkillCoroutine());
             _onSkillUsed?.Invoke(_skillData);
+
+            var nextSkill = _stateMachine.GetRandomSkill();
+            _navigator.SetSkillData(CurStateData as SkillStateData);
+            _stateMachine.UpdateState(nextSkill.Key, nextSkill);
         }
 
         public override EBehaviorState GetNextState()
         {
             if (_isFinish || IsInCoolDown)
             {
+                // Debug.Log("idle");
                 return EBehaviorState.Idle;
             }
 
@@ -124,7 +133,7 @@ namespace Separated.Player
                     break;
 
                 case ESkillPhaseType.MovingSkill:
-                    (_curPhase as MovePhase).Init(_player.RigidBody, _inputProvider.FaceDir);
+                    (_curPhase as MovePhase).Init(_enemy.RigidBody, _enemy.GetFaceDir());
                     break;
 
                 default:
