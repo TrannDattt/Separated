@@ -38,7 +38,7 @@ namespace Separated.UIElements
             // Implement hide logic
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             _buttonImage = GetComponent<Image>();
             _buttonText = GetComponentInChildren<TextMeshProUGUI>();

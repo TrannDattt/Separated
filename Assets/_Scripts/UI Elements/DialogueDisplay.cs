@@ -26,7 +26,7 @@ namespace Separated.UIElements
             // Implement hide logic for dialogue display
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             // Implement initialization logic for dialogue display
         }

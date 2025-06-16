@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Separated.Helpers;
 using Separated.Interfaces;
+using Separated.Poolings;
 using Separated.Unit;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,9 +14,7 @@ namespace Separated.UIElements
     {
         [SerializeField] private Image _fillImg;
 
-        [SerializeField] private CanvasGroup _hpLostCanvasGroup;
-        [SerializeField] private Image _hpLostImg;
-        [SerializeField] private float _offset;
+        [SerializeField] private ImagePopup _hpLost;
         [SerializeField] private bool _doAnim;
 
         private BaseUnit _unit;
@@ -31,11 +30,7 @@ namespace Separated.UIElements
 
         }
 
-        public override void Initialize()
-        {
-        }
-
-        public void SetUnit(BaseUnit unit)
+        public void Initialize(BaseUnit unit)
         {
             _unit = unit;
             UpdateHpBar();
@@ -57,6 +52,13 @@ namespace Separated.UIElements
             {
                 if (hpLostPercentage > 0)
                 {
+                    var hpTransform = _fillImg.GetComponent<RectTransform>();
+                    var hpLostPos = hpTransform.anchoredPosition + new Vector2(hpTransform.rect.width * newHpPercentage, 0);
+
+                    var newHpLost = UIPooling.GetFromPool(_hpLost, hpLostPos, GetComponent<RectTransform>()) as ImagePopup;
+                    newHpLost.Initialize(hpLostPercentage);
+
+                    newHpLost.Pop(false);
                     StartCoroutine(LostHpCoroutine(hpLostPercentage));
                 }
             }
@@ -65,20 +67,12 @@ namespace Separated.UIElements
 
         private IEnumerator LostHpCoroutine(float lostPercentage)
         {
-            var hpTransform = _fillImg.GetComponent<RectTransform>();
-            var hpLostPos = hpTransform.anchoredPosition + new Vector2(hpTransform.rect.width * _fillImg.fillAmount, 0);
-
-            _hpLostCanvasGroup.GetComponent<RectTransform>().anchoredPosition = hpLostPos;
-            _hpLostCanvasGroup.alpha = 1;
-            _hpLostImg.fillAmount = lostPercentage;
             _onColorChanged.AddListener(ChangeFillColor);
 
-            StartCoroutine(DOTweenUI.ChangeColorCoroutine(_fillImg.color, .5f, new Color(1f, .5f, .5f), _onColorChanged, .5f));
-            yield return StartCoroutine(DOTweenUI.LerpCoroutine(_hpLostCanvasGroup, .5f, _offset * Vector2.down, .8f));
+            yield return StartCoroutine(DOTweenUI.ChangeColorCoroutine(_fillImg.color, .5f, new Color(1f, .5f, .5f), _onColorChanged, .5f));
 
             _onColorChanged.RemoveListener(ChangeFillColor);
             ChangeFillColor(Color.white);
-            yield return StartCoroutine(DOTweenUI.FadeCoroutine(_hpLostCanvasGroup, 1f, false, 5f));
         }
 
         private void ChangeFillColor(Color color) => _fillImg.color = color;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Xml.Serialization;
 using Separated.Helpers;
 using Separated.Player;
+using Separated.Poolings;
 using TMPro;
 using UnityEngine;
 
@@ -11,10 +12,7 @@ namespace Separated.UIElements
     {
         [SerializeField] private CanvasGroup _parentCanvasGroup;
         [SerializeField] private TextMeshProUGUI _curValue;
-
-        [SerializeField] private CanvasGroup _changeAmountCanvasGroup;
-        [SerializeField] private TextMeshProUGUI _changeAmount;
-        [SerializeField] private float _offset;
+        [SerializeField] private TextPopup _soulChange;
 
         public override void Show()
         {
@@ -26,7 +24,7 @@ namespace Separated.UIElements
 
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
 
         }
@@ -40,27 +38,14 @@ namespace Separated.UIElements
 
         public void ShowChangeValue(int amount)
         {
-            _changeAmount.text = $"{(amount >= 0 ? '+' : "")} {amount}";
+            var content = $"{(amount >= 0 ? '+' : "")} {amount}";
+            var spawnRect = _curValue.GetComponent<RectTransform>();
+            var newPopup = UIPooling.GetFromPool(_soulChange, Vector2.zero, spawnRect) as TextPopup;
 
-            StartCoroutine(ChangeSequenceCoroutine());
+            newPopup.SetContent(content);
+            newPopup.OnPopupFinished += UpdateCount;
 
-            IEnumerator ChangeSequenceCoroutine()
-            {
-                StartCoroutine(DOTweenUI.FadeCoroutine(_changeAmountCanvasGroup, .3f, true));
-                yield return StartCoroutine(DOTweenUI.LerpCoroutine(_changeAmountCanvasGroup, .3f, _offset * Vector2.down, .2f));
-
-                yield return new WaitForSeconds(.5f);
-
-                StartCoroutine(DOTweenUI.FadeCoroutine(_changeAmountCanvasGroup, .7f, false));
-                yield return StartCoroutine(DOTweenUI.LerpCoroutine(_changeAmountCanvasGroup, .7f, _offset * Vector2.up, 5f));
-
-                UpdateCount();
-            }
+            newPopup.Pop(false);
         }
-
-        // void Awake()
-        // {
-        //     Initialize();
-        // }
     }
 }

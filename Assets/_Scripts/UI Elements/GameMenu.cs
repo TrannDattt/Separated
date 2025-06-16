@@ -12,7 +12,7 @@ namespace Separated.UIElements
             // Implement hide logic
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             // Implement initialization logic
         }

@@ -16,7 +16,7 @@ namespace Separated.UIElements
 
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
 
         }

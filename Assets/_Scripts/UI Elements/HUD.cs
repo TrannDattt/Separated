@@ -17,9 +17,9 @@ namespace Separated.UIElements
             _playerHpBar.Hide();
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
-            _playerHpBar.SetUnit(PlayerControl.Instance);
+            _playerHpBar.Initialize(PlayerControl.Instance);
         }
 
         void Start()

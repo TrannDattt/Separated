@@ -6,6 +6,5 @@ namespace Separated.UIElements
     {
         public abstract void Show();
         public abstract void Hide();
-        public abstract void Initialize();
     }
 }
