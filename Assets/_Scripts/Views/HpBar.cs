@@ -8,10 +8,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public class HpBar : GameUI
     {
+        // TODO: Add event listener
         [SerializeField] private Image _fillImg;
 
         [SerializeField] private ImagePopup _hpLost;
@@ -55,10 +56,14 @@ namespace Separated.UIElements
                     var hpTransform = _fillImg.GetComponent<RectTransform>();
                     var hpLostPos = hpTransform.anchoredPosition + new Vector2(hpTransform.rect.width * newHpPercentage, 0);
 
-                    var newHpLost = UIPooling.GetFromPool(_hpLost, hpLostPos, GetComponent<RectTransform>()) as ImagePopup;
-                    newHpLost.Initialize(hpLostPercentage);
+                    UIPooling.GetFromPool(_hpLost, hpLostPos, GetComponent<RectTransform>(), (hpLost) =>
+                    {
+                        var newHpLost = hpLost as ImagePopup;
 
-                    newHpLost.Pop(false);
+                        newHpLost.Initialize(hpLostPercentage);
+                        newHpLost.Pop(false);
+                    });
+                    
                     StartCoroutine(LostHpCoroutine(hpLostPercentage));
                 }
             }

@@ -5,7 +5,7 @@ using Separated.Poolings;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public class ImagePopup : GameUI
     {

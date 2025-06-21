@@ -9,13 +9,13 @@ namespace Separated.Player
     public class Dash : PlayerBaseState
     {
         private PlayerControl _player;
-        private PlayerInput _inputProvider;
+        private PlayerInputManager _inputProvider;
         private GroundSensor _groundSensor;
 
         private float _velocityX;
         private float _velocityXMult;
 
-        public Dash(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public Dash(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _player = player;
             _inputProvider = inputProvider;
@@ -49,7 +49,7 @@ namespace Separated.Player
         {
             base.Exit();
 
-            _inputProvider.UseInput(PlayerInput.EInputType.Dash);
+            _inputProvider.UseInput(PlayerInputManager.EActionInputType.Dash);
             _player.RigidBody.linearVelocity = new(_player.RigidBody.linearVelocityX / _velocityXMult, 0);
         }
 

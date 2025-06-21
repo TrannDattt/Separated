@@ -10,7 +10,7 @@ namespace Separated.Player
     {
         private RunStateData _runData => _curStateData as RunStateData;
 
-        public Run(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
+        public Run(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
         }
 

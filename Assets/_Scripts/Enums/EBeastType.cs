@@ -1,6 +1,6 @@
 namespace Separated.Enums
 {
-    public enum EEnemyType
+    public enum EBeastType
     {
         Enemy1,
         Enemy2,

@@ -1,7 +1,7 @@
 using Separated.GameSystems;
 using TMPro;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public class DialogueDisplay : GameUI
     {

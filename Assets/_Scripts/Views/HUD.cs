@@ -1,7 +1,7 @@
 using Separated.Player;
 using UnityEngine;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public class HUD : GameUI
     {

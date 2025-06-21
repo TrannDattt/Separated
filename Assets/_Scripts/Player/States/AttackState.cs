@@ -12,12 +12,12 @@ namespace Separated.Player
     {
         protected AttackData _attackData => _curStateData as AttackData;
 
-        protected PlayerInput _inputProvider;
+        protected PlayerInputManager _inputProvider;
         protected PlayerControl _player;
         protected PlayerStateMachine _stateMachine;
         protected UnitHitbox _hitbox;
 
-        public AttackState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator)
+        public AttackState(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator)
         {
             _player = player;
             _inputProvider = inputProvider;
@@ -27,7 +27,7 @@ namespace Separated.Player
 
         public override void Enter()
         {
-            _inputProvider.UseInput(PlayerInput.EInputType.Attack);
+            _inputProvider.UseInput(PlayerInputManager.EActionInputType.Attack);
 
             base.Enter();
 

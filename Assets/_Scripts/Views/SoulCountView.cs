@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Xml.Serialization;
+using Separated.Data;
+using Separated.GameManager;
 using Separated.Helpers;
+using Separated.Interfaces;
 using Separated.Player;
 using Separated.Poolings;
 using TMPro;
 using UnityEngine;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
-    public class SoulCount : GameUI
+    public class SoulCountView : GameUI, IEventListener<int>
     {
         [SerializeField] private CanvasGroup _parentCanvasGroup;
         [SerializeField] private TextMeshProUGUI _curValue;
@@ -26,7 +29,13 @@ namespace Separated.UIElements
 
         public void Initialize()
         {
+            var soulChanged = EventManager.GetEvent<int>();
+            soulChanged.AddListener(this);
+        }
 
+        public void OnEventNotify(int eventData)
+        {
+            ShowChangeValue(eventData);
         }
 
         public void UpdateCount()
@@ -40,12 +49,19 @@ namespace Separated.UIElements
         {
             var content = $"{(amount >= 0 ? '+' : "")} {amount}";
             var spawnRect = _curValue.GetComponent<RectTransform>();
-            var newPopup = UIPooling.GetFromPool(_soulChange, Vector2.zero, spawnRect) as TextPopup;
+            UIPooling.GetFromPool(_soulChange, Vector2.zero, spawnRect, (popup) =>
+            {
+                var newPopup = popup as TextPopup;
+                newPopup.SetContent(content);
+                newPopup.OnPopupFinished += UpdateCount;
 
-            newPopup.SetContent(content);
-            newPopup.OnPopupFinished += UpdateCount;
+                newPopup.Pop(false);
+            });            
+        }
 
-            newPopup.Pop(false);
+        void Start()
+        {
+            Initialize();
         }
     }
 }

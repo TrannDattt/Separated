@@ -1,20 +1,37 @@
 using System;
 using System.Collections.Generic;
+using Separated.Data;
+using Separated.GameManager;
+using Separated.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Separated.Player
 {
-    public class PlayerInventoryManager : MonoBehaviour
+    public class PlayerInventoryManager : MonoBehaviour, IEventListener<LootDropData>
     {
         public int SoulHeld { get; private set; }
         public Dictionary<GameObject, int> ItemsHeld { get; private set; }
-        public UnityEvent<int> OnSoulChanged;
+
+        public void Initialize()
+        {
+            SoulHeld = 0;
+            ItemsHeld = new Dictionary<GameObject, int>();
+
+            var lootDropEvent = EventManager.GetEvent<LootDropData>();
+            lootDropEvent.AddListener(this);
+        }
+
+        public void OnEventNotify(LootDropData eventData)
+        {
+            ChangeSoulHeld(eventData.SoulDrop);
+            ChangeItemHeld(eventData.ItemsDrop);
+        }
 
         public void ChangeSoulHeld(int amount)
         {
             SoulHeld += amount;
-            OnSoulChanged?.Invoke(amount);
+            EventManager.GetEvent<int>().Notify(amount);
         }
 
         public void ChangeItemHeld(ItemsDrop[] drops)
@@ -26,7 +43,6 @@ namespace Separated.Player
                     if (drop.Amount > 0)
                     {
                         ItemsHeld.Add(drop.Item, drop.Amount);
-                        OnSoulChanged?.Invoke(drop.Amount);
                     }
                     else
                     {
@@ -47,7 +63,6 @@ namespace Separated.Player
                 if (drop.Amount > 0)
                 {
                     ItemsHeld[drop.Item] = newAmount;
-                    OnSoulChanged?.Invoke(drop.Amount);
                 }
                 else
                 {
@@ -61,6 +76,13 @@ namespace Separated.Player
                     }
                 }
             }
+
+            EventManager.GetEvent<ItemsDrop[]>().Notify(drops);
+        }
+
+        private void Start()
+        {
+            Initialize();
         }
     }
 

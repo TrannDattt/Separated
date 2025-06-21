@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public abstract class GameUI : MonoBehaviour
     {

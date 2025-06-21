@@ -19,7 +19,7 @@ MonoBehaviour:
   - rid: 6819282513784471620
   - rid: 6819282513784471621
   Range: {x: 20, y: 1}
-  Cooldown: 10
+  Cooldown: 20
   references:
     version: 2
     RefIds:

@@ -15,3 +15,4 @@ MonoBehaviour:
   StateKey: 16
   Clip: {fileID: 0}
   PeriodTime: 1
+  DropData: {fileID: 11400000, guid: b381ebb567bd1b54d8d43fb39bb95987, type: 2}

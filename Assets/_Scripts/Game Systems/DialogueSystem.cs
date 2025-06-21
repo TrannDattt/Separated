@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Separated.Helpers;
 using System;
-using Separated.UIElements;
+using Separated.Views;
 
 namespace Separated.GameSystems
 {

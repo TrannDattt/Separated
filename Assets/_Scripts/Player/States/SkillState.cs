@@ -12,7 +12,7 @@ namespace Separated.Player
     public class SkillState : PlayerBaseState
     {
         private SkillStateData _skillData => _curStateData as SkillStateData;
-        private PlayerInput _inputProvider;
+        private PlayerInputManager _inputProvider;
         private PlayerControl _player;
         private UnitHitbox _hitbox;
         private UnityEvent<SkillStateData> _onSkillUsed;
@@ -24,7 +24,7 @@ namespace Separated.Player
         public bool IsInCoolDown;
 
         // TODO: Use 1 animation for whole skill instead of 1 for each phase
-        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, PlayerInput inputProvider, PlayerControl player, UnitHitbox hitbox, UnityEvent<SkillStateData> onSkillUsed) : base(key, data, animator)
+        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, PlayerInputManager inputProvider, PlayerControl player, UnitHitbox hitbox, UnityEvent<SkillStateData> onSkillUsed) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _player = player;
@@ -34,7 +34,7 @@ namespace Separated.Player
 
         public override void Enter()
         {
-            _inputProvider.UseInput(PlayerInput.EInputType.Skill);
+            _inputProvider.UseInput(PlayerInputManager.EActionInputType.Skill);
 
             if (IsInCoolDown)
             {

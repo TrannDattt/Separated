@@ -1,5 +1,6 @@
+using System;
 using Separated.Helpers;
-using Separated.UIElements;
+using Separated.Views;
 using UnityEngine;
 
 namespace Separated.Poolings
@@ -8,7 +9,7 @@ namespace Separated.Poolings
     {
         private static Pooling<GameUI> _pool = new();
 
-        public static GameUI GetFromPool(GameUI uiPrefab, Vector2 spawnPos, RectTransform parent)
+        public static GameUI GetFromPool(GameUI uiPrefab, Vector2 spawnPos = default, RectTransform parent = null, Action<GameUI> onGet = null)
         {
             var queue = _pool.GetQueue(uiPrefab);
 
@@ -25,6 +26,8 @@ namespace Separated.Poolings
             rect.SetParent(parent);
             rect.localScale = Vector3.one;
             rect.anchoredPosition = spawnPos;
+
+            onGet?.Invoke(element);
             return element;
         }
 

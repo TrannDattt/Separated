@@ -1,22 +1,23 @@
+using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     [RequireComponent(typeof(Image))]
     public class GameButton : GameUI, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private Sprite _normalIcon;
-        [SerializeField] private Sprite _hoverIcon;
-        [SerializeField] private Sprite _pressedIcon;
+        [SerializeField] protected Sprite _normalIcon;
+        [SerializeField] protected Sprite _hoverIcon;
+        [SerializeField] protected Sprite _pressedIcon;
 
-        private Image _buttonImage;
-        private TextMeshProUGUI _buttonText;
+        [SerializeField] protected Image _buttonImage;
+        [SerializeField, AllowNull] protected TextMeshProUGUI _buttonText;
 
-        public UnityEvent OnClick;
+        public UnityEvent OnClicked;
 
         public void ChangeContent(string text)
         {
@@ -40,32 +41,27 @@ namespace Separated.UIElements
 
         public void Initialize()
         {
-            _buttonImage = GetComponent<Image>();
-            _buttonText = GetComponentInChildren<TextMeshProUGUI>();
-        }
-
-        void Awake()
-        {
-            Initialize();
+            
         }
         
-        public void OnPointerDown(PointerEventData eventData)
+        public virtual void OnPointerDown(PointerEventData eventData)
         {
             _buttonImage.sprite = _pressedIcon;
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        public virtual void OnPointerUp(PointerEventData eventData)
         {
             _buttonImage.sprite = _normalIcon;
-            OnClick?.Invoke();
+            // Debug.Log($"Button clicked => Invoke {OnClicked.GetPersistentEventCount()} listeners");
+            OnClicked?.Invoke();
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             _buttonImage.sprite = _hoverIcon;
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             _buttonImage.sprite = _normalIcon;
         }

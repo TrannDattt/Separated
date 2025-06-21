@@ -5,7 +5,7 @@ using Separated.Poolings;
 using TMPro;
 using UnityEngine;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public class TextPopup : GameUI
     {

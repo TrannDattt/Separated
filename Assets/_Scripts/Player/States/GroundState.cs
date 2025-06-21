@@ -9,11 +9,11 @@ namespace Separated.Player
 {
     public abstract class GroundState : PlayerBaseState
     {
-        protected PlayerInput _inputProvider;
+        protected PlayerInputManager _inputProvider;
         protected GroundSensor _groundSensor;
         protected PlayerControl _player;
 
-        public GroundState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public GroundState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;

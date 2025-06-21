@@ -13,7 +13,7 @@ namespace Separated.Player
     public class MeleeAttack : AttackState
     {
 
-        public MeleeAttack(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator, player, inputProvider, stateMachine, hitbox)
+        public MeleeAttack(EBehaviorState key, StateDataSO[] datas, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, PlayerStateMachine stateMachine, UnitHitbox hitbox) : base(key, datas, data, animator, player, inputProvider, stateMachine, hitbox)
         {
 
         }

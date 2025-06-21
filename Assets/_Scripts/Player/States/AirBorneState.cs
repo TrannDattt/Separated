@@ -10,13 +10,13 @@ namespace Separated.Player
 {
     public abstract class AirBorneState : PlayerBaseState
     {
-        protected PlayerInput _inputProvider;
+        protected PlayerInputManager _inputProvider;
         protected GroundSensor _groundSensor;
         protected PlayerControl _player;
 
         protected float _firstVelocityX;
 
-        public AirBorneState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator)
+        public AirBorneState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
@@ -34,7 +34,7 @@ namespace Separated.Player
         {
             base.Exit();
 
-            _inputProvider.UseInput(PlayerInput.EInputType.Jump);
+            _inputProvider.UseInput(PlayerInputManager.EActionInputType.Jump);
         }
 
         public override EBehaviorState GetNextState()

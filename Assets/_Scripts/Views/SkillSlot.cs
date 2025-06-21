@@ -3,7 +3,7 @@ using Separated.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Separated.UIElements
+namespace Separated.Views
 {
     public class SkillSlot : GameUI
     {
@@ -26,10 +26,10 @@ namespace Separated.UIElements
 
         }
 
-        public void ChangeSkill(SkillDescriptionData skillDescription)
-        {
-            _skillIcon.sprite = skillDescription.SkillIcon;
-        }
+        // public void ChangeSkill(SkillDescriptionData skillDescription)
+        // {
+        //     _skillIcon.sprite = skillDescription.SkillIcon;
+        // }
 
         public void CooldownSkill(SkillStateData skillData)
         {

@@ -12,7 +12,7 @@ namespace Separated.Player
         private FallStateData _fallData => _curStateData as FallStateData;
         private float _acceleration;
 
-        public Fall(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInput inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
+        public Fall(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator, player, inputProvider, groundSensor)
         {
         }
 

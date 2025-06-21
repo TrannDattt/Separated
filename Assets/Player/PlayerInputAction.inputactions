@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenBeastSkillMenu",
+                    "type": "Button",
+                    "id": "ec08bd60-0bd9-4b42-81a7-7f9a40759d21",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -123,6 +132,17 @@
                 },
                 {
                     "name": "",
+                    "id": "cf75ce64-d69e-4873-84e1-2baf5e740e4e",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "OpenBeastSkillMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4c8e729f-c791-48c3-982a-9a6b1b9219b7",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -149,7 +169,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -160,7 +180,7 @@
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Skill_1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -171,7 +191,7 @@
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Skill_2",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -182,7 +202,7 @@
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Skill_3",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -193,7 +213,7 @@
                     "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Skill_4",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -204,7 +224,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Ultimate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -214,30 +234,8 @@
         {
             "name": "UI",
             "id": "83a91c89-fdf9-4fe1-bfd6-cc0861453478",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "dc1f39d9-f5bf-44db-b95b-09e13ff00f24",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "cba02b08-9f42-4e3b-a066-22e7633ca077",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [

@@ -30,7 +30,7 @@ namespace Separated.Player{
         [SerializeField] private UnityEvent<SkillStateData> _onUltimateUsed;
 
         private PlayerControl _player;
-        private PlayerInput _inputProvider;
+        private PlayerInputManager _inputProvider;
         private GroundSensor _groundSensor;
         private Animator _animator;
         private UnitHitbox _hitbox;
@@ -93,7 +93,7 @@ namespace Separated.Player{
         void Awake()
         {
             _player = GetComponent<PlayerControl>();
-            _inputProvider = GetComponent<PlayerInput>();
+            _inputProvider = GetComponent<PlayerInputManager>();
             _groundSensor = GetComponentInChildren<GroundSensor>();
             _animator = GetComponentInChildren<Animator>();
             _hitbox = GetComponentInChildren<UnitHitbox>();

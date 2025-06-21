@@ -13,7 +13,7 @@ namespace Separated.Player
         public Rigidbody2D RigidBody { get; private set; }
         public PlayerInventoryManager Inventory { get; private set; }
 
-        public PlayerInput InputProvider { get; private set; }
+        public PlayerInputManager InputProvider { get; private set; }
 
         public override void Init()
         {
@@ -23,7 +23,7 @@ namespace Separated.Player
             CurStatData.CopyData(StatData);
 
             RigidBody = GetComponent<Rigidbody2D>();
-            InputProvider = GetComponent<PlayerInput>();
+            InputProvider = GetComponent<PlayerInputManager>();
 
             Inventory = GetComponentInChildren<PlayerInventoryManager>();
         }

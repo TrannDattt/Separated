@@ -4,16 +4,21 @@ using UnityEngine.InputSystem;
 
 namespace Separated.Player
 {
-    [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInput), typeof(PlayerControl))]
-    public class PlayerInput : MonoBehaviour
+    [RequireComponent(typeof(PlayerInput), typeof(PlayerControl))]
+    public class PlayerInputManager : MonoBehaviour
     {
-        public enum EInputType
+        public enum EActionInputType
         {
             Jump,
             Dash,
             Attack,
             Skill,
             // Ultimate,
+        }
+
+        public enum EInputUIType
+        {
+
         }
 
         public float MoveDir { get; private set; }
@@ -27,6 +32,8 @@ namespace Separated.Player
         public bool Skill4Input { get; private set; }
         public bool UltimateInput { get; private set; }
 
+        private PlayerInput _playerInput;
+
         public void OnMove(InputAction.CallbackContext context)
         {
             MoveDir = context.ReadValue<float>();
@@ -35,14 +42,15 @@ namespace Separated.Player
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if(context.started)
+            if (context.started)
             {
                 JumpInput = true;
             }
         }
 
-        public void OnDash(InputAction.CallbackContext context){
-            if(context.started)
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            if (context.started)
             {
                 DashInput = true;
             }
@@ -96,23 +104,23 @@ namespace Separated.Player
             }
         }
 
-        public void UseInput(EInputType inputType)
+        public void UseInput(EActionInputType inputType)
         {
             switch (inputType)
             {
-                case EInputType.Jump:
+                case EActionInputType.Jump:
                     JumpInput = false;
                     break;
 
-                case EInputType.Dash:
+                case EActionInputType.Dash:
                     DashInput = false;
                     break;
 
-                case EInputType.Attack:
+                case EActionInputType.Attack:
                     AttackInput = false;
                     break;
 
-                case EInputType.Skill:
+                case EActionInputType.Skill:
                     Skill1Input = false;
                     Skill2Input = false;
                     Skill3Input = false;
@@ -123,6 +131,23 @@ namespace Separated.Player
                 default:
                     break;
             }
+        }
+
+        // public void ChangeInputMap(string mapName)
+        // {
+        //     if (_playerInput != null)
+        //     {
+        //         _playerInput.SwitchCurrentActionMap(mapName);
+        //     }
+        //     else
+        //     {
+        //         Debug.LogWarning("PlayerInput component not found. Cannot change input map.");
+        //     }
+        // }
+
+        void Awake()
+        {
+            _playerInput = GetComponent<PlayerInput>();
         }
     }
 }
