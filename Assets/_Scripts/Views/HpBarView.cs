@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Separated.GameManager;
 using Separated.Helpers;
 using Separated.Interfaces;
 using Separated.Poolings;
@@ -10,7 +11,7 @@ using UnityEngine.UI;
 
 namespace Separated.Views
 {
-    public class HpBar : GameUI
+    public class HpBarView : GameUI
     {
         // TODO: Add event listener
         [SerializeField] private Image _fillImg;
@@ -18,7 +19,7 @@ namespace Separated.Views
         [SerializeField] private ImagePopup _hpLost;
         [SerializeField] private bool _doAnim;
 
-        private BaseUnit _unit;
+        private UnitStat _stat;
         private UnityEvent<Color> _onColorChanged = new();
 
         public override void Show()
@@ -31,21 +32,20 @@ namespace Separated.Views
 
         }
 
-        public void Initialize(BaseUnit unit)
+        public void Initialize(UnitStat stat)
         {
-            _unit = unit;
-            UpdateHpBar();
+            _stat = stat;
         }
-
-        public void UpdateHpBar()
+        
+        public void UpdateHpBar(float amount)
         {
-            if (_unit == null || _unit.CurStatData == null)
+            if (_stat == null)
             {
                 Debug.LogWarning("Unit or its stat data is not set.");
                 return;
             }
 
-            float newHpPercentage = _unit.CurStatData.Hp / _unit.StatData.Hp;
+            float newHpPercentage = _stat.CurHp / _stat.MaxHp;
             float hpLostPercentage = _fillImg.fillAmount - newHpPercentage;
             _fillImg.fillAmount = newHpPercentage;
 
@@ -63,7 +63,7 @@ namespace Separated.Views
                         newHpLost.Initialize(hpLostPercentage);
                         newHpLost.Pop(false);
                     });
-                    
+
                     StartCoroutine(LostHpCoroutine(hpLostPercentage));
                 }
             }

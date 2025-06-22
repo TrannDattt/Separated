@@ -21,9 +21,6 @@ namespace Separated.Enemies
         {
             base.Init();
 
-            CurStatData = ScriptableObject.CreateInstance<EnemyStatDataSO>();
-            CurStatData.CopyData(StatData);
-
             RigidBody = GetComponent<Rigidbody2D>();
             _navigator = new UnitNavigator();
         }
@@ -44,9 +41,6 @@ namespace Separated.Enemies
         {
             base.TakeDamage(damage);
             // Debug.Log($"Enemy {gameObject.name} took {damage} damage.");
-
-            (this as IDamageble).CanTakeDamage = false;
-            IsTakingDamage = true;
         }
 
         public override void TakePoiseDamage(float poiseDamage)

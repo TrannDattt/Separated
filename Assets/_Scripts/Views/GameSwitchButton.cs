@@ -7,17 +7,18 @@ using UnityEngine.UI;
 
 namespace Separated.Views
 {
-    [RequireComponent(typeof(Image))]
-    public class GameButton : GameUI, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+    public class GameSwitchButton : GameUI, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] protected Sprite _normalIcon;
+        [SerializeField] protected Sprite _switchOffIcon;
+        [SerializeField] protected Sprite _switchOnIcon;
         [SerializeField] protected Sprite _hoverIcon;
-        [SerializeField] protected Sprite _pressedIcon;
 
         [SerializeField] protected Image _buttonImage;
         [SerializeField, AllowNull] protected TextMeshProUGUI _buttonText;
 
-        public UnityEvent OnClicked;
+        public bool IsOn { get; private set; } = false;
+
+        public UnityEvent<bool> OnStateChanged;
 
         public void ChangeContent(string text)
         {
@@ -39,26 +40,44 @@ namespace Separated.Views
             // Implement hide logic
         }
 
+        public virtual void TurnOn()
+        {
+            IsOn = true;
+            _buttonImage.sprite = _switchOnIcon;
+            OnStateChanged?.Invoke(IsOn);
+        }
+
+        public virtual void TurnOff()
+        {
+            IsOn = false;
+            _buttonImage.sprite = _switchOffIcon;
+            OnStateChanged?.Invoke(IsOn);
+        }
+
         public virtual void OnPointerDown(PointerEventData eventData)
         {
-            _buttonImage.sprite = _pressedIcon;
+            if (IsOn)
+            {
+                TurnOff();
+            }
+            else
+            {
+                TurnOn();
+            }
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
-            _buttonImage.sprite = _normalIcon;
-            // Debug.Log($"Button clicked => Invoke {OnClicked.GetPersistentEventCount()} listeners");
-            OnClicked?.Invoke();
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            _buttonImage.sprite = _hoverIcon;
+            _buttonImage.sprite = _hoverIcon?? _buttonImage.sprite;
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
-            _buttonImage.sprite = _normalIcon;
+            _buttonImage.sprite = IsOn ? _switchOnIcon : _switchOffIcon;
         }
     }
 }

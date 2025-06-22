@@ -238,7 +238,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82707faaab4bf3448a8aeb48a8d5e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _switchOffIcon: {fileID: 0}
+  _switchOnIcon: {fileID: 0}
+  _hoverIcon: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
+  _buttonImage: {fileID: 5033094533755769381}
+  _buttonText: {fileID: 8893747579628375528}
+  OnStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _disabledIcon: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   _canvasGroup: {fileID: 6407236354710428019}
-  _icon: {fileID: 5033094533755769381}
-  _name: {fileID: 8893747579628375528}
-  _defaultIcon: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}

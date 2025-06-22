@@ -5,16 +5,12 @@ using UnityEngine.UI;
 
 namespace Separated.Views
 {
-    public class SkullIcon : GameUI
+    public class SkullIcon : GameSwitchButton
     {
+        [SerializeField] private Sprite _disabledIcon;
         [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private Image _icon;
-        [SerializeField] private TextMeshProUGUI _name;
-        [SerializeField] private Sprite _defaultIcon;
 
-        public bool IsActive { get; private set; } = false;
-
-        private BeastData _curData;
+        public BeastData CurData { get; private set; }
 
         public override void Hide()
         {
@@ -26,10 +22,13 @@ namespace Separated.Views
 
         public void Initialize(BeastData beastData)
         {
-            _curData = beastData;
+            CurData = beastData;
 
-            _icon.sprite = beastData ? beastData.InactiveSkullIcon : _defaultIcon;
-            _name.text = beastData ? beastData.Name : "???";
+            _switchOnIcon = beastData ? beastData.ActiveSkullIcon : _disabledIcon;
+            _switchOffIcon = beastData ? beastData.InactiveSkullIcon : _disabledIcon;
+
+            _buttonImage.sprite = !beastData ? _disabledIcon : IsOn ? _switchOnIcon : _switchOffIcon;
+            _buttonText.text = beastData ? beastData.Name : "???";
         }
 
         public void EnableIcon(BeastData beastData)
@@ -40,32 +39,30 @@ namespace Separated.Views
                 return;
             }
 
-            _curData = beastData;
-            _icon.sprite = beastData.InactiveSkullIcon;
-            _name.text = beastData.Name;
+            CurData = beastData;
             _canvasGroup.alpha = 1f;
+
+            Initialize(beastData);
         }
 
-        public void Activate()
+        public override void TurnOn()
         {
-            if (!_curData)
+            if (!CurData)
             {
                 return;
             }
 
-            IsActive = true;
-            _icon.sprite = _curData.ActiveSkullIcon;
+            base.TurnOn();
         }
 
-        public void Deactivate()
+        public override void TurnOff()
         {
-            if (!_curData)
+            if (!CurData)
             {
                 return;
             }
 
-            IsActive = false;
-            _icon.sprite = _curData.InactiveSkullIcon;
+            base.TurnOff();
         }
     }
 }

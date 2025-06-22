@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Separated.Data
 {
 
-    [CreateAssetMenu(menuName = "Scriptable Object/Stat Data/Loot Drop")]
+    [CreateAssetMenu(menuName = "Scriptable Object/Drop Data")]
     public class LootDropData : ScriptableObject
     {
         public int SoulDrop;

@@ -7,17 +7,36 @@ namespace Separated.GameManager
 {
     public static class EventManager
     {
-        private static readonly Dictionary<Type, object> _eventDict = new();
-
-        public static Event<T> GetEvent<T>()
+        public enum EEventType
         {
-            var type = typeof(T);
+            // Player events
+            HealthChanged,
+            PlayerDied,
+            PlayerSkillChanged,
+            PlayerSkillUsed,
+            // Enemy events
+            EnemyDied,
+            // Inventory events
+            InventoryUpdated,
+            // Game events
+            GameStateChanged,
+            // UI events
+            UIUpdated,
+            PopMessageDialog,
+        }
+
+        private static readonly Dictionary<(EEventType, Type), object> _eventDict = new();
+        // private static readonly Dictionary<EEventType, object>
+
+        public static Event<EEventType, T> GetEvent<T>(EEventType eventType)
+        {
+            var type = (eventType, typeof(T));
             if (!_eventDict.TryGetValue(type, out var eventObj))
             {
-                eventObj = new Event<T>();
+                eventObj = new Event<EEventType, T>();
                 _eventDict[type] = eventObj;
             }
-            return (Event<T>)eventObj;
+            return (Event<EEventType, T>)eventObj;
         }
 
         public static void ClearEvents()

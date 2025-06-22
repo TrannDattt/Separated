@@ -11,14 +11,18 @@ namespace Separated.Views
         [SerializeField] private Image _skillIcon;
         [SerializeField] private Image _cooldownImg;
 
+        public SkillNodeData SkillData { get; private set; }
+
         public override void Hide()
         {
 
         }
 
-        public void Initialize()
+        public void Initialize(SkillNodeData skillData)
         {
+            SkillData = skillData;
 
+            _skillIcon.sprite = skillData?.SkillIcon;
         }
 
         public override void Show()
@@ -26,14 +30,20 @@ namespace Separated.Views
 
         }
 
-        // public void ChangeSkill(SkillDescriptionData skillDescription)
-        // {
-        //     _skillIcon.sprite = skillDescription.SkillIcon;
-        // }
-
-        public void CooldownSkill(SkillStateData skillData)
+        public void UpdateSkillView(SkillNodeData skillData)
         {
-            StartCoroutine(CooldownCoroutine(skillData));
+            SkillData = skillData;
+            _skillIcon.sprite = skillData?.SkillIcon;
+        }
+
+        public void CooldownSkill()
+        {
+            if (!SkillData)
+            {
+                return;
+            }
+
+            StartCoroutine(CooldownCoroutine(SkillData.NodeSkillData as SkillStateData));
         }
 
         public IEnumerator CooldownCoroutine(SkillStateData skillData)

@@ -14,7 +14,7 @@ namespace Separated.Interfaces
         public void Notify(T eventData);
     }
 
-    public class Event<T> : IEvent<T>
+    public class Event<EEventType, T> : IEvent<T>
     {
         private readonly List<IEventListener<T>> _listeners = new();
         public int ListenerCount => _listeners.Count;

@@ -6,6 +6,8 @@ using Separated.Helpers;
 using Separated.Unit;
 using UnityEngine;
 using UnityEngine.Events;
+using static Separated.GameManager.EventManager;
+using static Separated.Player.PlayerSkillManager;
 
 namespace Separated.Player
 {
@@ -15,7 +17,6 @@ namespace Separated.Player
         private PlayerInputManager _inputProvider;
         private PlayerControl _player;
         private UnitHitbox _hitbox;
-        private UnityEvent<SkillStateData> _onSkillUsed;
 
         private Queue<SkillPhase> _phaseQueue = new();
         private SkillPhase _curPhase;
@@ -24,12 +25,11 @@ namespace Separated.Player
         public bool IsInCoolDown;
 
         // TODO: Use 1 animation for whole skill instead of 1 for each phase
-        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, PlayerInputManager inputProvider, PlayerControl player, UnitHitbox hitbox, UnityEvent<SkillStateData> onSkillUsed) : base(key, data, animator)
+        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, PlayerInputManager inputProvider, PlayerControl player, UnitHitbox hitbox) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _player = player;
             _hitbox = hitbox;
-            _onSkillUsed = onSkillUsed;
         }
 
         public override void Enter()
@@ -84,7 +84,9 @@ namespace Separated.Player
 
             IsInCoolDown = true;
             RuntimeCoroutine.Instance.StartRuntimeCoroutine(CooldownSkillCoroutine());
-            _onSkillUsed?.Invoke(_skillData);
+
+            var skillUsedEvent = GetEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
+            skillUsedEvent.Notify(GetSkillSlot());
         }
 
         public override EBehaviorState GetNextState()
@@ -95,6 +97,19 @@ namespace Separated.Player
             }
 
             return Key;
+        }
+
+        private ESkillSlot GetSkillSlot()
+        {
+            return Key switch
+            {
+                EBehaviorState.Skill1 => ESkillSlot.Skill1,
+                EBehaviorState.Skill2 => ESkillSlot.Skill2,
+                EBehaviorState.Skill3 => ESkillSlot.Skill3,
+                EBehaviorState.Skill4 => ESkillSlot.Skill4,
+                EBehaviorState.Ultimate => ESkillSlot.Ultimate,
+                _ => throw new System.ArgumentOutOfRangeException(nameof(Key), Key, null)
+            };
         }
 
         private void ChangeToNextPhase()

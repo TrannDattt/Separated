@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Separated.SummonedBeasts
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class SummonedBeastControl : BaseUnit
+    public class SummonedBeastControl
     {
         public Rigidbody2D RigidBody { get; private set; }
 
@@ -25,7 +25,7 @@ namespace Separated.SummonedBeasts
 
         void Start()
         {
-            RigidBody = GetComponent<Rigidbody2D>();
+            // RigidBody = GetComponent<Rigidbody2D>();
         }
     }
 }

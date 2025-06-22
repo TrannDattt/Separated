@@ -3,6 +3,7 @@ using System.Linq;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
+using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
 using UnityEngine.Events;
@@ -114,14 +115,14 @@ namespace Separated.Enemies
 
         protected override void Update()
         {
-            if (_enemy.CurStatData.Hp == 0)
+            if (_enemy.Stat.CurHp == 0 && !_enemy.Stat.IsDead)
             {
-                _enemy.CurStatData.Hp = -1;
-                // Debug.Log("Change state");
+                _enemy.Stat.IsDead = true;
+                // Debug.Log("Die");
                 ChangeState(EBehaviorState.Die);
             }
 
-            if (_enemy.IsTakingDamage && _enemy.CurStatData.Hp > 0)
+            if (_enemy.IsTakingDamage && _enemy.Stat.CurHp > 0)
             {
                 _enemy.IsTakingDamage = false;
                 ChangeState(EBehaviorState.Hurt);

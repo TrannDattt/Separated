@@ -2,6 +2,7 @@ using Separated.Enums;
 using Separated.GameManager;
 using Separated.Interfaces;
 using UnityEngine;
+using static Separated.GameManager.EventManager;
 
 namespace Separated.Views
 {
@@ -11,7 +12,7 @@ namespace Separated.Views
         [SerializeField] private EAnimationType _animationType;
         [SerializeField] private bool _closeOnStart;
 
-        protected Event<EGameState> _uiInteractionEvent => EventManager.GetEvent<EGameState>();
+        protected Event<EEventType, EGameState> _menuOpenedEvent => GetEvent<EGameState>(EEventType.UIUpdated);
 
         protected bool _isOpened = true;
 
@@ -21,7 +22,7 @@ namespace Separated.Views
 
             // Implement show logic based on animation type
             // _canvasGroup.alpha = 1;
-            _uiInteractionEvent.Notify(EGameState.Pause);
+            // _menuOpenedEvent.Notify(EGameState.Pause);
             gameObject.SetActive(true);
             _isOpened = true;
         }
@@ -32,7 +33,7 @@ namespace Separated.Views
 
             // Implement hide logic
             // _canvasGroup.alpha = 0;
-            _uiInteractionEvent.Notify(EGameState.InGame);
+            // _menuOpenedEvent.Notify(EGameState.InGame);
             gameObject.SetActive(false);
             _isOpened = false;
         }

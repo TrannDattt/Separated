@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
+using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
 using UnityEngine.Events;
+using static Separated.Player.PlayerSkillManager;
 
 namespace Separated.Player{
-    public class PlayerStateMachine : BaseStateMachine<EBehaviorState>
+    public class PlayerStateMachine : BaseStateMachine<EBehaviorState>, IEventListener<Tuple<ESkillSlot, BeastData>>
     {
         [SerializeField] private IdleStateData _idleData;
         [SerializeField] private RunStateData _runData;
@@ -19,21 +22,16 @@ namespace Separated.Player{
         [SerializeField] private DashStateData _dashData;
         [SerializeField] private AttackData[] _meleeAttackDatas;
         // [SerializeField] private List<MeleeAttackStateData> _meleeAttackDatas;
-        [SerializeField] private SkillStateData[] _skillDatas;
+        // [SerializeField] private SkillStateData[] _skillDatas;
         [SerializeField] private HurtStateData _hurtData;
         [SerializeField] private DieStateData _dieData;
-
-        [SerializeField] private UnityEvent<SkillStateData> _onSkill1Used;
-        [SerializeField] private UnityEvent<SkillStateData> _onSkill2Used;
-        [SerializeField] private UnityEvent<SkillStateData> _onSkill3Used;
-        [SerializeField] private UnityEvent<SkillStateData> _onSkill4Used;
-        [SerializeField] private UnityEvent<SkillStateData> _onUltimateUsed;
 
         private PlayerControl _player;
         private PlayerInputManager _inputProvider;
         private GroundSensor _groundSensor;
         private Animator _animator;
         private UnitHitbox _hitbox;
+        private PlayerSkillManager _skillManager;
 
         public void InitSM()
         {
@@ -48,11 +46,11 @@ namespace Separated.Player{
             _stateDict.Add(EBehaviorState.Dash, new Dash(EBehaviorState.Dash, _dashData, _animator, _player, _inputProvider, _groundSensor));
             
             _stateDict.Add(EBehaviorState.Attack, new MeleeAttack(EBehaviorState.Attack, _meleeAttackDatas, _meleeAttackDatas[0], _animator, _player, _inputProvider, this, _hitbox));
-            _stateDict.Add(EBehaviorState.Skill1, new SkillState(EBehaviorState.Skill1, _skillDatas[0], _animator, _inputProvider, _player, _hitbox, _onSkill1Used));
-            _stateDict.Add(EBehaviorState.Skill2, new SkillState(EBehaviorState.Skill2, _skillDatas[1], _animator, _inputProvider, _player, _hitbox, _onSkill2Used));
-            _stateDict.Add(EBehaviorState.Skill3, new SkillState(EBehaviorState.Skill3, _skillDatas[2], _animator, _inputProvider, _player, _hitbox, _onSkill3Used));
-            _stateDict.Add(EBehaviorState.Skill4, new SkillState(EBehaviorState.Skill4, _skillDatas[3], _animator, _inputProvider, _player, _hitbox, _onSkill4Used));
-            _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _skillDatas[4], _animator, _inputProvider, _player, _hitbox, _onUltimateUsed));
+            // _stateDict.Add(EBehaviorState.Skill1, new SkillState(EBehaviorState.Skill1, _skillDatas[0], _animator, _inputProvider, _player, _hitbox));
+            // _stateDict.Add(EBehaviorState.Skill2, new SkillState(EBehaviorState.Skill2, _skillDatas[1], _animator, _inputProvider, _player, _hitbox));
+            // _stateDict.Add(EBehaviorState.Skill3, new SkillState(EBehaviorState.Skill3, _skillDatas[2], _animator, _inputProvider, _player, _hitbox));
+            // _stateDict.Add(EBehaviorState.Skill4, new SkillState(EBehaviorState.Skill4, _skillDatas[3], _animator, _inputProvider, _player, _hitbox));
+            // _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _skillDatas[4], _animator, _inputProvider, _player, _hitbox));
 
             _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _player));
             _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator));
@@ -90,6 +88,34 @@ namespace Separated.Player{
             return dataList[nextIndex];
         }
 
+        public EBehaviorState GetSkillKey(ESkillSlot slot)
+        {
+            return slot switch
+            {
+                ESkillSlot.Skill1 => EBehaviorState.Skill1,
+                ESkillSlot.Skill2 => EBehaviorState.Skill2,
+                ESkillSlot.Skill3 => EBehaviorState.Skill3,
+                ESkillSlot.Skill4 => EBehaviorState.Skill4,
+                ESkillSlot.Ultimate => EBehaviorState.Ultimate,
+                _ => throw new ArgumentOutOfRangeException(nameof(slot), slot, null)
+            };
+        }
+
+        public void OnEventNotify(Tuple<ESkillSlot, BeastData> eventData)
+        {
+            var skillKey = GetSkillKey(eventData.Item1);
+            var skillData = eventData.Item2?.DefaultActiveSkill.NodeSkillData as SkillStateData;
+            var newSkillState = new SkillState(skillKey, skillData, _animator, _inputProvider, _player, _hitbox);
+
+            if (!_stateDict.ContainsKey(skillKey))
+            {
+                _stateDict.Add(skillKey, newSkillState);
+                return;
+            }
+
+            UpdateState(skillKey, newSkillState);
+        }
+
         void Awake()
         {
             _player = GetComponent<PlayerControl>();
@@ -97,18 +123,21 @@ namespace Separated.Player{
             _groundSensor = GetComponentInChildren<GroundSensor>();
             _animator = GetComponentInChildren<Animator>();
             _hitbox = GetComponentInChildren<UnitHitbox>();
+            
+            _skillManager = GetComponentInChildren<PlayerSkillManager>();
+            _skillManager.Initialize();
 
             InitSM();
         }
 
         protected override void Update()
         {
-            if (_player.CurStatData.Hp == 0)
+            if (_player.Stat.CurHp == 0)
             {
                 // ChangeState(EBehaviorState.Die);
             }
 
-            if (_player.CurStatData.Poise == 0)
+            if (_player.Stat.CurPoise == 0)
             {
                 // ChangeState(EBehaviorState.KnockOut);
             }

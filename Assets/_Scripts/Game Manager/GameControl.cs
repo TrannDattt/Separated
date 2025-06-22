@@ -58,8 +58,8 @@ namespace Separated.GameManager
 
         void Start()
         {
-            var changeStateEvent = EventManager.GetEvent<EGameState>();
-            changeStateEvent.AddListener(this);
+            var menuOpenedEvent = EventManager.GetEvent<EGameState>(EventManager.EEventType.UIUpdated);
+            menuOpenedEvent.AddListener(this);
         }
     }
 }

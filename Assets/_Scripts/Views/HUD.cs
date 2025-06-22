@@ -5,7 +5,7 @@ namespace Separated.Views
 {
     public class HUD : GameUI
     {
-        [SerializeField] private HpBar _playerHpBar;
+        [SerializeField] private HpBarView _playerHpBar;
 
         public override void Show()
         {
@@ -19,7 +19,7 @@ namespace Separated.Views
 
         public void Initialize()
         {
-            _playerHpBar.Initialize(PlayerControl.Instance);
+            // _playerHpBar.Initialize(PlayerControl.Instance);
         }
 
         void Start()

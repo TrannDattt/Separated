@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Separated.Views
 {
-    public class OptionDialogueBox : DialogueBox
+    public class OptionDialogBox : DialogueBox
     {
         [SerializeField] private GameButton _confirmButton;
         [SerializeField] private GameButton _declineButton;

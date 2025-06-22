@@ -11,21 +11,14 @@ namespace Separated.Player
     {
         public static PlayerControl Instance { get; private set; }
         public Rigidbody2D RigidBody { get; private set; }
-        public PlayerInventoryManager Inventory { get; private set; }
-
         public PlayerInputManager InputProvider { get; private set; }
 
         public override void Init()
         {
             base.Init();
 
-            CurStatData = ScriptableObject.CreateInstance<PlayerStatDataSO>();
-            CurStatData.CopyData(StatData);
-
             RigidBody = GetComponent<Rigidbody2D>();
             InputProvider = GetComponent<PlayerInputManager>();
-
-            Inventory = GetComponentInChildren<PlayerInventoryManager>();
         }
 
         private void ChangeFaceDir()

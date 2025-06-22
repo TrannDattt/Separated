@@ -7,6 +7,7 @@ using Separated.Interfaces;
 using Separated.Player;
 using Separated.Poolings;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Separated.Views
@@ -16,6 +17,8 @@ namespace Separated.Views
         [SerializeField] private CanvasGroup _parentCanvasGroup;
         [SerializeField] private TextMeshProUGUI _curValue;
         [SerializeField] private TextPopup _soulChange;
+
+        private PlayerInventoryManager _playerInventory;
 
         public override void Show()
         {
@@ -27,10 +30,11 @@ namespace Separated.Views
 
         }
 
-        public void Initialize()
+        public void Initialize(PlayerInventoryManager playerInventory)
         {
-            var soulChanged = EventManager.GetEvent<int>();
-            soulChanged.AddListener(this);
+            // var inventoryChangedEvent = EventManager.GetEvent<int>(EventManager.EEventType.InventoryUpdated);
+            // inventoryChangedEvent.AddListener(this);
+            _playerInventory = playerInventory;
         }
 
         public void OnEventNotify(int eventData)
@@ -40,9 +44,8 @@ namespace Separated.Views
 
         public void UpdateCount()
         {
-            var playerSoul = PlayerControl.Instance.Inventory.SoulHeld;
-
-            StartCoroutine(DOTweenUI.ChangeNumberValueCoroutine(_curValue, .5f, playerSoul));
+            var newValue = _playerInventory.SoulHeld;
+            StartCoroutine(DOTweenUI.ChangeNumberValueCoroutine(_curValue, .5f, newValue));
         }
 
         public void ShowChangeValue(int amount)
@@ -57,11 +60,6 @@ namespace Separated.Views
 
                 newPopup.Pop(false);
             });            
-        }
-
-        void Start()
-        {
-            Initialize();
         }
     }
 }

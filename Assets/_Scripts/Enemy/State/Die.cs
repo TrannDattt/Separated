@@ -12,8 +12,6 @@ namespace Separated.Enemies
         private DieStateData _dieData => CurStateData as DieStateData;
 
         private EnemyControl _enemy;
-        private Event<LootDropData> _dropEvent => EventManager.GetEvent<LootDropData>();
-        private Event<EBeastType> _dieEvent => EventManager.GetEvent<EBeastType>();
         private bool _isDeath;
 
         public Die(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy) : base(key, data, animator)
@@ -26,8 +24,11 @@ namespace Separated.Enemies
             base.Enter();
 
             _isDeath = false;
-            _dieEvent.Notify(_enemy.EnemyType);
-            _dropEvent.Notify(_dieData.DropData);
+            var enemyDieEvent = EventManager.GetEvent<EBeastType>(EventManager.EEventType.EnemyDied);
+            enemyDieEvent.Notify(_enemy.EnemyType);
+
+            var enemyDropEvent = EventManager.GetEvent<LootDropData>(EventManager.EEventType.EnemyDied);
+            enemyDropEvent.Notify(_dieData.DropData);
         }
 
         public override void Do()

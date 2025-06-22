@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Separated.Data;
 using Separated.GameManager;
 using Separated.Interfaces;
+using Separated.Views;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,8 @@ namespace Separated.Player
 {
     public class PlayerInventoryManager : MonoBehaviour, IEventListener<LootDropData>
     {
+        [SerializeField] private SoulCountView _soulCountView;
+
         public int SoulHeld { get; private set; }
         public Dictionary<GameObject, int> ItemsHeld { get; private set; }
 
@@ -18,8 +21,10 @@ namespace Separated.Player
             SoulHeld = 0;
             ItemsHeld = new Dictionary<GameObject, int>();
 
-            var lootDropEvent = EventManager.GetEvent<LootDropData>();
-            lootDropEvent.AddListener(this);
+            _soulCountView.Initialize(this);
+
+            var enemyDropEvent = EventManager.GetEvent<LootDropData>(EventManager.EEventType.EnemyDied);
+            enemyDropEvent.AddListener(this);
         }
 
         public void OnEventNotify(LootDropData eventData)
@@ -31,7 +36,9 @@ namespace Separated.Player
         public void ChangeSoulHeld(int amount)
         {
             SoulHeld += amount;
-            EventManager.GetEvent<int>().Notify(amount);
+            // var soulUpdatedEvent = EventManager.GetEvent<int>(EventManager.EEventType.InventoryUpdated);
+            // soulUpdatedEvent.Notify(amount);
+            _soulCountView.ShowChangeValue(amount);
         }
 
         public void ChangeItemHeld(ItemsDrop[] drops)
@@ -77,7 +84,8 @@ namespace Separated.Player
                 }
             }
 
-            EventManager.GetEvent<ItemsDrop[]>().Notify(drops);
+            var itemUpdatedEvent = EventManager.GetEvent<ItemsDrop[]>(EventManager.EEventType.InventoryUpdated);
+            itemUpdatedEvent.Notify(drops);
         }
 
         private void Start()
@@ -87,7 +95,8 @@ namespace Separated.Player
     }
 
     [Serializable]
-    public class ItemsDrop {
+    public class ItemsDrop
+    {
         public GameObject Item;
         public int Amount;
     }

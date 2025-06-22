@@ -5,6 +5,7 @@ using Separated.Enums;
 using Separated.GameManager;
 using Separated.Helpers;
 using Separated.Interfaces;
+using Separated.Views;
 using UnityEngine;
 
 namespace Separated.Skills
@@ -12,6 +13,7 @@ namespace Separated.Skills
     public class BeastDictionary : Singleton<BeastDictionary>, IEventListener<EBeastType>
     {
         [SerializeField] private BeastData[] _beastDatas;
+        [SerializeField] private BeastDictionaryView _beastDictionaryView;
 
         private Dictionary<EBeastType, BeastData> _beastDict = new();
         private Dictionary<EBeastType, bool> _availableBeastDict = new();
@@ -36,7 +38,7 @@ namespace Separated.Skills
                 _availableBeastDict.Add(beastData.Type, false);
             }
 
-            var enemyDieEvent = EventManager.GetEvent<EBeastType>();
+            var enemyDieEvent = EventManager.GetEvent<EBeastType>(EventManager.EEventType.EnemyDied);
             enemyDieEvent.AddListener(this);
         }
 
@@ -76,6 +78,9 @@ namespace Separated.Skills
             if (_availableBeastDict.ContainsKey(type))
             {
                 _availableBeastDict[type] = true;
+                // var beastUpdatedEvent = EventManager.GetEvent<EBeastType>(EventManager.EEventType.InventoryUpdated);
+                // beastUpdatedEvent.Notify(type);
+                _beastDictionaryView.EnableIcon(type);
             }
             else
             {

@@ -1,28 +1,27 @@
-using System.Collections;
 using Separated.Data;
 using Separated.Interfaces;
-using Unity.VisualScripting;
+using Separated.Views;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 namespace Separated.Unit
 {
     public abstract class BaseUnit : MonoBehaviour, IDamageble
     {
-        [field: SerializeField] public BaseStatDataSO StatData { get; protected set; }
+        [SerializeField] private BaseStatDataSO _statData;
+        [SerializeField] private HpBarView _hpBarView;
 
-        public BaseStatDataSO CurStatData { get; protected set; }
-
-        bool IDamageble.CanTakeDamage { get; set; }
+        public UnitStat Stat { get; private set; }
         public bool IsTakingDamage { get; set; }
-
-        public UnityEvent OnHealthChanged;
+        public bool CanTakeDamage { get; set; }
 
         public virtual void Init()
         {
+            Stat = new UnitStat(_statData);
+
             (this as IDamageble).CanTakeDamage = true;
             IsTakingDamage = false;
+
+            _hpBarView?.Initialize(Stat);
         }
 
         public virtual void Knockback(Vector2 knockbackDir, float knockbackForce)
@@ -32,8 +31,7 @@ namespace Separated.Unit
 
         public virtual void TakeDamage(float damage)
         {
-            CurStatData.Hp = Mathf.Max(0, CurStatData.Hp - damage);
-            OnHealthChanged?.Invoke();
+            Stat.ChangeCurHp(-damage);
 
             (this as IDamageble).CanTakeDamage = false;
             IsTakingDamage = true;
@@ -42,6 +40,22 @@ namespace Separated.Unit
         public virtual void TakePoiseDamage(float poiseDamage)
         {
 
+        }
+
+        void OnEnable()
+        {
+            if (_hpBarView != null)
+            {
+                Stat.OnHpChanged.AddListener(_hpBarView.UpdateHpBar);
+            }
+        }
+
+        void OnDisable()
+        {
+            if (_hpBarView != null)
+            {
+                Stat.OnHpChanged.RemoveListener(_hpBarView.UpdateHpBar);
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Separated.Views
 {
-    public class MessageDialogueBox : DialogueBox
+    public class MessageDialogBox : DialogueBox
     {
         [SerializeField] private GameButton _confirmButton;
 

@@ -22,6 +22,9 @@ namespace Separated.Data
         [Header("Skill tree")]
         public SkillNodeData[] SkillNodes;
 
+        [Header("Overrided Skills")]
+        public SkillNodeData DefaultActiveSkill;
+        public SkillNodeData DefaultPassiveSkill;
     }
 
     [Serializable]

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0baf2b95ad858874f9528d355fb9487d, type: 3}
-  m_Name: New Enemy Stat Data SO
+  m_Script: {fileID: 11500000, guid: 259bd2a8575b8b7438c98161b2725667, type: 3}
+  m_Name: New Base Stat Data SO
   m_EditorClassIdentifier: 
   Hp: 1
-  Poise: 100
+  Poise: 1
