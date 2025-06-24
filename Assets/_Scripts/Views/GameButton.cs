@@ -60,5 +60,11 @@ namespace Separated.Views
         {
             _buttonImage.sprite = _normalIcon;
         }
+
+        void OnDestroy()
+        {
+            OnClicked = null;
+            
+        }
     }
 }

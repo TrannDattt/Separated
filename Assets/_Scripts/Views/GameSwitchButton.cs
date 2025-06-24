@@ -18,6 +18,7 @@ namespace Separated.Views
 
         public bool IsOn { get; private set; } = false;
 
+        public UnityEvent OnClicked;
         public UnityEvent<bool> OnStateChanged;
 
         public void ChangeContent(string text)
@@ -72,12 +73,18 @@ namespace Separated.Views
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            _buttonImage.sprite = _hoverIcon?? _buttonImage.sprite;
+            _buttonImage.sprite = _hoverIcon ?? _buttonImage.sprite;
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
             _buttonImage.sprite = IsOn ? _switchOnIcon : _switchOffIcon;
+        }
+
+        void OnDestroy()
+        {
+            OnClicked = null;
+            OnStateChanged = null;
         }
     }
 }

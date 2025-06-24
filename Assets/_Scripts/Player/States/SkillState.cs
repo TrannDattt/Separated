@@ -36,6 +36,12 @@ namespace Separated.Player
         {
             _inputProvider.UseInput(PlayerInputManager.EActionInputType.Skill);
 
+            if (!_skillData)
+            {
+                Debug.LogError($"Skill data for {Key} is not set.");
+                return;
+            }
+
             if (IsInCoolDown)
             {
                 return;
@@ -59,6 +65,11 @@ namespace Separated.Player
         {
             base.Do();
 
+            if (!_skillData)
+            {
+                return;
+            }
+
             _curPhase.Do();
 
             if (PlayedTime > _phaseStartTime + _curPhase.PhaseDuration)
@@ -75,7 +86,7 @@ namespace Separated.Player
 
         public override void Exit()
         {
-            if (IsInCoolDown)
+            if (!_skillData || IsInCoolDown)
             {
                 return;
             }
@@ -87,11 +98,12 @@ namespace Separated.Player
 
             var skillUsedEvent = GetEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
             skillUsedEvent.Notify(GetSkillSlot());
+            Debug.Log("Use skill 1");
         }
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish || IsInCoolDown)
+            if (!_skillData || _isFinish || IsInCoolDown)
             {
                 return EBehaviorState.Idle;
             }

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Separated.Data;
 using Separated.Enums;
+using Separated.GameManager;
 using Separated.Helpers;
 using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
 using UnityEngine.Events;
+using static Separated.GameManager.EventManager;
 using static Separated.Player.PlayerSkillManager;
 
 namespace Separated.Player{
@@ -103,8 +105,9 @@ namespace Separated.Player{
 
         public void OnEventNotify(Tuple<ESkillSlot, BeastData> eventData)
         {
+            // Debug.Log("Update skill");
             var skillKey = GetSkillKey(eventData.Item1);
-            var skillData = eventData.Item2?.DefaultActiveSkill.NodeSkillData as SkillStateData;
+            var skillData = eventData.Item2?.DefaultActionSkill.SkillData as SkillStateData;
             var newSkillState = new SkillState(skillKey, skillData, _animator, _inputProvider, _player, _hitbox);
 
             if (!_stateDict.ContainsKey(skillKey))
@@ -125,7 +128,11 @@ namespace Separated.Player{
             _hitbox = GetComponentInChildren<UnitHitbox>();
             
             _skillManager = GetComponentInChildren<PlayerSkillManager>();
+            // Debug.Log(_skillManager);
             _skillManager.Initialize();
+
+            var skillChangedEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
+            skillChangedEvent.AddListener(this);
 
             InitSM();
         }

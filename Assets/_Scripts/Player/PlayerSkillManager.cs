@@ -6,6 +6,7 @@ using Separated.Data;
 using Separated.Interfaces;
 using Separated.Views;
 using UnityEngine;
+using static Separated.GameManager.EventManager;
 using static Separated.Player.PlayerSkillManager;
 
 namespace Separated.Player
@@ -36,20 +37,26 @@ namespace Separated.Player
                 { ESkillSlot.Ultimate, new() } // Ultimate is always summon all the equipped beasts
             };
 
-            if (skillStates == null)
+            if (skillStates != null)
             {
-                return;
-            }
+                for (int i = 0; i < _skillDict.Keys.Count - 1; i++)
+                {
+                    var key = _skillDict.Keys.ElementAt(i);
+                    _skillDict[key] = i >= skillStates.Length ? new() : new(skillStates[i]);
+                }
 
-            for (int i = 0; i < _skillDict.Keys.Count - 1; i++)
-            {
-                var key = _skillDict.Keys.ElementAt(i);
-                _skillDict[key] = i >= skillStates.Length ? new() : new(skillStates[i]);
+                // TODO: Init ultimate skill
             }
-
-            // TODO: Init ultimate skill
 
             _playerSkillView.Initialize(_skillDict.Values.ToArray());
+
+            // Debug.Log("Init listener");
+
+            var skillUpdatedEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
+            skillUpdatedEvent.AddListener(this);
+
+            var skillUsedEvent = GetEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
+            skillUsedEvent.AddListener(this);
         }
 
         public void UpdateSkillDict(ESkillSlot slot, BeastData beastData)
@@ -61,7 +68,8 @@ namespace Separated.Player
                 return;
             }
 
-            var skillData = beastData.DefaultActiveSkill; // TODO: Get current skill from beast skill manager => skill tree
+            var skillData = beastData.DefaultActionSkill; // TODO: Get current skill from beast skill manager => skill tree
+            Debug.Log(skillData);
             _skillDict[slot] = new(skillData);
 
             _playerSkillView.UpdateSkillView(slot, skillData);
@@ -69,6 +77,7 @@ namespace Separated.Player
 
         public void OnEventNotify(Tuple<ESkillSlot, BeastData> eventData)
         {
+            // Debug.Log("Update skill 2");
             UpdateSkillDict(eventData.Item1, eventData.Item2);
         }
 
@@ -79,6 +88,7 @@ namespace Separated.Player
 
         public void OnEventNotify(ESkillSlot eventData)
         {
+            // Debug.Log("Use skill 2");
             UseSkill(eventData);
         }
     }

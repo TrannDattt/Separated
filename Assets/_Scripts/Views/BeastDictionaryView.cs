@@ -46,6 +46,11 @@ namespace Separated.Views
                     var skullIcon = icon as SkullIcon;
                     var available = _beastDictionary.IsBeastAvailable(beastData.Type);
                     skullIcon.Initialize(available ? beastData : null);
+                    skullIcon.OnClicked.AddListener(() =>
+                    {
+                        UpdateActiveDict(skullIcon);
+                    });
+
                     _iconDict.Add(beastData.Type, skullIcon);
                 });
             }
@@ -56,6 +61,8 @@ namespace Separated.Views
                 var activeSkull = _activeDict[key];
                 activeDictUpdateEvent.Notify(new(key, activeSkull ? activeSkull.CurData : null));
             }
+
+            // Debug.Log("Dict init");
         }
 
         public void EnableIcon(EBeastType type)
@@ -75,6 +82,7 @@ namespace Separated.Views
                     icon.TurnOn();
                     _activeDict[key] = icon;
                     activeDictUpdateEvent.Notify(new(key, icon.CurData));
+            Debug.Log("Update skill 1");
                     return;
                 }
                 else if (_activeDict[key] == icon)
@@ -82,6 +90,7 @@ namespace Separated.Views
                     icon.TurnOff();
                     _activeDict[key] = null;
                     activeDictUpdateEvent.Notify(new(key, null));
+            Debug.Log("Update skill 1");
                     return;
                 }
             }

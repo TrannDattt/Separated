@@ -22,7 +22,7 @@ namespace Separated.Views
         {
             SkillData = skillData;
 
-            _skillIcon.sprite = skillData?.SkillIcon;
+            _skillIcon.sprite = skillData?.Icon;
         }
 
         public override void Show()
@@ -33,7 +33,7 @@ namespace Separated.Views
         public void UpdateSkillView(SkillNodeData skillData)
         {
             SkillData = skillData;
-            _skillIcon.sprite = skillData?.SkillIcon;
+            _skillIcon.sprite = skillData?.Icon;
         }
 
         public void CooldownSkill()
@@ -43,7 +43,7 @@ namespace Separated.Views
                 return;
             }
 
-            StartCoroutine(CooldownCoroutine(SkillData.NodeSkillData as SkillStateData));
+            StartCoroutine(CooldownCoroutine(SkillData.SkillData as SkillStateData));
         }
 
         public IEnumerator CooldownCoroutine(SkillStateData skillData)

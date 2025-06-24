@@ -19,3 +19,5 @@ MonoBehaviour:
   ActiveSkullIcon: {fileID: -5177388603050735206, guid: cc35afd292fc349128b36a291fb3a165, type: 3}
   BehaviorStates: []
   SkillNodes: []
+  DefaultActiveSkill: {fileID: 11400000, guid: b5d2d1ce7e167ab4bbde90954b7f4b91, type: 2}
+  DefaultPassiveSkill: {fileID: 0}

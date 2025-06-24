@@ -44,7 +44,7 @@ namespace Separated.Views
             if (_closeOnStart)
             {
                 Hide();
-                Debug.Log("Hide ");
+                // Debug.Log("Hide ");
             }
         }
 

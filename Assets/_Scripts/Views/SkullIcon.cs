@@ -1,6 +1,8 @@
 using Separated.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Separated.Views
@@ -63,6 +65,13 @@ namespace Separated.Views
             }
 
             base.TurnOff();
+        }
+
+        public override void OnPointerDown(PointerEventData eventData)
+        {
+            OnClicked?.Invoke();
+
+            base.OnPointerDown(eventData);
         }
     }
 }

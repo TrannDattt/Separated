@@ -23,7 +23,7 @@ namespace Separated.Data
         public SkillNodeData[] SkillNodes;
 
         [Header("Overrided Skills")]
-        public SkillNodeData DefaultActiveSkill;
+        public SkillNodeData DefaultActionSkill;
         public SkillNodeData DefaultPassiveSkill;
     }
 
