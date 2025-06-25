@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Separated.SummonedBeasts
 {
-    public class SummonedBeastSkillManager : MonoBehaviour
+    public class BeastSkillManager : MonoBehaviour
     {
         private StateDataSO _passiveSkillData;
         private SkillStateData _activeSkillData;

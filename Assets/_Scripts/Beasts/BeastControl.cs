@@ -6,26 +6,25 @@ using UnityEngine;
 namespace Separated.SummonedBeasts
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class SummonedBeastControl
+    public class BeastControl : MonoBehaviour
     {
         public Rigidbody2D RigidBody { get; private set; }
+        public BeastData Data { get; private set; }
 
         private PlayerControl _player;
-        private BeastData _beastData;
 
         public void Initialize(BeastData beastData)
         {
-            _beastData = beastData?? throw new System.ArgumentNullException(nameof(beastData), "BeastData cannot be null");
-        }
+            RigidBody = GetComponent<Rigidbody2D>();
 
-        void OnEnable()
-        {
             _player = PlayerControl.Instance;
+            Data = beastData != null ? beastData : throw new System.ArgumentNullException(nameof(beastData), "BeastData cannot be null");
         }
 
         void Start()
         {
-            // RigidBody = GetComponent<Rigidbody2D>();
+            _player = PlayerControl.Instance;
+            // Initialize();
         }
     }
 }

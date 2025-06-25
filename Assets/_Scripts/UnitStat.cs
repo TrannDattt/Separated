@@ -16,6 +16,8 @@ namespace Separated.Unit
         public float MaxPoise => _curData.Poise;
         public float CurPoise { get; private set; }
 
+        public Vector2 TriggerRange => _curData.TriggerRange;
+
         public bool IsDead { get; set; }
 
         public UnityEvent<float> OnHpChanged;

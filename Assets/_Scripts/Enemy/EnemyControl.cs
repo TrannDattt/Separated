@@ -15,17 +15,13 @@ namespace Separated.Enemies
         public Rigidbody2D RigidBody { get; private set; }
         public PlayerControl Player { get; private set; }
 
-        private UnitNavigator _navigator;
-
         public override void Init()
         {
             base.Init();
 
+            Player = PlayerControl.Instance;
             RigidBody = GetComponent<Rigidbody2D>();
-            _navigator = new UnitNavigator();
         }
-
-        public int GetFaceDir() => (int)transform.localScale.x;
 
         void Awake()
         {

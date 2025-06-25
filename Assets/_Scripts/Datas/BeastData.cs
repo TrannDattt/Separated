@@ -16,6 +16,9 @@ namespace Separated.Data
         public Sprite InactiveSkullIcon;
         public Sprite ActiveSkullIcon;
 
+        [Header("Stat")]
+        public Vector2 TriggerRange;
+
         [Header("Behavior States")]
         public BehaviorState[] BehaviorStates;
 

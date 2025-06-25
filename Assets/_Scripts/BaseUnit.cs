@@ -1,4 +1,5 @@
 using Separated.Data;
+using Separated.Enums;
 using Separated.Interfaces;
 using Separated.Views;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Separated.Unit
 {
     public abstract class BaseUnit : MonoBehaviour, IDamageble
     {
+        [field: SerializeField] public EUnitType Type { get; private set; }
         [SerializeField] private BaseStatDataSO _statData;
         [SerializeField] private HpBarView _hpBarView;
 

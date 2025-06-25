@@ -2,16 +2,15 @@ using Separated.Data;
 using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
-using static Separated.Enemies.EnemyStateMachine;
 
-namespace Separated.Enemies
+namespace Separated.SummonedBeasts
 {
     public class Run : GroundState
     {
         private RunStateData _runData => CurStateData as RunStateData;
 
-        public Run(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
-            : base(key, data, animator, enemy, navigator)
+        public Run(EBehaviorState key, StateDataSO data, Animator animator, BeastControl beast, UnitNavigator navigator)
+            : base(key, data, animator, beast, navigator)
         {
         }
 
@@ -27,7 +26,7 @@ namespace Separated.Enemies
             base.Do();
 
             var moveDir = _navigator.GetMoveDirection();
-            _enemy.RigidBody.linearVelocity = new Vector2(moveDir.x * _runData.Speed, _enemy.RigidBody.linearVelocity.y);
+            _beast.RigidBody.linearVelocity = new Vector2(moveDir.x * _runData.Speed, _beast.RigidBody.linearVelocity.y);
         }
 
         public override EBehaviorState GetNextState()

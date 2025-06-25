@@ -2,16 +2,15 @@ using Separated.Data;
 using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
-using static Separated.Enemies.EnemyStateMachine;
 
-namespace Separated.Enemies
+namespace Separated.SummonedBeasts
 {
     public class Idle : GroundState
     {
         private IdleStateData _idleData => CurStateData as IdleStateData;
 
-        public Idle(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator)
-            : base(key, data, animator, enemy, navigator)
+        public Idle(EBehaviorState key, StateDataSO data, Animator animator, BeastControl beast, UnitNavigator navigator)
+            : base(key, data, animator, beast, navigator)
         {
 
         }
@@ -20,19 +19,19 @@ namespace Separated.Enemies
         {
             base.Enter();
 
-            _enemy.RigidBody.linearVelocity = Vector2.zero;
+            _beast.RigidBody.linearVelocity = Vector2.zero;
         }
 
         public override void Do()
         {
             base.Do();
 
-            if(PlayedTime >= _idleData.IdleTime)
+            if (PlayedTime >= _idleData.IdleTime)
             {
                 _isFinish = true;
             }
         }
-        
+
         public override EBehaviorState GetNextState()
         {
             if (base.GetNextState() == EBehaviorState.None)

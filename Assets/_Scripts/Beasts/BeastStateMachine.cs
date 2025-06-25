@@ -1,60 +1,50 @@
-using System.Collections.Generic;
 using System.Linq;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
-using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Separated.Enemies
+namespace Separated.SummonedBeasts
 {
-    public class EnemyStateMachine : BaseStateMachine<EBehaviorState>
+    public class BeastStateMachine : BaseStateMachine<EBehaviorState>
     {
+
         [SerializeField] private IdleStateData _idleData;
         [SerializeField] private RunStateData _runData;
-        // [SerializeField] private AttackData[] _attackDatas;
         [SerializeField] private SkillStateData[] _skillDatas;
-        [SerializeField] private HurtStateData _hurtData;
-        [SerializeField] private DieStateData _dieData;
 
-        private SkillState[] _skillStateArr;
+        private Skill[] _skillStates;
 
-        private EnemyControl _enemy;
+        private BeastControl _beast;
         private Animator _animator;
         private UnitNavigator _navigator;
         private UnitHitbox _hitbox;
 
         public void InitSM()
         {
-            _enemy = GetComponent<EnemyControl>();
-            _animator = GetComponentInChildren<Animator>();
             _hitbox = GetComponentInChildren<UnitHitbox>();
-            _navigator = new UnitNavigator(_enemy.gameObject, _enemy.Stat.TriggerRange, EUnitType.Player);
+            _navigator = new UnitNavigator(_beast.gameObject, _beast.Data.TriggerRange, EUnitType.Enemy);
 
             _stateDict.Clear();
 
-            _stateDict.Add(EBehaviorState.Idle, new Idle(EBehaviorState.Idle, _idleData, _animator, _enemy, _navigator));
-            _stateDict.Add(EBehaviorState.Run, new Run(EBehaviorState.Run, _runData, _animator, _enemy, _navigator));
+            _stateDict.Add(EBehaviorState.Idle, new Idle(EBehaviorState.Idle, _idleData, _animator, _beast, _navigator));
+            _stateDict.Add(EBehaviorState.Run, new Run(EBehaviorState.Run, _runData, _animator, _beast, _navigator));
 
-            _skillStateArr = new SkillState[_skillDatas.Length];
+            _skillStates = new Skill[_skillDatas.Length];
             for (int i = 0; i < _skillDatas.Length; i++)
             {
-                var newSkillState = new SkillState(EBehaviorState.Skill1, _skillDatas[i], _animator, _enemy, this, _navigator, _hitbox);
-                _skillStateArr[i] = newSkillState;
+                var newSkillState = new Skill(EBehaviorState.Skill1, _skillDatas[i], _animator, _beast, this, _navigator, _hitbox);
+                _skillStates[i] = newSkillState;
             }
-            var curSkillState = _skillStateArr[0];
+            var curSkillState = _skillStates[0];
             _stateDict.Add(curSkillState.Key, curSkillState);
-
-            _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _enemy));
-            _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator, _enemy));
-
+            
             _navigator.SetSkillData(curSkillState.CurStateData as SkillStateData);
             ChangeState(EBehaviorState.Idle);
         }
 
-        public void UpdateState(EBehaviorState key, EnemyBaseState newState, bool forceChange = false)
+        public void UpdateState(EBehaviorState key, BeastBaseState newState, bool forceChange = false)
         {
             if (_stateDict.ContainsKey(key))
             {
@@ -83,14 +73,14 @@ namespace Separated.Enemies
             return dataList[randomIndex];
         }
 
-        public SkillState GetRandomSkill()
+        public Skill GetRandomSkill()
         {
-            if (_skillStateArr == null || _skillStateArr.Length == 0)
+            if (_skillStates == null || _skillStates.Length == 0)
             {
                 Debug.LogError("Data list is null or empty.");
                 return null;
             }
-            var readySkills = _skillStateArr.Where(s => !s.IsInCoolDown).ToArray();
+            var readySkills = _skillStates.Where(s => !s.IsInCoolDown).ToArray();
             // Debug.Log(readySkills.Length);
 
             var randomIndex = Random.Range(0, readySkills.Length);
@@ -110,18 +100,18 @@ namespace Separated.Enemies
 
         protected override void Update()
         {
-            if (_enemy.Stat.CurHp == 0 && !_enemy.Stat.IsDead)
-            {
-                _enemy.Stat.IsDead = true;
-                // Debug.Log("Die");
-                ChangeState(EBehaviorState.Die);
-            }
+            // if (_beast.Stat.CurHp == 0 && !_beast.Stat.IsDead)
+            // {
+            //     _beast.Stat.IsDead = true;
+            //     // Debug.Log("Die");
+            //     ChangeState(EBehaviorState.Die);
+            // }
 
-            if (_enemy.IsTakingDamage && _enemy.Stat.CurHp > 0)
-            {
-                _enemy.IsTakingDamage = false;
-                ChangeState(EBehaviorState.Hurt);
-            }
+            // if (_beast.IsTakingDamage && _beast.Stat.CurHp > 0)
+            // {
+            //     _beast.IsTakingDamage = false;
+            //     ChangeState(EBehaviorState.Hurt);
+            // }
 
             base.Update();
         }

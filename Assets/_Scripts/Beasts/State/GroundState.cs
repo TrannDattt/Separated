@@ -1,19 +1,20 @@
+using JetBrains.Annotations;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Unit;
 using UnityEngine;
-using static Separated.Enemies.EnemyStateMachine;
 
-namespace Separated.Enemies
+namespace Separated.SummonedBeasts
 {
-    public abstract class GroundState : EnemyBaseState
+    public class GroundState : BeastBaseState
     {
-        protected EnemyControl _enemy;
+        protected BeastControl _beast;
         protected UnitNavigator _navigator;
 
-        protected GroundState(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, UnitNavigator navigator) : base(key, data, animator)
+        public GroundState(EBehaviorState key, StateDataSO data, Animator animator, BeastControl beast, UnitNavigator navigator)
+        : base(key, data, animator)
         {
-            _enemy = enemy;
+            _beast = beast;
             _navigator = navigator;
         }
 
@@ -28,12 +29,9 @@ namespace Separated.Enemies
         {
             if (_isFinish && _navigator.CheckInAttackRange())
             {
-                return EBehaviorState.Skill1;
+                return EBehaviorState.Attack;
             }
-
-            // TODO: Change to HURT when get take light damage
-            // TODO: Change to THROWN_AWAY when get heavy damage
-            // TODO: Change to DIE when run out of HP
+            // TODO: Change to DIE when pass exist time
 
             return EBehaviorState.None;
         }
@@ -42,11 +40,11 @@ namespace Separated.Enemies
         {
             if (_navigator.GetMoveDirection().x > 0)
             {
-                _enemy.transform.localScale = new Vector3(1, 1, 1);
+                _beast.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (_navigator.GetMoveDirection().x < 0)
             {
-                _enemy.transform.localScale = new Vector3(-1, 1, 1);
+                _beast.transform.localScale = new Vector3(-1, 1, 1);
             }
         }
     }

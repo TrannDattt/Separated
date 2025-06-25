@@ -5,15 +5,14 @@ using Separated.Enums;
 using Separated.Helpers;
 using Separated.Unit;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Separated.Enemies
+namespace Separated.SummonedBeasts
 {
-    public class SkillState : EnemyBaseState
+    public class Skill : BeastBaseState
     {
         private SkillStateData _skillData => CurStateData as SkillStateData;
-        private EnemyControl _enemy;
-        private EnemyStateMachine _stateMachine;
+        private BeastControl _beast;
+        private BeastStateMachine _stateMachine;
         private UnitHitbox _hitbox;
         private UnitNavigator _navigator;
 
@@ -24,9 +23,9 @@ namespace Separated.Enemies
         public bool IsInCoolDown;
 
         // TODO: Use 1 animation for whole skill instead of 1 for each phase
-        public SkillState(EBehaviorState key, StateDataSO data, Animator animator, EnemyControl enemy, EnemyStateMachine stateMachine, UnitNavigator navigator, UnitHitbox hitbox) : base(key, data, animator)
+        public Skill(EBehaviorState key, StateDataSO data, Animator animator, BeastControl beast, BeastStateMachine stateMachine, UnitNavigator navigator, UnitHitbox hitbox) : base(key, data, animator)
         {
-            _enemy = enemy;
+            _beast = beast;
             _stateMachine = stateMachine;
             _hitbox = hitbox;
             _navigator = navigator;
@@ -131,7 +130,7 @@ namespace Separated.Enemies
 
                 case ESkillPhaseType.MovingSkill:
                     var moveDirX = _navigator.GetMoveDirection().x < 0 ? -1 : 1;
-                    (_curPhase as MovePhase).Init(_enemy.RigidBody, moveDirX);
+                    (_curPhase as MovePhase).Init(_beast.RigidBody, moveDirX);
                     break;
 
                 default:
