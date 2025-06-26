@@ -32,7 +32,7 @@ namespace Separated.Views
                 { ESkillSlot.Skill2, _skillSlots[1] },
                 { ESkillSlot.Skill3, _skillSlots[2] },
                 { ESkillSlot.Skill4, _skillSlots[3] },
-                { ESkillSlot.Ultimate, null } // TODO: Ultimate is not a skill slot, it's a special case
+                // { ESkillSlot.Ultimate, null } // TODO: Ultimate is not a skill slot, it's a special case
             };
 
             for (int i = 0; i < _skillSlots.Length; i++)
@@ -49,6 +49,11 @@ namespace Separated.Views
 
         public void CooldownSkill(ESkillSlot slot)
         {
+            if (!_skillSlotDict.ContainsKey(slot))
+            {
+                return;
+            }
+
             var skillSlot = _skillSlotDict[slot];
             skillSlot.CooldownSkill();
         }

@@ -25,6 +25,7 @@ namespace Separated.Player{
         [SerializeField] private AttackData[] _meleeAttackDatas;
         // [SerializeField] private List<MeleeAttackStateData> _meleeAttackDatas;
         // [SerializeField] private SkillStateData[] _skillDatas;
+        [SerializeField] private SkillStateData _ultimateData;
         [SerializeField] private HurtStateData _hurtData;
         [SerializeField] private DieStateData _dieData;
 
@@ -35,7 +36,7 @@ namespace Separated.Player{
         private UnitHitbox _hitbox;
         private PlayerSkillManager _skillManager;
 
-        public void InitSM()
+        public void Initialize()
         {
             _stateDict.Clear();
 
@@ -52,7 +53,8 @@ namespace Separated.Player{
             // _stateDict.Add(EBehaviorState.Skill2, new SkillState(EBehaviorState.Skill2, _skillDatas[1], _animator, _inputProvider, _player, _hitbox));
             // _stateDict.Add(EBehaviorState.Skill3, new SkillState(EBehaviorState.Skill3, _skillDatas[2], _animator, _inputProvider, _player, _hitbox));
             // _stateDict.Add(EBehaviorState.Skill4, new SkillState(EBehaviorState.Skill4, _skillDatas[3], _animator, _inputProvider, _player, _hitbox));
-            // _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _skillDatas[4], _animator, _inputProvider, _player, _hitbox));
+            Debug.Log(_ultimateData);
+            _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _ultimateData, _animator, _inputProvider, _player, _hitbox));
 
             _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _player));
             _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator));
@@ -105,7 +107,7 @@ namespace Separated.Player{
 
         public void OnEventNotify(Tuple<ESkillSlot, BeastData> eventData)
         {
-            // Debug.Log("Update skill");
+            Debug.Log(eventData.Item1);
             var skillKey = GetSkillKey(eventData.Item1);
             var skillData = eventData.Item2?.DefaultActionSkill.SkillData as SkillStateData;
             var newSkillState = new SkillState(skillKey, skillData, _animator, _inputProvider, _player, _hitbox);
@@ -134,7 +136,7 @@ namespace Separated.Player{
             var skillChangedEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
             skillChangedEvent.AddListener(this);
 
-            InitSM();
+            Initialize();
         }
 
         protected override void Update()

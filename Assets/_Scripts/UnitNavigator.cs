@@ -12,7 +12,7 @@ namespace Separated.Unit
         private Vector2 _triggerRange;
         private Vector2 _attackRange => _skillData.Range;
 
-        public BaseUnit Target { get; private set; }
+        public GameObject Target { get; private set; }
 
         public UnitNavigator(GameObject unit, Vector2 triggerRange, EUnitType targetType)
         {
@@ -22,11 +22,11 @@ namespace Separated.Unit
             switch (targetType)
             {
                 case EUnitType.Player:
-                    Target = PlayerControl.Instance;
+                    Target = PlayerControl.Instance.gameObject;
                     break;
 
                 case EUnitType.Enemy:
-                    GameObject.FindGameObjectWithTag("Enemy");
+                    Target = GameObject.FindGameObjectWithTag("Enemy");
                     // TODO: Find all enemy in scene and get the nearest one
                     break;
 

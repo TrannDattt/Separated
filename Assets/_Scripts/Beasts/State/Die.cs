@@ -29,7 +29,7 @@ namespace Separated.SummonedBeasts
 
             if (PlayedTime > CurStateData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinish = true;
                 if (!_isDeath)
                 {
                     // Debug.Log("Drop");

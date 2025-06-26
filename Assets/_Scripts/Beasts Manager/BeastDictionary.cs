@@ -17,6 +17,7 @@ namespace Separated.Skills
 
         private Dictionary<EBeastType, BeastData> _beastDict = new();
         private Dictionary<EBeastType, bool> _availableBeastDict = new();
+        public EBeastType[] ActiveBeasts => _beastDictionaryView.GetActiveBeasts();
 
         private void InitDict()
         {
@@ -24,6 +25,11 @@ namespace Separated.Skills
 
             foreach (var beastData in _beastDatas)
             {
+                if (beastData.Type == EBeastType.Null)
+                {
+                    continue;
+                }
+                
                 _beastDict.Add(beastData.Type, beastData);
             }
 

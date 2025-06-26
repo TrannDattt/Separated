@@ -18,7 +18,7 @@ namespace Separated.SummonedBeasts
         {
             base.Enter();
 
-            _isFinish = true;
+            IsFinish = true;
         }
 
         public override void Do()
@@ -26,7 +26,7 @@ namespace Separated.SummonedBeasts
             base.Do();
 
             var moveDir = _navigator.GetMoveDirection();
-            _beast.RigidBody.linearVelocity = new Vector2(moveDir.x * _runData.Speed, _beast.RigidBody.linearVelocity.y);
+            _beast.Rigigbody.linearVelocity = new Vector2(moveDir.x * _runData.Speed, _beast.Rigigbody.linearVelocity.y);
         }
 
         public override EBehaviorState GetNextState()

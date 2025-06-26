@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5f601ceb890564d9e3f4841e7b910e, type: 3}
+  m_Name: B1_Skill_2
+  m_EditorClassIdentifier: 
+  StateKey: 7
+  Clip: {fileID: 0}
+  PeriodTime: 1
+  SkillPhases:
+  - rid: 6819282745685180491
+  Range: {x: 1, y: 1}
+  Cooldown: 10
+  references:
+    version: 2
+    RefIds:
+    - rid: 6819282745685180491
+      type: {class: AttackPhase, ns: Separated.Data, asm: Assembly-CSharp}
+      data:
+        SkillType: 1
+        PhaseDuration: 1
+        Damage: 10
+        PoiseDamage: 0
+        KnockbackDir: {x: 0, y: 0}
+        KnockbackForce: 0

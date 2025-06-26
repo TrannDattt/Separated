@@ -34,6 +34,11 @@ namespace Separated.Player
 
         public override void Enter()
         {
+            if (Key == EBehaviorState.Ultimate)
+            {
+                Debug.Log(_curStateData);
+            }
+
             _inputProvider.UseInput(PlayerInputManager.EActionInputType.Skill);
 
             if (!_skillData)
@@ -98,7 +103,6 @@ namespace Separated.Player
 
             var skillUsedEvent = GetEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
             skillUsedEvent.Notify(GetSkillSlot());
-            Debug.Log("Use skill 1");
         }
 
         public override EBehaviorState GetNextState()

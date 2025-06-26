@@ -19,7 +19,7 @@ namespace Separated.SummonedBeasts
         {
             base.Enter();
 
-            _beast.RigidBody.linearVelocity = Vector2.zero;
+            _beast.Rigigbody.linearVelocity = Vector2.zero;
         }
 
         public override void Do()
@@ -28,7 +28,7 @@ namespace Separated.SummonedBeasts
 
             if (PlayedTime >= _idleData.IdleTime)
             {
-                _isFinish = true;
+                IsFinish = true;
             }
         }
 
@@ -36,7 +36,8 @@ namespace Separated.SummonedBeasts
         {
             if (base.GetNextState() == EBehaviorState.None)
             {
-                if (_isFinish && _navigator.CheckInTriggerRange() && !_navigator.CheckInAttackRange())
+            // Debug.Log(1);
+                if (IsFinish && _navigator.CheckInTriggerRange() && !_navigator.CheckInAttackRange())
                 {
                     return EBehaviorState.Run;
                 }

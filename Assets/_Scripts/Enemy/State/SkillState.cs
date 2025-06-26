@@ -78,7 +78,7 @@ namespace Separated.Enemies
             {
                 var replacedSkill = _stateMachine.GetRandomSkill();
                 _navigator.SetSkillData(CurStateData as SkillStateData);
-                _stateMachine.UpdateState(replacedSkill.Key, replacedSkill, true);
+                _stateMachine.UpdateState(replacedSkill.Key, replacedSkill);
                 return;
             }
 

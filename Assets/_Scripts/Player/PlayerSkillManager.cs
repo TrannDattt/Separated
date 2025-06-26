@@ -34,7 +34,7 @@ namespace Separated.Player
                 { ESkillSlot.Skill2, new() },
                 { ESkillSlot.Skill3, new() },
                 { ESkillSlot.Skill4, new() },
-                { ESkillSlot.Ultimate, new() } // Ultimate is always summon all the equipped beasts
+                // { ESkillSlot.Ultimate, new() } // Ultimate is always summon all the equipped beasts
             };
 
             if (skillStates != null)

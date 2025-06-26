@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 259bd2a8575b8b7438c98161b2725667, type: 3}
-  m_Name: New Base Stat Data SO
+  m_Script: {fileID: 11500000, guid: f9b9f262ace8f4b46a166d772a7dce37, type: 3}
+  m_Name: B1_Run
   m_EditorClassIdentifier: 
-  Hp: 1
-  Poise: 1
-  TriggerRange: {x: 10, y: 0.5}
+  StateKey: 2
+  Clip: {fileID: 0}
+  PeriodTime: 1
+  Speed: 5

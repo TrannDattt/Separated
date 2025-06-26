@@ -12,7 +12,6 @@ namespace Separated.SummonedBeasts
     {
         private SkillStateData _skillData => CurStateData as SkillStateData;
         private BeastControl _beast;
-        private BeastStateMachine _stateMachine;
         private UnitHitbox _hitbox;
         private UnitNavigator _navigator;
 
@@ -23,10 +22,9 @@ namespace Separated.SummonedBeasts
         public bool IsInCoolDown;
 
         // TODO: Use 1 animation for whole skill instead of 1 for each phase
-        public Skill(EBehaviorState key, StateDataSO data, Animator animator, BeastControl beast, BeastStateMachine stateMachine, UnitNavigator navigator, UnitHitbox hitbox) : base(key, data, animator)
+        public Skill(EBehaviorState key, StateDataSO data, Animator animator, BeastControl beast, UnitNavigator navigator, UnitHitbox hitbox) : base(key, data, animator)
         {
             _beast = beast;
-            _stateMachine = stateMachine;
             _hitbox = hitbox;
             _navigator = navigator;
         }
@@ -55,6 +53,12 @@ namespace Separated.SummonedBeasts
 
         public override void Do()
         {
+            if (IsInCoolDown)
+            {
+                // Debug.Log("In cooldown");
+                return;
+            }
+
             base.Do();
 
             _curPhase.Do();
@@ -67,7 +71,7 @@ namespace Separated.SummonedBeasts
 
             if (PlayedTime >= _skillData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinish = true;
             }
         }
 
@@ -75,9 +79,9 @@ namespace Separated.SummonedBeasts
         {
             if (IsInCoolDown)
             {
-                var replacedSkill = _stateMachine.GetRandomSkill();
+                var replacedSkill = _beast.GetRandomSkill();
                 _navigator.SetSkillData(CurStateData as SkillStateData);
-                _stateMachine.UpdateState(replacedSkill.Key, replacedSkill, true);
+                _beast.UpdateState(replacedSkill.Key, replacedSkill);
                 return;
             }
 
@@ -86,14 +90,14 @@ namespace Separated.SummonedBeasts
             IsInCoolDown = true;
             RuntimeCoroutine.Instance.StartRuntimeCoroutine(CooldownSkillCoroutine());
 
-            var nextSkill = _stateMachine.GetRandomSkill();
+            var nextSkill = _beast.GetRandomSkill();
             _navigator.SetSkillData(nextSkill.CurStateData as SkillStateData);
-            _stateMachine.UpdateState(nextSkill.Key, nextSkill);
+            _beast.UpdateState(nextSkill.Key, nextSkill);
         }
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish || IsInCoolDown)
+            if (IsFinish || IsInCoolDown)
             {
                 // Debug.Log("idle");
                 return EBehaviorState.Idle;
@@ -130,7 +134,7 @@ namespace Separated.SummonedBeasts
 
                 case ESkillPhaseType.MovingSkill:
                     var moveDirX = _navigator.GetMoveDirection().x < 0 ? -1 : 1;
-                    (_curPhase as MovePhase).Init(_beast.RigidBody, moveDirX);
+                    (_curPhase as MovePhase).Init(_beast.Rigigbody, moveDirX);
                     break;
 
                 default:

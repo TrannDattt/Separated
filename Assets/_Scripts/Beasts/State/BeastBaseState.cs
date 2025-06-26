@@ -14,7 +14,7 @@ namespace Separated.SummonedBeasts
         protected Animator _animator;
 
         protected float _startTime;
-        protected bool _isFinish;
+        public bool IsFinish { get; protected set; }
 
         protected BeastBaseState(EBehaviorState key, StateDataSO data, Animator animator) : base(key)
         {
@@ -40,7 +40,7 @@ namespace Separated.SummonedBeasts
 
         public override void Enter()
         {
-            _isFinish = false;
+            IsFinish = false;
             _startTime = Time.time;
 
             PlayAnim();

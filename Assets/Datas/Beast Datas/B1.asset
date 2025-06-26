@@ -12,12 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b118ce71c5d28c647ad904bf9f3e525d, type: 3}
   m_Name: B1
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 1
   Name: Beast 1
   Portrait: {fileID: -9095717837082945937, guid: 34587324d412940a79d530020c957dc0, type: 3}
   InactiveSkullIcon: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   ActiveSkullIcon: {fileID: -5177388603050735206, guid: cc35afd292fc349128b36a291fb3a165, type: 3}
-  BehaviorStates: []
+  TriggerRange: {x: 10, y: 10}
+  ExistTime: 0
+  IdleData: {fileID: 11400000, guid: 6d9d854fd9a0c094999500e1e6c02df5, type: 2}
+  RunData: {fileID: 11400000, guid: 73a5b994a1188ea47b10f86b7eb5f92d, type: 2}
+  SkillDatas:
+  - {fileID: 11400000, guid: 0ea0620924f908d4395a3f263fe35af7, type: 2}
+  - {fileID: 11400000, guid: 805163bddb1250746baf5b23bfb47164, type: 2}
+  - {fileID: 11400000, guid: b38f91709b3600e46912525ce3c622dc, type: 2}
+  DieData: {fileID: 11400000, guid: 77dafc72ad4721546ab1fa925fb59e4d, type: 2}
   SkillNodes: []
-  DefaultActiveSkill: {fileID: 11400000, guid: b5d2d1ce7e167ab4bbde90954b7f4b91, type: 2}
-  DefaultPassiveSkill: {fileID: 0}
+  DefaultActionSkill: {fileID: 11400000, guid: 375f3819464e7694fb34e68f8b908bf9, type: 2}
+  DefaultPassiveSkill: {fileID: 11400000, guid: 375f3819464e7694fb34e68f8b908bf9, type: 2}

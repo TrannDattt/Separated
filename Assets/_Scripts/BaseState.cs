@@ -6,8 +6,10 @@ namespace Separated.Helpers
     public abstract class BaseState<T> where T : Enum
     {
         public T Key { get; private set; }
+        public bool IsFinished { get; protected set; }
 
-        public BaseState(T key){
+        public BaseState(T key)
+        {
             Key = key;
         }
 

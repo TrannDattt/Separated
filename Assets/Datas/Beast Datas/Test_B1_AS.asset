@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 259bd2a8575b8b7438c98161b2725667, type: 3}
-  m_Name: New Base Stat Data SO
+  m_Script: {fileID: 11500000, guid: ee50a67e1e484f24a95368f48554fe4f, type: 3}
+  m_Name: Test_B1_AS
   m_EditorClassIdentifier: 
-  Hp: 1
-  Poise: 1
-  TriggerRange: {x: 10, y: 0.5}
+  Id: f46cd30f-0a5a-4fb7-a4f9-bb04312e30e4
+  Name: 
+  Icon: {fileID: 0}
+  Description: 
+  ParentDatas: []
+  SkillData: {fileID: 11400000, guid: 773019ff6bbd2b34db3cae0e20970e1a, type: 2}

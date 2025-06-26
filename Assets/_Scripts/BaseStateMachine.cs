@@ -11,11 +11,14 @@ namespace Separated.Helpers
 
         protected Dictionary<T, BaseState<T>> _stateDict = new();
 
-        public virtual void ChangeState(T nextKey)
+        public virtual void ChangeState(T nextKey, bool wait = false)
         {
-            CurState?.Exit();
-            CurState = _stateDict[nextKey];
-            CurState.Enter();
+            if (CurState == null || wait || (CurState != null && !CurState.IsFinished))
+            {
+                CurState?.Exit();
+                CurState = _stateDict[nextKey];
+                CurState.Enter();
+            }
         }
 
         protected virtual void Update()

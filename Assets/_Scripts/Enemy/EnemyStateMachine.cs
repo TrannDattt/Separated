@@ -94,10 +94,10 @@ namespace Separated.Enemies
             // Debug.Log(readySkills.Length);
 
             var randomIndex = Random.Range(0, readySkills.Length);
-            return readySkills[randomIndex];
+            return readySkills.Length > 0 ? readySkills[randomIndex] : _skillStateArr[0];
         }
 
-        public override void ChangeState(EBehaviorState nextKey)
+        public override void ChangeState(EBehaviorState nextKey, bool wait = false)
         {
             base.ChangeState(nextKey);
             // Debug.Log($"Enemy State Changed to: {nextKey}");
@@ -114,7 +114,7 @@ namespace Separated.Enemies
             {
                 _enemy.Stat.IsDead = true;
                 // Debug.Log("Die");
-                ChangeState(EBehaviorState.Die);
+                ChangeState(EBehaviorState.Die, true);
             }
 
             if (_enemy.IsTakingDamage && _enemy.Stat.CurHp > 0)

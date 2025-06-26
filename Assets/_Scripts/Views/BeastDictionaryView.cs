@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Poolings;
@@ -22,7 +23,7 @@ namespace Separated.Views
             { ESkillSlot.Skill2, null },
             { ESkillSlot.Skill3, null },
             { ESkillSlot.Skill4, null },
-            { ESkillSlot.Ultimate, null }
+            // { ESkillSlot.Ultimate, null }
         };
         private RectTransform _rectTransform;
 
@@ -82,7 +83,6 @@ namespace Separated.Views
                     icon.TurnOn();
                     _activeDict[key] = icon;
                     activeDictUpdateEvent.Notify(new(key, icon.CurData));
-            Debug.Log("Update skill 1");
                     return;
                 }
                 else if (_activeDict[key] == icon)
@@ -90,12 +90,24 @@ namespace Separated.Views
                     icon.TurnOff();
                     _activeDict[key] = null;
                     activeDictUpdateEvent.Notify(new(key, null));
-            Debug.Log("Update skill 1");
                     return;
                 }
             }
 
             // TODO: Pop a dialog message to notify the user that all slots are occupied
+        }
+
+        public EBeastType[] GetActiveBeasts()
+        {
+            var activeBeasts = new EBeastType[4];
+            for (int i = 0; i < _activeDict.Values.Count; i++)
+            {
+                var value = _activeDict.Values.ElementAt(i);
+                var beast = value == null ? EBeastType.Null : value.CurData.Type;
+                activeBeasts[i] = beast;
+            }
+
+            return activeBeasts;
         }
     }
 }

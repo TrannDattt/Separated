@@ -1,6 +1,11 @@
 using System;
-using NUnit.Framework;
+using Separated.CustomAttribute;
 using Separated.Enums;
+using Separated.Interfaces;
+using Separated.Player;
+using Separated.Poolings;
+using Separated.Skills;
+using Separated.SummonedBeasts;
 using Separated.Unit;
 using SerializeReferenceEditor;
 using UnityEngine;
@@ -97,6 +102,7 @@ namespace Separated.Data
         [Serializable]
         public class SummonObject
         {
+            [RequireInterface(typeof(ISummonable))]
             public GameObject Prefabs;
             public int Amount;
         }
@@ -109,6 +115,19 @@ namespace Separated.Data
 
         public override void Exit()
         {
+            var beastDatas = BeastDictionary.Instance.ActiveBeasts;
+            foreach (var so in SummonedObjects)
+            {
+                for (int i = 0; i < so.Amount; i++)
+                {
+                    if (so.Prefabs.TryGetComponent(out BeastControl beast))
+                    {
+                        var offset = new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1, 1));
+                        Debug.Log(beastDatas[i % 4]);
+                        SummonedObjectPooling.GetBeastFromPool(beastDatas[i % 4], beast, offset);
+                    }
+                }
+            }
         }
     }
 }

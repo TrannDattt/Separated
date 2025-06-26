@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Separated.Poolings
 {
-    public class Pooling<T> where T : MonoBehaviour
+    public class Pooling<T>
     {
         private Dictionary<Type, Queue<T>> _queueDict = new();
 

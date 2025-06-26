@@ -18,9 +18,13 @@ namespace Separated.Data
 
         [Header("Stat")]
         public Vector2 TriggerRange;
+        public float ExistTime;
 
         [Header("Behavior States")]
-        public BehaviorState[] BehaviorStates;
+        public IdleStateData IdleData;
+        public RunStateData RunData;
+        public SkillStateData[] SkillDatas;
+        public DieStateData DieData;
 
         [Header("Skill tree")]
         public SkillNodeData[] SkillNodes;

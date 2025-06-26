@@ -27,7 +27,7 @@ namespace Separated.SummonedBeasts
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish && _navigator.CheckInAttackRange())
+            if (IsFinish && _navigator.CheckInAttackRange())
             {
                 return EBehaviorState.Attack;
             }
