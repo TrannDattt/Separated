@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: fcd3fb7b4bb31af47a948b3217ce5075
+guid: 319df5fe56bbcba47bcb2fe3a9599db5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -467307283419413426
-    second: Player_Idle_0
+      213: 6752298840775411446
+    second: Beast1_0
   - first:
-      213: -5258030014049578038
-    second: Player_Idle_1
+      213: -7104747165250374114
+    second: Beast1_1
+  - first:
+      213: 134432369135556301
+    second: Beast1_2
+  - first:
+      213: -5074158942462410326
+    second: Beast1_3
+  - first:
+      213: 5130621108896865572
+    second: Beast1_4
+  - first:
+      213: 7263562181462541730
+    second: Beast1_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -54,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 30
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,19 +112,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -129,45 +128,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Idle_0
+      name: Beast1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 48
-        height: 48
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        x: 1
+        y: 106
+        width: 41
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e4445da608ac389f0800000000000000
-      internalID: -467307283419413426
+      spriteID: 6f643bd350cf4bd50800000000000000
+      internalID: 6752298840775411446
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_1
+      name: Beast1_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 48
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        x: 97
+        y: 106
+        width: 41
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ac39b3a7f89b707b0800000000000000
-      internalID: -5258030014049578038
+      spriteID: e16b944881ed66d90800000000000000
+      internalID: -7104747165250374114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beast1_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 8
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc693a807899dd100800000000000000
+      internalID: 134432369135556301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beast1_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 8
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa108ac6357f499b0800000000000000
+      internalID: -5074158942462410326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beast1_4
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 8
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42d1be027b0a33740800000000000000
+      internalID: 5130621108896865572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beast1_5
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 8
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a5490ee15b5dc460800000000000000
+      internalID: 7263562181462541730
       vertices: []
       indices: 
       edges: []
@@ -176,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b28386ef0305f404c99d80e968b2017f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -184,12 +271,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.25},"autoSlicingMethod":0,"spriteAlignment":9,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Player_Idle_0: -467307283419413426
-      Player_Idle_1: -5258030014049578038
+      Beast1_0: 6752298840775411446
+      Beast1_1: -7104747165250374114
+      Beast1_2: 134432369135556301
+      Beast1_3: -5074158942462410326
+      Beast1_4: 5130621108896865572
+      Beast1_5: 7263562181462541730
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

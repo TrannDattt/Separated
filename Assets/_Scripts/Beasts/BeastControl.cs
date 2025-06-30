@@ -39,6 +39,9 @@ namespace Separated.SummonedBeasts
             _hitbox = GetComponentInChildren<UnitHitbox>();
             _navigator = new UnitNavigator(gameObject, _data.TriggerRange, EUnitType.Enemy);
             _body = GetComponent<Rigidbody2D>();
+            _animator = GetComponentInChildren<Animator>();
+
+            _animator.runtimeAnimatorController = _data.AnimControl;
             _stateDict.Clear();
 
             _stateDict.Add(EBehaviorState.Idle, new Idle(EBehaviorState.Idle, _idleData, _animator, this, _navigator));

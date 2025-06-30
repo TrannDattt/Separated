@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player_Ultimate
   m_EditorClassIdentifier: 
   StateKey: 12
-  Clip: {fileID: 0}
+  Clip: {fileID: 7400000, guid: c30217bbf0fe2174c933b6990ae92c86, type: 2}
   PeriodTime: 3
   SkillPhases:
   - rid: 6819282746381172812

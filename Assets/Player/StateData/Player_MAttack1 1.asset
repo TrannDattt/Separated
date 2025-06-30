@@ -14,13 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StateKey: 7
   Clip: {fileID: 7400000, guid: c4932face089a94489f67156db43266b, type: 2}
-  PeriodTime: 0.5
-  SkillType: 0
-  Cooldown: 0
-  SkillName: 
-  SkillDescription: 
+  PeriodTime: 0.3
   Damage: 5
   PoiseDamage: 5
   KnockbackDir: {x: 0.5, y: 0.5}
   KnockbackForce: 3
   Range: {x: 0, y: 0}
+  Cooldown: 0

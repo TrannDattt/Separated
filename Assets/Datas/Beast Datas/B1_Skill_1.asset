@@ -13,21 +13,18 @@ MonoBehaviour:
   m_Name: B1_Skill_1
   m_EditorClassIdentifier: 
   StateKey: 7
-  Clip: {fileID: 0}
-  PeriodTime: 0.5
+  Clip: {fileID: 7400000, guid: bd6ab812e27691e4e824b61c31665b5b, type: 2}
+  PeriodTime: 1
   SkillPhases:
-  - rid: 6819282745685180490
+  - rid: 6819282854343344315
   Range: {x: 1, y: 1}
   Cooldown: 10
   references:
     version: 2
     RefIds:
-    - rid: 6819282745685180490
-      type: {class: AttackPhase, ns: Separated.Data, asm: Assembly-CSharp}
+    - rid: 6819282854343344315
+      type: {class: MovePhase, ns: Separated.Data, asm: Assembly-CSharp}
       data:
-        SkillType: 1
-        PhaseDuration: 0.5
-        Damage: 5
-        PoiseDamage: 0
-        KnockbackDir: {x: 0, y: 0}
-        KnockbackForce: 0
+        SkillType: 4
+        PhaseDuration: 1
+        Speed: 4

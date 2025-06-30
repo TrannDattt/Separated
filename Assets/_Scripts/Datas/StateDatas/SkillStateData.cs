@@ -34,7 +34,7 @@ namespace Separated.Data
     }
 
     [SRName("Skill Phase/Attack")]
-    public class AttackPhase : SkillPhase
+    public class AttackPhase : SkillPhase, ICanDoDamage
     {
         public float Damage;
         public float PoiseDamage;
@@ -44,10 +44,18 @@ namespace Separated.Data
 
         private UnitHitbox _hitbox;
 
+        float ICanDoDamage.Damage => Damage;
+
+        float ICanDoDamage.PoiseDamage => PoiseDamage;
+
+        Vector2 ICanDoDamage.KnockbackDir => KnockbackDir;
+
+        float ICanDoDamage.KnockbackForce => KnockbackForce;
+
         public void Init(UnitHitbox hitbox)
         {
             _hitbox = hitbox;
-            _hitbox.SetAttackData(this);
+            _hitbox.SetHitboxData(this);
         }
 
         public override void Do()
@@ -56,6 +64,11 @@ namespace Separated.Data
 
         public override void Exit()
         {
+        }
+
+        public GameObject GetGameObject()
+        {
+            return _hitbox.GetGameObject();
         }
     }
 
@@ -108,6 +121,7 @@ namespace Separated.Data
         }
 
         public SummonObject[] SummonedObjects;
+        public Transform[] SummonPos;
 
         public override void Do()
         {
@@ -122,9 +136,8 @@ namespace Separated.Data
                 {
                     if (so.Prefabs.TryGetComponent(out BeastControl beast))
                     {
-                        var offset = new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1, 1));
-                        Debug.Log(beastDatas[i % 4]);
-                        SummonedObjectPooling.GetBeastFromPool(beastDatas[i % 4], beast, offset);
+                        var summonPos = SummonPos.Length == 0 ? default : SummonPos[i % SummonPos.Length].position;
+                        SummonedObjectPooling.GetBeastFromPool(beastDatas[i % 4], beast, summonPos);
                     }
                 }
             }

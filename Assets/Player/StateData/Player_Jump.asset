@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StateKey: 4
   Clip: {fileID: 7400000, guid: 195b77be7733d3347a86d18c9bbbc098, type: 2}
-  PeriodTime: 0.6
+  PeriodTime: 0.3
   JumpSpeedX: 2
-  JumpSpeedY: 5
+  JumpSpeedY: 10
   JumpCount: 1

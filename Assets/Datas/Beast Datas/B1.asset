@@ -18,7 +18,8 @@ MonoBehaviour:
   InactiveSkullIcon: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   ActiveSkullIcon: {fileID: -5177388603050735206, guid: cc35afd292fc349128b36a291fb3a165, type: 3}
   TriggerRange: {x: 10, y: 10}
-  ExistTime: 0
+  ExistTime: 10
+  AnimControl: {fileID: 9100000, guid: 77f0f1b1c94cb234eb51aad72bc85ae8, type: 2}
   IdleData: {fileID: 11400000, guid: 6d9d854fd9a0c094999500e1e6c02df5, type: 2}
   RunData: {fileID: 11400000, guid: 73a5b994a1188ea47b10f86b7eb5f92d, type: 2}
   SkillDatas:

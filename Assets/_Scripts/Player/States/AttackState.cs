@@ -8,9 +8,14 @@ using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
-    public class AttackState : PlayerBaseState
+    public class AttackState : PlayerBaseState, ICanDoDamage
     {
         protected AttackData _attackData => _curStateData as AttackData;
+
+        public float Damage => _attackData.Damage;
+        public float PoiseDamage => _attackData.PoiseDamage;
+        public Vector2 KnockbackDir => _attackData.KnockbackDir;
+        public float KnockbackForce => _attackData.KnockbackForce;
 
         protected PlayerInputManager _inputProvider;
         protected PlayerControl _player;
@@ -32,8 +37,7 @@ namespace Separated.Player
             base.Enter();
 
             _player.RigidBody.linearVelocityX = 0;
-            _hitbox.SetAttackData(_attackData);
-            // _hitbox.EnableHitbox();
+            _hitbox.SetHitboxData(this);
         }
 
         public override void Exit()
@@ -52,6 +56,11 @@ namespace Separated.Player
             }
 
             return EBehaviorState.None;
+        }
+
+        public GameObject GetGameObject()
+        {
+            return _player.gameObject;
         }
     }
 }

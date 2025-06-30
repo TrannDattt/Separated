@@ -39,6 +39,11 @@ namespace Separated.Poolings
 
             return element;
         }
-        
+
+        public static void ReturnObject(ISummonable obj)
+        {
+            var queue = _pool.GetQueue(obj);
+            queue.Enqueue(obj);
+        }
     }
 }

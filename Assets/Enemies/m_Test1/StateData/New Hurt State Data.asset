@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Hurt State Data
   m_EditorClassIdentifier: 
   StateKey: 13
-  Clip: {fileID: 0}
-  PeriodTime: 1
+  Clip: {fileID: 7400000, guid: 07484d800540b0e48a911187dc661198, type: 2}
+  PeriodTime: 0.3
   RecoveryCooldownTime: 0

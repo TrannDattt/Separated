@@ -28,6 +28,7 @@ namespace Separated.Player
             base.Do();
 
             _player.RigidBody.linearVelocityX = _inputProvider.MoveDir * Mathf.Abs(_firstVelocityX);
+            _player.ChangeFaceDir();
         }
 
         public override void Exit()

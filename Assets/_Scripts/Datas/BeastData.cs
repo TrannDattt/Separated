@@ -21,6 +21,7 @@ namespace Separated.Data
         public float ExistTime;
 
         [Header("Behavior States")]
+        public RuntimeAnimatorController AnimControl;
         public IdleStateData IdleData;
         public RunStateData RunData;
         public SkillStateData[] SkillDatas;

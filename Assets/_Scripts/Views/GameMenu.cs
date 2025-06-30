@@ -22,9 +22,10 @@ namespace Separated.Views
 
             // Implement show logic based on animation type
             // _canvasGroup.alpha = 1;
-            // _menuOpenedEvent.Notify(EGameState.Pause);
             gameObject.SetActive(true);
             _isOpened = true;
+
+            MenuControl.Instance.AddMenu(this);
         }
 
         public override void Hide()
@@ -33,9 +34,10 @@ namespace Separated.Views
 
             // Implement hide logic
             // _canvasGroup.alpha = 0;
-            // _menuOpenedEvent.Notify(EGameState.InGame);
             gameObject.SetActive(false);
             _isOpened = false;
+
+            MenuControl.Instance.RemoveMenu(this);
         }
 
         public virtual void Initialize()

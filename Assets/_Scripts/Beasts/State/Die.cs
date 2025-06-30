@@ -1,5 +1,6 @@
 using Separated.Data;
 using Separated.Enums;
+using Separated.Poolings;
 using UnityEngine;
 
 namespace Separated.SummonedBeasts
@@ -45,6 +46,7 @@ namespace Separated.SummonedBeasts
 
             //TODO: Return beast to pool
             // Debug.Log(PlayedTime);
+            SummonedObjectPooling.ReturnObject(_beast);
             _beast.gameObject.SetActive(false);
         }
 

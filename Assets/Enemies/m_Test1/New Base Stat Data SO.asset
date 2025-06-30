@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 259bd2a8575b8b7438c98161b2725667, type: 3}
   m_Name: New Base Stat Data SO
   m_EditorClassIdentifier: 
-  Hp: 1
+  Hp: 11
   Poise: 1
   TriggerRange: {x: 10, y: 0.5}

@@ -7,36 +7,22 @@ using UnityEngine;
 namespace Separated.Unit
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class UnitHitbox : MonoBehaviour, ICanDoDamage
+    public class UnitHitbox : MonoBehaviour
     {
-        public float Damage => _damage;
-        public float PoiseDamage => _poiseDamage;
-        public Vector2 KnockbackDir => _knockbackDir;
-        public float KnockbackForce => _knockbackForce;
+        private ICanDoDamage _canDoDamage;
 
-        private float _damage;
-        private float _poiseDamage;
-        private Vector2 _knockbackDir;
-        private float _knockbackForce;
+        public float Damage => _canDoDamage.Damage;
+        public float PoiseDamage => _canDoDamage.PoiseDamage;
+        public Vector2 KnockbackDir => _canDoDamage.KnockbackDir;
+        public float KnockbackForce => _canDoDamage.KnockbackForce;
 
         private BoxCollider2D _collider;
 
         public event Action OnDoingDamage;
 
-        public void SetAttackData(AttackData data)
+        public void SetHitboxData(ICanDoDamage data)
         {
-            _damage = data.Damage;
-            _poiseDamage = data.PoiseDamage;
-            _knockbackDir = data.KnockbackDir;
-            _knockbackForce = data.KnockbackForce;
-        }
-
-        public void SetAttackData(AttackPhase data)
-        {
-            _damage = data.Damage;
-            _poiseDamage = data.PoiseDamage;
-            _knockbackDir = data.KnockbackDir;
-            _knockbackForce = data.KnockbackForce;
+            _canDoDamage = data;
         }
 
         // public void ResetAttackData()
@@ -64,7 +50,7 @@ namespace Separated.Unit
             if (damageableUnit != null && !CompareTag(collision.tag))
             {
                 // Debug.Log(collision.gameObject.name + " hit by " + GetGameObject().name);
-                (this as ICanDoDamage).Do(damageableUnit);
+                _canDoDamage.Do(damageableUnit);
 
                 if (CompareTag("Player"))
                 {

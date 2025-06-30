@@ -21,7 +21,7 @@ namespace Separated.Player
             InputProvider = GetComponent<PlayerInputManager>();
         }
 
-        private void ChangeFaceDir()
+        public void ChangeFaceDir()
         {
             if (InputProvider.FaceDir > 0)
             {
@@ -45,11 +45,6 @@ namespace Separated.Player
             }
 
             Init();
-        }
-
-        void Update()
-        {
-            ChangeFaceDir();
         }
 
         public override void TakeDamage(float damage)

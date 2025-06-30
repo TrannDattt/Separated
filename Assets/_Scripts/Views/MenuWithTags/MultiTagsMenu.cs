@@ -46,6 +46,16 @@ namespace Separated.Views
                 }
             }
         }
+
+        public override void Hide()
+        {
+            base.Hide();
+
+            foreach (var menu in _menuDict.Values)
+            {
+                menu.Hide();
+            }
+        }
     }
 
     [Serializable]

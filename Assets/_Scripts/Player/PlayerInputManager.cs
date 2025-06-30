@@ -1,3 +1,4 @@
+using Separated.GameManager;
 using Separated.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,17 +33,20 @@ namespace Separated.Player
         public bool Skill4Input { get; private set; }
         public bool UltimateInput { get; private set; }
 
-        private PlayerInput _playerInput;
+        private bool _canDoAction => !MenuControl.Instance.HasOpenedMenu;
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            MoveDir = context.ReadValue<float>();
-            FaceDir = MoveDir != 0 ? (int)Mathf.Sign(MoveDir) : FaceDir;
+            if (_canDoAction)
+            {
+                MoveDir = context.ReadValue<float>();
+                FaceDir = MoveDir != 0 ? (int)Mathf.Sign(MoveDir) : FaceDir;
+            }
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 JumpInput = true;
             }
@@ -50,7 +54,7 @@ namespace Separated.Player
 
         public void OnDash(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 DashInput = true;
             }
@@ -58,7 +62,7 @@ namespace Separated.Player
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 AttackInput = true;
             }
@@ -66,7 +70,7 @@ namespace Separated.Player
 
         public void OnUsingSkill1(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 Skill1Input = true;
             }
@@ -74,7 +78,7 @@ namespace Separated.Player
 
         public void OnUsingSkill2(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 Skill2Input = true;
             }
@@ -82,7 +86,7 @@ namespace Separated.Player
 
         public void OnUsingSkill3(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 Skill3Input = true;
             }
@@ -90,7 +94,7 @@ namespace Separated.Player
 
         public void OnUsingSkill4(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 Skill4Input = true;
             }
@@ -98,7 +102,7 @@ namespace Separated.Player
 
         public void OnUsingUltimate(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (_canDoAction && context.started)
             {
                 UltimateInput = true;
             }
@@ -131,23 +135,6 @@ namespace Separated.Player
                 default:
                     break;
             }
-        }
-
-        // public void ChangeInputMap(string mapName)
-        // {
-        //     if (_playerInput != null)
-        //     {
-        //         _playerInput.SwitchCurrentActionMap(mapName);
-        //     }
-        //     else
-        //     {
-        //         Debug.LogWarning("PlayerInput component not found. Cannot change input map.");
-        //     }
-        // }
-
-        void Awake()
-        {
-            _playerInput = GetComponent<PlayerInput>();
         }
     }
 }

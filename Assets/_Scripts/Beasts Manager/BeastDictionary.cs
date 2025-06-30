@@ -23,13 +23,14 @@ namespace Separated.Skills
         {
             _beastDict.Clear();
 
+            // TODO: Use addressable to get data
             foreach (var beastData in _beastDatas)
             {
                 if (beastData.Type == EBeastType.Null)
                 {
                     continue;
                 }
-                
+
                 _beastDict.Add(beastData.Type, beastData);
             }
 

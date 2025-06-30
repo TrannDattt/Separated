@@ -20,17 +20,24 @@ namespace Separated.Player
             _player = player;
         }
 
+        public override void Do()
+        {
+            base.Do();
+            
+            _player.ChangeFaceDir();
+        }
+
         public override EBehaviorState GetNextState()
         {
             if (_inputProvider.JumpInput && _groundSensor.CheckSensor(GroundSensor.EDirection.Down))
             {
                 return EBehaviorState.Jump;
             }
-            if(!_groundSensor.CheckSensor(GroundSensor.EDirection.Down))
+            if (!_groundSensor.CheckSensor(GroundSensor.EDirection.Down))
             {
                 return EBehaviorState.Fall;
             }
-            
+
             // TODO: Change to HURT when get take light damage
             // TODO: Change to THROWN_AWAY when get heavy damage
             // TODO: Change to DIE when run out of HP
@@ -59,7 +66,7 @@ namespace Separated.Player
             {
                 return EBehaviorState.Ultimate;
             }
-            
+
             if (_inputProvider.AttackInput)
             {
                 return EBehaviorState.Attack;
