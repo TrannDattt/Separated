@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Player_Dash
   m_EditorClassIdentifier: 
   StateKey: 3
+  Clip: {fileID: 0}
   PeriodTime: 0.2
-  Speed: 10
+  Speed: 20
   DashCount: 0

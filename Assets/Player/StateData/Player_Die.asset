@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Player_Die
   m_EditorClassIdentifier: 
   StateKey: 16
-  Clip: {fileID: 0}
+  Clip: {fileID: 7400000, guid: f8df5f8bccec3264a94c40c13bfab665, type: 2}
   PeriodTime: 1
+  DropData: {fileID: 0}

@@ -1,3 +1,4 @@
+using System.Linq;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Player;
@@ -26,8 +27,7 @@ namespace Separated.Unit
                     break;
 
                 case EUnitType.Enemy:
-                    Target = GameObject.FindGameObjectWithTag("Enemy");
-                    // TODO: Find all enemy in scene and get the nearest one
+                    Target = GetNearestEnemy();
                     break;
 
                 default:
@@ -55,13 +55,30 @@ namespace Separated.Unit
             var distance = Target.transform.position - _unit.transform.position;
             return Mathf.Abs(distance.x) <= _triggerRange.x && Mathf.Abs(distance.y) <= _triggerRange.y;
         }
-        
+
         public bool CheckInAttackRange()
         {
             if (Target == null) return false;
 
             var distance = Target.transform.position - _unit.transform.position;
             return Mathf.Abs(distance.x) <= _attackRange.x && Mathf.Abs(distance.y) <= _attackRange.y;
+        }
+
+        private GameObject GetNearestEnemy()
+        {
+            var player = PlayerControl.Instance; 
+            var allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            var nearestEnemy = allEnemies
+                .OrderBy(enemy => Vector3.Distance(player.transform.position, enemy.transform.position))
+                .FirstOrDefault();
+
+            if (nearestEnemy == null)
+            {
+                return null;
+            }
+
+            float distance = Vector3.Distance(player.transform.position, nearestEnemy.transform.position);
+            return distance <= _triggerRange.magnitude ? nearestEnemy : null;
         }
     }
 }

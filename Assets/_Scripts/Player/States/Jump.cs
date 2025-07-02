@@ -48,7 +48,7 @@ namespace Separated.Player
         {
             if (base.GetNextState() == EBehaviorState.None)
             {
-                if (_isFinish)
+                if (_isFinish || _groundSensor.CheckSensor(GroundSensor.EDirection.Up))
                 {
                     return EBehaviorState.Fall;
                 }

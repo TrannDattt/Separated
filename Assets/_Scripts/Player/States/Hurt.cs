@@ -19,6 +19,7 @@ namespace Separated.Player
         {
             base.Enter();
 
+            _player.RigidBody.linearVelocity = Vector2.zero;
             RuntimeCoroutine.Instance.StartRuntimeCoroutine(RecoveryCoroutine());
         }
 

@@ -57,7 +57,7 @@ namespace Separated.Player{
             _stateDict.Add(EBehaviorState.Ultimate, new SkillState(EBehaviorState.Ultimate, _ultimateData, _animator, _inputProvider, _player, _hitbox));
 
             _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _player));
-            _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator));
+            _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator, _player));
 
             ChangeState(EBehaviorState.Idle);
         }

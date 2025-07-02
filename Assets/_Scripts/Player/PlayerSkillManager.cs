@@ -34,7 +34,6 @@ namespace Separated.Player
                 { ESkillSlot.Skill2, new() },
                 { ESkillSlot.Skill3, new() },
                 { ESkillSlot.Skill4, new() },
-                // { ESkillSlot.Ultimate, new() } // Ultimate is always summon all the equipped beasts
             };
 
             if (skillStates != null)
@@ -44,13 +43,9 @@ namespace Separated.Player
                     var key = _skillDict.Keys.ElementAt(i);
                     _skillDict[key] = i >= skillStates.Length ? new() : new(skillStates[i]);
                 }
-
-                // TODO: Init ultimate skill
             }
 
             _playerSkillView.Initialize(_skillDict.Values.ToArray());
-
-            // Debug.Log("Init listener");
 
             var skillUpdatedEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
             skillUpdatedEvent.AddListener(this);
@@ -64,7 +59,6 @@ namespace Separated.Player
             if (beastData == null)
             {
                 _skillDict[slot] = null;
-                // TODO: Update ultimate skill
                 return;
             }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
@@ -13,6 +14,10 @@ namespace Separated.Player
         protected GroundSensor _groundSensor;
         protected PlayerControl _player;
 
+        private float _coyoteTime = .2f;
+        private bool _inCoyoteTime = true;
+        private bool _isCountdownCoyote = false;
+
         public GroundState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
@@ -20,27 +25,47 @@ namespace Separated.Player
             _player = player;
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+
+            if (!_groundSensor.CheckSensor(GroundSensor.EDirection.Down))
+            {
+                _inCoyoteTime = false;
+            }
+        }
+
         public override void Do()
         {
             base.Do();
-            
+
             _player.ChangeFaceDir();
+
+            if (!_groundSensor.CheckSensor(GroundSensor.EDirection.Down) && !_isCountdownCoyote)
+            {
+                _isCountdownCoyote = true;
+                ResetCoyoteTime();
+            }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            _inCoyoteTime = true;
+            _isCountdownCoyote = false;
         }
 
         public override EBehaviorState GetNextState()
         {
-            if (_inputProvider.JumpInput && _groundSensor.CheckSensor(GroundSensor.EDirection.Down))
+            if (_inputProvider.JumpInput && (_groundSensor.CheckSensor(GroundSensor.EDirection.Down) || _inCoyoteTime))
             {
                 return EBehaviorState.Jump;
             }
-            if (!_groundSensor.CheckSensor(GroundSensor.EDirection.Down))
+            if (!_groundSensor.CheckSensor(GroundSensor.EDirection.Down) && !_inCoyoteTime)
             {
                 return EBehaviorState.Fall;
             }
-
-            // TODO: Change to HURT when get take light damage
-            // TODO: Change to THROWN_AWAY when get heavy damage
-            // TODO: Change to DIE when run out of HP
 
             if (_inputProvider.Skill1Input)
             {
@@ -78,6 +103,18 @@ namespace Separated.Player
             }
 
             return EBehaviorState.None;
+        }
+
+        private void ResetCoyoteTime()
+        {
+            IEnumerator ResetCoyoteTimeCoroutine()
+            {
+                yield return new WaitForSeconds(_coyoteTime);
+                _inCoyoteTime = false;
+                _isCountdownCoyote = false;
+            }
+
+            RuntimeCoroutine.Instance.StartRuntimeCoroutine(ResetCoyoteTimeCoroutine());
         }
     }
 }

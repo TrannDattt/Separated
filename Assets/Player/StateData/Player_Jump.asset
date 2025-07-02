@@ -15,6 +15,6 @@ MonoBehaviour:
   StateKey: 4
   Clip: {fileID: 7400000, guid: 195b77be7733d3347a86d18c9bbbc098, type: 2}
   PeriodTime: 0.3
-  JumpSpeedX: 2
-  JumpSpeedY: 10
+  JumpSpeedX: 7
+  JumpSpeedY: 15
   JumpCount: 1
