@@ -1,9 +1,11 @@
+using System.ComponentModel.Design;
 using System.Timers;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Separated.Helpers.GroundSensor;
 using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
@@ -40,6 +42,12 @@ namespace Separated.Player
 
         public override EBehaviorState GetNextState()
         {
+            if (!_groundSensor.CheckSensor(EDirection.TopRight) && _groundSensor.CheckSensor(EDirection.MidRight))
+            {
+                Debug.Log("To climb state");
+                return EBehaviorState.EdgeClimb;
+            }
+
             // TODO: Change to AIR_ATTACK when get MOUSE_0 input
             // TODO: Change to THROWN_AWAY when get heavy damage
             if (_inputProvider.DashInput)

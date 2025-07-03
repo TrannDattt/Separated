@@ -74,7 +74,7 @@ namespace Separated.Views
         {
             _onColorChanged.AddListener(ChangeFillColor);
 
-            yield return StartCoroutine(DOTweenUI.ChangeColorCoroutine(_fillImg.color, .5f, new Color(1f, .5f, .5f), _onColorChanged, .5f));
+            yield return StartCoroutine(DOTween.UIChangeColorCoroutine(_fillImg.color, .5f, new Color(1f, .5f, .5f), _onColorChanged, .5f));
 
             _onColorChanged.RemoveListener(ChangeFillColor);
             ChangeFillColor(Color.white);

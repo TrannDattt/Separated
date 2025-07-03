@@ -17,7 +17,7 @@ namespace Separated.Views
 
         public override void Hide()
         {
-            StartCoroutine(DOTweenUI.FadeCoroutine(_canvasGroup, .7f, false));
+            StartCoroutine(DOTween.UIFadeCoroutine(_canvasGroup, .7f, false));
         }
 
         public void Initialize()
@@ -26,7 +26,7 @@ namespace Separated.Views
 
         public override void Show()
         {
-            StartCoroutine(DOTweenUI.FadeCoroutine(_canvasGroup, .3f, true));
+            StartCoroutine(DOTween.UIFadeCoroutine(_canvasGroup, .3f, true));
         }
 
         public void SetContent(string content)
@@ -44,12 +44,12 @@ namespace Separated.Views
             IEnumerator PopupCoroutine()
             {
                 Show();
-                yield return StartCoroutine(DOTweenUI.LerpCoroutine(_canvasGroup, .3f, distance, .2f));
+                yield return StartCoroutine(DOTween.UILerpCoroutine(_canvasGroup, .3f, distance, .2f));
 
                 yield return new WaitForSeconds(.5f);
 
                 Hide();
-                yield return StartCoroutine(DOTweenUI.LerpCoroutine(_canvasGroup, .7f, -distance, 5f));
+                yield return StartCoroutine(DOTween.UILerpCoroutine(_canvasGroup, .7f, -distance, 5f));
 
                 OnPopupFinished?.Invoke();
                 ReturnToPool();

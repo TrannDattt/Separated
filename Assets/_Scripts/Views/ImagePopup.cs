@@ -40,9 +40,9 @@ namespace Separated.Views
             IEnumerator PopupCoroutine()
             {
                 Show();
-                yield return StartCoroutine(DOTweenUI.LerpCoroutine(_canvasGroup, .5f, distance, .8f));
+                yield return StartCoroutine(DOTween.UILerpCoroutine(_canvasGroup, .5f, distance, .8f));
                 
-                yield return StartCoroutine(DOTweenUI.FadeCoroutine(_canvasGroup, 1f, false, 5f));
+                yield return StartCoroutine(DOTween.UIFadeCoroutine(_canvasGroup, 1f, false, 5f));
 
                 OnPopupFinished?.Invoke();
                 ReturnToPool();

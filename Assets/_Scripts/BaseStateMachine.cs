@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Separated.Enemies;
+using Separated.Enums;
 using UnityEngine;
 
 namespace Separated.Helpers
@@ -13,6 +14,11 @@ namespace Separated.Helpers
 
         public virtual void ChangeState(T nextKey, bool wait = false)
         {
+            if (!_stateDict.ContainsKey(nextKey))
+            {
+                Debug.Log(nextKey);
+            }
+
             if (CurState == null || wait || (CurState != null && !CurState.IsFinished))
             {
                 CurState?.Exit();
@@ -31,7 +37,7 @@ namespace Separated.Helpers
                     // if (CurState is EnemyBaseState)
                     // {
                     //     Debug.Log(CurState.Key);
-                    //     Debug.Log(nextStateKey);
+                        // Debug.Log(nextStateKey);
                     // }
                     ChangeState(nextStateKey);
                 }

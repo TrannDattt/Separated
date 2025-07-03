@@ -22,6 +22,7 @@ namespace Separated.Player{
         [SerializeField] private FallStateData _fallData;
         [SerializeField] private LandStateData _landData;
         [SerializeField] private DashStateData _dashData;
+        [SerializeField] private StateDataSO _edgeClimbData;
         [SerializeField] private AttackData[] _meleeAttackDatas;
         // [SerializeField] private List<MeleeAttackStateData> _meleeAttackDatas;
         // [SerializeField] private SkillStateData[] _skillDatas;
@@ -47,6 +48,7 @@ namespace Separated.Player{
             _stateDict.Add(EBehaviorState.Fall, new Fall(EBehaviorState.Fall, _fallData, _animator, _player, _inputProvider, _groundSensor));
             _stateDict.Add(EBehaviorState.Land, new Land(EBehaviorState.Land, _landData, _animator, _player));
             _stateDict.Add(EBehaviorState.Dash, new Dash(EBehaviorState.Dash, _dashData, _animator, _player, _inputProvider, _groundSensor));
+            _stateDict.Add(EBehaviorState.EdgeClimb, new EdgeClimbState(EBehaviorState.EdgeClimb, _edgeClimbData, _animator, _player));
             
             _stateDict.Add(EBehaviorState.Attack, new MeleeAttack(EBehaviorState.Attack, _meleeAttackDatas, _meleeAttackDatas[0], _animator, _player, _inputProvider, this, _hitbox));
             // _stateDict.Add(EBehaviorState.Skill1, new SkillState(EBehaviorState.Skill1, _skillDatas[0], _animator, _inputProvider, _player, _hitbox));

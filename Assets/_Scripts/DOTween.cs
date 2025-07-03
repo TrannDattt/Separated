@@ -9,9 +9,9 @@ using UnityEngine.UI;
 
 namespace Separated.Helpers
 {
-    public static class DOTweenUI
+    public static class DOTween
     {
-        public static IEnumerator LerpCoroutine(CanvasGroup target, float lerpTime, Vector2 distance, float acce = 1)
+        public static IEnumerator UILerpCoroutine(CanvasGroup target, float lerpTime, Vector2 distance, float acce = 1)
         {
             float elapsedTime = 0;
             var startPos = target.GetComponent<RectTransform>().anchoredPosition;
@@ -30,7 +30,7 @@ namespace Separated.Helpers
             target.GetComponent<RectTransform>().anchoredPosition = targetPos;
         }
 
-        public static IEnumerator FadeCoroutine(CanvasGroup target, float fadeTime, bool isFadeIn, float acce = 1)
+        public static IEnumerator UIFadeCoroutine(CanvasGroup target, float fadeTime, bool isFadeIn, float acce = 1)
         {
             float elapsedTime = 0;
 
@@ -46,7 +46,7 @@ namespace Separated.Helpers
             target.alpha = isFadeIn ? 1 : 0;
         }
 
-        public static IEnumerator ChangeColorCoroutine(Color curColor, float changeTime, Color targetColor, UnityEvent<Color> onColorChanged, float acce = 1)
+        public static IEnumerator UIChangeColorCoroutine(Color curColor, float changeTime, Color targetColor, UnityEvent<Color> onColorChanged, float acce = 1)
         {
             float elapsedTime = 0;
             var offset = targetColor - curColor;
@@ -65,7 +65,7 @@ namespace Separated.Helpers
             onColorChanged?.Invoke(targetColor);
         }
 
-        public static IEnumerator ChangeNumberValueCoroutine(TextMeshProUGUI target, float changeTime, int targetValue, float acce = 1)
+        public static IEnumerator UIChangeNumberValueCoroutine(TextMeshProUGUI target, float changeTime, int targetValue, float acce = 1)
         {
             float elapsedTime = 0;
             int startValue = int.Parse(target.text);
@@ -83,6 +83,24 @@ namespace Separated.Helpers
             }
 
             target.text = targetValue.ToString();
+        }
+
+        public static IEnumerator UnitLerpCoroutine(Rigidbody2D body, float lerpTime, Vector2 distance)
+        {
+            float elapsedTime = 0;
+            var startPos = body.position;
+            var targetPos = startPos + distance;
+
+            while (elapsedTime < lerpTime)
+            {
+                var curPos = startPos + distance * (elapsedTime / lerpTime);
+                body.MovePosition(curPos);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            body.MovePosition(targetPos);
         }
     }
 }

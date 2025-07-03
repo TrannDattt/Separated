@@ -4,17 +4,31 @@ using UnityEngine;
 namespace Separated.Helpers
 {
     public class GroundSensor : MonoBehaviour {
-        public enum EDirection {
+        public enum EDirection
+        {
             Up,
+
             Down,
-            Left,
-            Right,
+
+            TopLeft,
+            MidLeft,
+            BotLeft,
+
+            TopRight,
+            MidRight,
+            BotRight,
         }
 
         [SerializeField] private Transform _upSensor;
         [SerializeField] private Transform _downSensor;
-        [SerializeField] private Transform _leftSensor;
-        [SerializeField] private Transform _rightSensor;
+
+        [SerializeField] private Transform _topLeftSensor;
+        [SerializeField] private Transform _midLeftSensor;
+        [SerializeField] private Transform _botLeftSensor;
+
+        [SerializeField] private Transform _topRightSensor;
+        [SerializeField] private Transform _midRightSensor;
+        [SerializeField] private Transform _botRightSensor;
 
         private Dictionary<EDirection, Transform> _sensorDict = new();
 
@@ -26,8 +40,8 @@ namespace Separated.Helpers
             {
                 EDirection.Up => Vector2.up,
                 EDirection.Down => Vector2.down,
-                EDirection.Left => Vector2.left,
-                EDirection.Right => Vector2.right,
+                EDirection.TopLeft or EDirection.MidLeft or EDirection.BotLeft => Vector2.left,
+                EDirection.TopRight or EDirection.MidRight or EDirection.BotRight => Vector2.right,
                 _ => Vector2.zero
             };
 
@@ -43,8 +57,12 @@ namespace Separated.Helpers
             {
                 { EDirection.Up, _upSensor },
                 { EDirection.Down, _downSensor },
-                { EDirection.Left, _leftSensor },
-                { EDirection.Right, _rightSensor },
+                { EDirection.TopLeft, _topLeftSensor },
+                { EDirection.MidLeft, _midLeftSensor },
+                { EDirection.BotLeft, _botLeftSensor },
+                { EDirection.TopRight, _topRightSensor },
+                { EDirection.MidRight, _midRightSensor },
+                { EDirection.BotRight, _botRightSensor },
             };
         }
     }

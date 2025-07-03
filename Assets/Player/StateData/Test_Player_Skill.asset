@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5f601ceb890564d9e3f4841e7b910e, type: 3}
   m_Name: Test_Player_Skill
   m_EditorClassIdentifier: 
-  StateKey: 8
+  StateKey: 9
   Clip: {fileID: 7400000, guid: c4932face089a94489f67156db43266b, type: 2}
   PeriodTime: 0.5
   SkillPhases:

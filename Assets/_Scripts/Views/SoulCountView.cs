@@ -45,7 +45,7 @@ namespace Separated.Views
         public void UpdateCount()
         {
             var newValue = _playerInventory.SoulHeld;
-            StartCoroutine(DOTweenUI.ChangeNumberValueCoroutine(_curValue, .5f, newValue));
+            StartCoroutine(DOTween.UIChangeNumberValueCoroutine(_curValue, .5f, newValue));
         }
 
         public void ShowChangeValue(int amount)

@@ -9,6 +9,7 @@ namespace Separated.Enums
         Jump,
         Fall,
         Land,
+        EdgeClimb,
         Attack,
         Skill1,
         Skill2,

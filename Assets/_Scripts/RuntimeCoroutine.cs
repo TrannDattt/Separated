@@ -1,28 +1,14 @@
 using System.Collections;
+using UnityEngine;
 
 namespace Separated.Helpers
 {
     public class RuntimeCoroutine : Singleton<RuntimeCoroutine>
     {
-        public void StartRuntimeCoroutine(IEnumerator coroutine)
-        {
-            if (coroutine != null)
-            {
-                StartCoroutine(coroutine);
-            }
-        }
+        public Coroutine StartRuntimeCoroutine(IEnumerator coroutine) => StartCoroutine(coroutine);
 
-        public void StopRuntimeCoroutine(IEnumerator coroutine)
-        {
-            if (coroutine != null)
-            {
-                StopCoroutine(coroutine);
-            }
-        }
+        public void StopRuntimeCoroutine(IEnumerator coroutine) => StopCoroutine(coroutine);
 
-        public void StopAllRuntimeCoroutines()
-        {
-            base.StopAllCoroutines();
-        }
+        public void StopAllRuntimeCoroutines() => StopAllCoroutines();
     }
 }

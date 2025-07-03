@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0dfb0ddeec507499927edfb5c6a4e1, type: 3}
   m_Name: Player_MAttack1 1
   m_EditorClassIdentifier: 
-  StateKey: 7
+  StateKey: 8
   Clip: {fileID: 7400000, guid: c4932face089a94489f67156db43266b, type: 2}
   PeriodTime: 0.3
   Damage: 5

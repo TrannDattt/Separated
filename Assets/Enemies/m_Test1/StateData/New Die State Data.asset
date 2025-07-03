@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f0bf8b022f8504fa6bdb6046d9cdb5, type: 3}
   m_Name: New Die State Data
   m_EditorClassIdentifier: 
-  StateKey: 16
+  StateKey: 17
   Clip: {fileID: 7400000, guid: e483822eecc0e2549b1df6d7817fffed, type: 2}
   PeriodTime: 1
   DropData: {fileID: 11400000, guid: b381ebb567bd1b54d8d43fb39bb95987, type: 2}

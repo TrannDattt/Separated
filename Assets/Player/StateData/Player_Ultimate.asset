@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5f601ceb890564d9e3f4841e7b910e, type: 3}
   m_Name: Player_Ultimate
   m_EditorClassIdentifier: 
-  StateKey: 12
+  StateKey: 13
   Clip: {fileID: 7400000, guid: c30217bbf0fe2174c933b6990ae92c86, type: 2}
   PeriodTime: 3
   SkillPhases:
@@ -30,3 +30,4 @@ MonoBehaviour:
         SummonedObjects:
         - Prefabs: {fileID: 5410772457434385988, guid: 245ad8d2da357cd459f03ec68418c5f0, type: 3}
           Amount: 4
+        SummonPos: []
