@@ -12,8 +12,9 @@ namespace Separated.Player
         private ClimbStateData _climbData => _curStateData as ClimbStateData;
         private PlayerControl _player;
         private GroundSensor _sensor;
-        
+
         private bool _isMovingY;
+        private float _moveYTime;
         private float _finsishClimbTime;
 
         public EdgeClimbState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, GroundSensor sensor) : base(key, data, animator)
@@ -30,8 +31,8 @@ namespace Separated.Player
         {
             var clipName = _climbData.Clip.name;
 
-            var normalizedTime = PlayedTime / (_climbData.PeriodTime * .5f);
-            _animator.Play(clipName, 0, normalizedTime % .5f);
+            var normalizedTime = PlayedTime / (_moveYTime * 2);
+            _animator.Play(clipName, 0, normalizedTime);
         }
 
         private void PlayEndClimbAnim()
@@ -49,7 +50,7 @@ namespace Separated.Player
                                     _sensor.GetSensorsDistance(EDirection.TopRight, EDirection.BotRight).y :
                                     _sensor.GetSensorsDistance(EDirection.MidRight, EDirection.BotRight).y;
 
-            var moveYTime = climbDistanceY / _climbData.SpeedY;
+            _moveYTime = climbDistanceY / _climbData.SpeedY;
 
             var runtimeCoroutine = RuntimeCoroutine.Instance;
 
@@ -57,7 +58,7 @@ namespace Separated.Player
             {
                 yield return runtimeCoroutine.StartRuntimeCoroutine(DOTween.UnitLerpCoroutine(
                     _player.RigidBody,
-                    moveYTime,
+                    _moveYTime,
                     new Vector2(0, climbDistanceY)
                 ));
             }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698f0df7f2599ce4f9f6f3ea239840a0, type: 3}
   m_Name: Player_Climb
   m_EditorClassIdentifier: 
-  StateKey: 0
+  StateKey: 7
   Clip: {fileID: 7400000, guid: 44fd53f3084892e46b74576513f30721, type: 2}
   PeriodTime: 0.5
   SpeedX: 3
