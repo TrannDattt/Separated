@@ -42,9 +42,8 @@ namespace Separated.Player
 
         public override EBehaviorState GetNextState()
         {
-            if (!_groundSensor.CheckSensor(EDirection.TopRight) && _groundSensor.CheckSensor(EDirection.MidRight))
+            if (!_groundSensor.CheckSensor(EDirection.TopRight, 1) && _groundSensor.CheckSensor(EDirection.MidRight))
             {
-                Debug.Log("To climb state");
                 return EBehaviorState.EdgeClimb;
             }
 

@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35d575fa8c4af524a81c6de0f4c7a21d, type: 3}
-  m_Name: Player_Edge Climb
+  m_Script: {fileID: 11500000, guid: 698f0df7f2599ce4f9f6f3ea239840a0, type: 3}
+  m_Name: Player_Climb
   m_EditorClassIdentifier: 
-  StateKey: 7
-  Clip: {fileID: 0}
-  PeriodTime: 1
+  StateKey: 0
+  Clip: {fileID: 7400000, guid: 44fd53f3084892e46b74576513f30721, type: 2}
+  PeriodTime: 0.5
+  SpeedX: 3
+  SpeedY: 3

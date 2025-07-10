@@ -3,28 +3,53 @@ using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
 using UnityEngine;
+using static Separated.Helpers.GroundSensor;
 
 namespace Separated.Player
 {
     public class EdgeClimbState : PlayerBaseState
     {
+        private ClimbStateData _climbData => _curStateData as ClimbStateData;
         private PlayerControl _player;
+        private GroundSensor _sensor;
+        
+        private bool _isMovingY;
+        private float _finsishClimbTime;
 
-        private float _climbDistanceX = .7f;
-        private float _climbDistanceY = 1.3f;
-        private float _moveYTime => _curStateData.PeriodTime * .7f;
-        private float _moveXTime => _curStateData.PeriodTime - _moveYTime;
-
-        public EdgeClimbState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player) : base(key, data, animator)
+        public EdgeClimbState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, GroundSensor sensor) : base(key, data, animator)
         {
             _player = player;
+            _sensor = sensor;
+        }
+
+        protected override void PlayAnim()
+        {
+        }
+
+        private void PlayClimbAnim()
+        {
+            var clipName = _climbData.Clip.name;
+
+            var normalizedTime = PlayedTime / (_climbData.PeriodTime * .5f);
+            _animator.Play(clipName, 0, normalizedTime % .5f);
+        }
+
+        private void PlayEndClimbAnim()
+        {
+            var clipName = _climbData.Clip.name;
+
+            var normalizedTime = (PlayedTime - _finsishClimbTime) / (_climbData.PeriodTime * .5f);
+            _animator.Play(clipName, 0, Mathf.Min(normalizedTime + .5f, .9f));
         }
 
         public override void Enter()
         {
-            base.Enter();
+            _isMovingY = true;
+            var climbDistanceY = _sensor.CheckSensor(EDirection.MidRight) ?
+                                    _sensor.GetSensorsDistance(EDirection.TopRight, EDirection.BotRight).y :
+                                    _sensor.GetSensorsDistance(EDirection.MidRight, EDirection.BotRight).y;
 
-            Debug.Log("Climb 1");
+            var moveYTime = climbDistanceY / _climbData.SpeedY;
 
             var runtimeCoroutine = RuntimeCoroutine.Instance;
 
@@ -32,27 +57,42 @@ namespace Separated.Player
             {
                 yield return runtimeCoroutine.StartRuntimeCoroutine(DOTween.UnitLerpCoroutine(
                     _player.RigidBody,
-                    _moveYTime,
-                    new Vector2(0, _climbDistanceY)
-                ));
-
-                yield return runtimeCoroutine.StartRuntimeCoroutine(DOTween.UnitLerpCoroutine(
-                    _player.RigidBody,
-                    _moveXTime,
-                    new Vector2(_climbDistanceX, 0)
+                    moveYTime,
+                    new Vector2(0, climbDistanceY)
                 ));
             }
 
             runtimeCoroutine.StartRuntimeCoroutine(ClimbCoroutine());
+
+            base.Enter();
         }
 
         public override void Do()
         {
             base.Do();
 
-            if (PlayedTime > _curStateData.PeriodTime)
+            if (_isMovingY && (_sensor.CheckSensor(EDirection.MidRight) || _sensor.CheckSensor(EDirection.BotRight)))
             {
-                _isFinish = true;
+                PlayClimbAnim();
+            }
+
+            if (!_sensor.CheckSensor(EDirection.BotRight))
+            {
+                if (_isMovingY)
+                {
+                    _isMovingY = false;
+                    _finsishClimbTime = PlayedTime;
+                    RuntimeCoroutine.Instance.StartRuntimeCoroutine(WaitAnimEnd());
+
+                    IEnumerator WaitAnimEnd()
+                    {
+                        yield return new WaitForSeconds(_climbData.PeriodTime / 2);
+                        _isFinish = true;
+                    }
+                }
+
+                _player.RigidBody.linearVelocity = new(_climbData.SpeedX, 0);
+                PlayEndClimbAnim();
             }
         }
 

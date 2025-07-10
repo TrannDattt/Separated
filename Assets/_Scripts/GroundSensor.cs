@@ -34,7 +34,7 @@ namespace Separated.Helpers
 
         private Transform GetSensor(EDirection dir) => _sensorDict[dir];
         
-        public bool CheckSensor(EDirection dir)
+        public bool CheckSensor(EDirection dir, float distance = .1f)
         {
             var direction = dir switch
             {
@@ -48,7 +48,13 @@ namespace Separated.Helpers
             var sensor = GetSensor(dir);
 
             Debug.DrawRay(sensor.position, direction, Color.red, 0.1f);
-            return Physics2D.Raycast(sensor.position, direction, .1f, LayerMask.GetMask("Ground"));
+            return Physics2D.Raycast(sensor.position, direction, distance, LayerMask.GetMask("Ground"));
+        }
+
+        public Vector2 GetSensorsDistance(EDirection dir1, EDirection dir2)
+        {
+            var distance = GetSensor(dir1).position - GetSensor(dir2).position;
+            return new(Mathf.Abs(distance.x), Mathf.Abs(distance.y));
         }
 
         void Awake()

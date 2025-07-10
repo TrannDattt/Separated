@@ -16,5 +16,5 @@ MonoBehaviour:
   Clip: {fileID: 7400000, guid: 195b77be7733d3347a86d18c9bbbc098, type: 2}
   PeriodTime: 0.3
   JumpSpeedX: 7
-  JumpSpeedY: 15
+  JumpSpeedY: 20
   JumpCount: 1

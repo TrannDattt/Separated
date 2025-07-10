@@ -5,11 +5,4 @@ namespace Separated.Enums
         ButtonClick,
         ItemPickup,
     }
-
-    public enum EUnitType
-    {
-        Player,
-        Enemy,
-        Obstacle,
-    }
 }
