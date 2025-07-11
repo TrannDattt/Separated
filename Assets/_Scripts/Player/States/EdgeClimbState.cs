@@ -88,7 +88,7 @@ namespace Separated.Player
                     IEnumerator WaitAnimEnd()
                     {
                         yield return new WaitForSeconds(_climbData.PeriodTime / 2);
-                        _isFinish = true;
+                        IsFinished = true;
                     }
                 }
 
@@ -99,7 +99,7 @@ namespace Separated.Player
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish)
+            if (IsFinished)
             {
                 return EBehaviorState.Idle;
             }

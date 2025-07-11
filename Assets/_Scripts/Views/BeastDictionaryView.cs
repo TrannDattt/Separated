@@ -56,7 +56,7 @@ namespace Separated.Views
                 });
             }
 
-            var activeDictUpdateEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
+            var activeDictUpdateEvent = GetGenericEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
             foreach (var key in _activeDict.Keys)
             {
                 var activeSkull = _activeDict[key];
@@ -76,7 +76,7 @@ namespace Separated.Views
         {
             foreach (var key in _activeDict.Keys)
             {
-                var activeDictUpdateEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
+                var activeDictUpdateEvent = GetGenericEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
 
                 if (_activeDict[key] == null)
                 {

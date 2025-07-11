@@ -29,7 +29,7 @@ namespace Separated.Player
 
             if (PlayedTime > _hurtData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinished = true;
             }
         }
 
@@ -40,7 +40,7 @@ namespace Separated.Player
                 return base.GetNextState();
             }
 
-            if (_isFinish)
+            if (IsFinished)
             {
                 return EBehaviorState.Idle;
             }

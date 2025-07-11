@@ -6,6 +6,5 @@ namespace Separated.Data
     public class JumpStateData : StateDataSO{
         public float JumpSpeedX;
         public float JumpSpeedY;
-        public int JumpCount; // Number of jumps allowed in the air
     }
 }

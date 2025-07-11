@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Separated.Views
 {
-    public class SoulCountView : GameUI, IEventListener<int>
+    public class SoulCountView : GameUI, IGenericEventListener<int>
     {
         [SerializeField] private CanvasGroup _parentCanvasGroup;
         [SerializeField] private TextMeshProUGUI _curValue;

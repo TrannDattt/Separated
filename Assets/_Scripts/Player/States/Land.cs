@@ -27,13 +27,13 @@ namespace Separated.Player
 
             if (PlayedTime >= _curStateData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinished = true;
             }
         }
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish)
+            if (IsFinished)
             {
                 return EBehaviorState.Idle;
             }

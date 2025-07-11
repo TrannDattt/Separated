@@ -20,7 +20,7 @@ namespace Separated.Player
         {
             base.Enter();
 
-            _isFinish = true;
+            IsFinished = true;
             _firstVelocityX = _fallData.FallSpeedX;
             _acceleration = _fallData.MaxFallSpeedY / _fallData.PeriodTime;
         }

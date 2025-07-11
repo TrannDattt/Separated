@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43301282749c24549892313c94be4a18, type: 3}
-  m_Name: Player_Jump
+  m_Script: {fileID: 11500000, guid: bd3843f04288d8e42b97b366604f62bd, type: 3}
+  m_Name: Test_AddJump
   m_EditorClassIdentifier: 
-  StateKey: 4
-  Clip: {fileID: 7400000, guid: 195b77be7733d3347a86d18c9bbbc098, type: 2}
+  StateKey: 18
+  Clip: {fileID: 7400000, guid: ca3cf7aeab39fc4429f75dd144bbfd62, type: 2}
   PeriodTime: 0.3
   JumpSpeedX: 7
   JumpSpeedY: 15
+  JumpCount: 1

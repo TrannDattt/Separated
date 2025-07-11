@@ -1,20 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Separated.Data;
 using Separated.Enums;
-using Separated.GameManager;
 using Separated.Helpers;
 using Separated.Interfaces;
 using Separated.Unit;
 using UnityEngine;
-using UnityEngine.Events;
 using static Separated.GameManager.EventManager;
 using static Separated.Player.PlayerSkillManager;
 
 namespace Separated.Player{
-    public class PlayerStateMachine : BaseStateMachine<EBehaviorState>, IEventListener<Tuple<ESkillSlot, BeastData>>
+    public class PlayerStateMachine : BaseStateMachine<EBehaviorState>, IGenericEventListener<Tuple<ESkillSlot, BeastData>>
     {
         [SerializeField] private IdleStateData _idleData;
         [SerializeField] private RunStateData _runData;
@@ -29,6 +25,10 @@ namespace Separated.Player{
         [SerializeField] private SkillStateData _ultimateData;
         [SerializeField] private HurtStateData _hurtData;
         [SerializeField] private DieStateData _dieData;
+
+        // TODO: Remove after testing
+        [SerializeField] private AirJumpData _addJumpData;
+        //
 
         private PlayerControl _player;
         private PlayerInputManager _inputProvider;
@@ -61,6 +61,10 @@ namespace Separated.Player{
             _stateDict.Add(EBehaviorState.Hurt, new Hurt(EBehaviorState.Hurt, _hurtData, _animator, _player));
             _stateDict.Add(EBehaviorState.Die, new Die(EBehaviorState.Die, _dieData, _animator, _player));
 
+            // TODO: Remove after testing
+            _stateDict.Add(EBehaviorState.AddtionalJump, new AirJump(EBehaviorState.AddtionalJump, _addJumpData, _animator, _player, _inputProvider, _groundSensor));
+            //
+
             ChangeState(EBehaviorState.Idle);
         }
 
@@ -72,13 +76,23 @@ namespace Separated.Player{
             }
             else
             {
-                Debug.LogError($"State {key} not found in state dictionary.");
+                _stateDict.Add(key, newState);
             }
 
             if (forceChange)
             {
                 ChangeState(key);
             }
+        }
+
+        public void RemoveState(EBehaviorState key)
+        {
+            if (!_stateDict.ContainsKey(key))
+            {
+                return;
+            }
+
+            _stateDict.Remove(key);
         }
 
         public T GetNextData<T>(T curData, T[] dataList) where T : StateDataSO
@@ -141,7 +155,7 @@ namespace Separated.Player{
             // Debug.Log(_skillManager);
             _skillManager.Initialize();
 
-            var skillChangedEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
+            var skillChangedEvent = GetGenericEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
             skillChangedEvent.AddListener(this);
 
             Initialize();
@@ -149,6 +163,7 @@ namespace Separated.Player{
 
         protected override void Update()
         {
+            // Debug.Log(CurState.Key);
             if (_player.Stat.CurHp == 0)
             {
                 // ChangeState(EBehaviorState.Die);

@@ -16,10 +16,11 @@ namespace Separated.Helpers
         {
             if (!_stateDict.ContainsKey(nextKey))
             {
-                Debug.Log(nextKey);
+                Debug.Log($"{gameObject.tag} dont have state: {nextKey}");
             }
 
-            if (CurState == null || wait || (CurState != null && !CurState.IsFinished))
+            if (CurState == null || !wait || (wait && CurState != null && CurState.IsFinished))
+            // if (CurState == null || wait || (CurState != null && !CurState.IsFinished))
             {
                 CurState?.Exit();
                 CurState = _stateDict[nextKey];

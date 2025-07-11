@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 namespace Separated.Player
 {
-    public class PlayerInventoryManager : MonoBehaviour, IEventListener<LootDropData>
+    public class PlayerInventoryManager : MonoBehaviour, IGenericEventListener<LootDropData>
     {
         [SerializeField] private SoulCountView _soulCountView;
 
@@ -23,7 +23,7 @@ namespace Separated.Player
 
             _soulCountView.Initialize(this);
 
-            var enemyDropEvent = EventManager.GetEvent<LootDropData>(EventManager.EEventType.EnemyDied);
+            var enemyDropEvent = EventManager.GetGenericEvent<LootDropData>(EventManager.EEventType.EnemyDied);
             enemyDropEvent.AddListener(this);
         }
 
@@ -84,7 +84,7 @@ namespace Separated.Player
                 }
             }
 
-            var itemUpdatedEvent = EventManager.GetEvent<ItemsDrop[]>(EventManager.EEventType.InventoryUpdated);
+            var itemUpdatedEvent = EventManager.GetGenericEvent<ItemsDrop[]>(EventManager.EEventType.InventoryUpdated);
             itemUpdatedEvent.Notify(drops);
         }
 

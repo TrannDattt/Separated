@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Separated.Skills
 {
-    public class BeastDictionary : Singleton<BeastDictionary>, IEventListener<EBeastType>
+    public class BeastDictionary : Singleton<BeastDictionary>, IGenericEventListener<EBeastType>
     {
         [SerializeField] private BeastData[] _beastDatas;
         [SerializeField] private BeastDictionaryView _beastDictionaryView;
@@ -45,7 +45,7 @@ namespace Separated.Skills
                 _availableBeastDict.Add(beastData.Type, false);
             }
 
-            var enemyDieEvent = EventManager.GetEvent<EBeastType>(EventManager.EEventType.EnemyDied);
+            var enemyDieEvent = EventManager.GetGenericEvent<EBeastType>(EventManager.EEventType.EnemyDied);
             enemyDieEvent.AddListener(this);
         }
 

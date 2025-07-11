@@ -3,8 +3,10 @@ using System.Timers;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
+using Separated.Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Separated.GameManager.EventManager;
 using static Separated.Helpers.GroundSensor;
 using static Separated.Player.PlayerStateMachine;
 
@@ -18,11 +20,14 @@ namespace Separated.Player
 
         protected float _firstVelocityX;
 
+        private Event<EEventType> _touchGroundEvent = new();
+
         public AirBorneState(EBehaviorState key, StateDataSO data, Animator animator, PlayerControl player, PlayerInputManager inputProvider, GroundSensor groundSensor) : base(key, data, animator)
         {
             _inputProvider = inputProvider;
             _groundSensor = groundSensor;
             _player = player;
+            _touchGroundEvent = GetEvent(EEventType.TouchedGround);
         }
 
         public override void Do()
@@ -31,13 +36,6 @@ namespace Separated.Player
 
             _player.RigidBody.linearVelocityX = _inputProvider.MoveDir * Mathf.Abs(_firstVelocityX);
             _player.ChangeFaceDir();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-
-            _inputProvider.UseInput(PlayerInputManager.EActionInputType.Jump);
         }
 
         public override EBehaviorState GetNextState()
@@ -54,12 +52,14 @@ namespace Separated.Player
                 return EBehaviorState.Dash;
             }
 
-            // if(_inputProvider.JumpInput){
-            //     return EBehaviorState.Jump;
-            // }
-
-            if (_isFinish && _groundSensor.CheckSensor(GroundSensor.EDirection.Down))
+            if (_inputProvider.JumpInput)
             {
+                return EBehaviorState.AddtionalJump;
+            }
+            
+            if (IsFinished && _groundSensor.CheckSensor(EDirection.Down))
+            {
+                _touchGroundEvent.Notify();
                 return EBehaviorState.Land;
             }
 

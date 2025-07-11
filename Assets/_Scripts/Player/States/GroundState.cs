@@ -3,8 +3,8 @@ using System.Collections;
 using Separated.Data;
 using Separated.Enums;
 using Separated.Helpers;
+using Separated.Interfaces;
 using UnityEngine;
-using static Separated.Player.PlayerStateMachine;
 
 namespace Separated.Player
 {
@@ -62,6 +62,7 @@ namespace Separated.Player
             {
                 return EBehaviorState.Jump;
             }
+
             if (!_groundSensor.CheckSensor(GroundSensor.EDirection.Down) && !_inCoyoteTime)
             {
                 return EBehaviorState.Fall;

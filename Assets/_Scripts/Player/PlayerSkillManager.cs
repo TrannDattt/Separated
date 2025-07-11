@@ -11,7 +11,7 @@ using static Separated.Player.PlayerSkillManager;
 
 namespace Separated.Player
 {
-    public class PlayerSkillManager : MonoBehaviour, IEventListener<Tuple<ESkillSlot, BeastData>>, IEventListener<ESkillSlot>
+    public class PlayerSkillManager : MonoBehaviour, IGenericEventListener<Tuple<ESkillSlot, BeastData>>, IGenericEventListener<ESkillSlot>
     {
         public enum ESkillSlot
         {
@@ -47,10 +47,10 @@ namespace Separated.Player
 
             _playerSkillView.Initialize(_skillDict.Values.ToArray());
 
-            var skillUpdatedEvent = GetEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
+            var skillUpdatedEvent = GetGenericEvent<Tuple<ESkillSlot, BeastData>>(EEventType.PlayerSkillChanged);
             skillUpdatedEvent.AddListener(this);
 
-            var skillUsedEvent = GetEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
+            var skillUsedEvent = GetGenericEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
             skillUsedEvent.AddListener(this);
         }
 

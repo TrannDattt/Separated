@@ -50,7 +50,7 @@ namespace Separated.Player
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish)
+            if (IsFinished)
             {
                 return EBehaviorState.Idle;
             }

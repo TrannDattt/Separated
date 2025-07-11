@@ -2,10 +2,10 @@ using Separated.GameManager;
 using Separated.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Separated.GameManager.EventManager;
 
 namespace Separated.Player
 {
-    [RequireComponent(typeof(PlayerInput), typeof(PlayerControl))]
     public class PlayerInputManager : MonoBehaviour
     {
         public enum EActionInputType

@@ -31,7 +31,7 @@ namespace Separated.Player
 
             if (PlayedTime >= _curStateData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinished = true;
             }
         }
 

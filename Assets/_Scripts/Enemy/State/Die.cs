@@ -24,10 +24,10 @@ namespace Separated.Enemies
             base.Enter();
 
             _isDeath = false;
-            var enemyDieEvent = EventManager.GetEvent<EBeastType>(EventManager.EEventType.EnemyDied);
+            var enemyDieEvent = EventManager.GetGenericEvent<EBeastType>(EventManager.EEventType.EnemyDied);
             enemyDieEvent.Notify(_enemy.EnemyType);
 
-            var enemyDropEvent = EventManager.GetEvent<LootDropData>(EventManager.EEventType.EnemyDied);
+            var enemyDropEvent = EventManager.GetGenericEvent<LootDropData>(EventManager.EEventType.EnemyDied);
             enemyDropEvent.Notify(_dieData.DropData);
         }
 

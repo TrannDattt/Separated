@@ -41,7 +41,7 @@ namespace Separated.Player
 
             if (PlayedTime >= _curStateData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinished = true;
             }
         }
 
@@ -55,7 +55,7 @@ namespace Separated.Player
 
         public override EBehaviorState GetNextState()
         {
-            if (_isFinish)
+            if (IsFinished)
             {
                 if(_groundSensor.CheckSensor(GroundSensor.EDirection.Down))
                 {

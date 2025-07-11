@@ -85,7 +85,7 @@ namespace Separated.Player
 
             if (PlayedTime >= _skillData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinished = true;
             }
         }
 
@@ -101,13 +101,13 @@ namespace Separated.Player
             IsInCoolDown = true;
             RuntimeCoroutine.Instance.StartRuntimeCoroutine(CooldownSkillCoroutine());
 
-            var skillUsedEvent = GetEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
+            var skillUsedEvent = GetGenericEvent<ESkillSlot>(EEventType.PlayerSkillUsed);
             skillUsedEvent.Notify(GetSkillSlot());
         }
 
         public override EBehaviorState GetNextState()
         {
-            if (!_skillData || _isFinish || IsInCoolDown)
+            if (!_skillData || IsFinished || IsInCoolDown)
             {
                 return EBehaviorState.Idle;
             }

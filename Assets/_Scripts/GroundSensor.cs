@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Separated.Player;
 using UnityEngine;
 
 namespace Separated.Helpers
@@ -30,6 +31,8 @@ namespace Separated.Helpers
         [SerializeField] private Transform _midRightSensor;
         [SerializeField] private Transform _botRightSensor;
 
+        private PlayerControl _player;
+
         private Dictionary<EDirection, Transform> _sensorDict = new();
 
         private Transform GetSensor(EDirection dir) => _sensorDict[dir];
@@ -40,8 +43,8 @@ namespace Separated.Helpers
             {
                 EDirection.Up => Vector2.up,
                 EDirection.Down => Vector2.down,
-                EDirection.TopLeft or EDirection.MidLeft or EDirection.BotLeft => Vector2.left,
-                EDirection.TopRight or EDirection.MidRight or EDirection.BotRight => Vector2.right,
+                EDirection.TopLeft or EDirection.MidLeft or EDirection.BotLeft => new Vector2(-1 * _player.FaceDir, 0),
+                EDirection.TopRight or EDirection.MidRight or EDirection.BotRight => new Vector2(_player.FaceDir, 0),
                 _ => Vector2.zero
             };
 
@@ -70,6 +73,8 @@ namespace Separated.Helpers
                 { EDirection.MidRight, _midRightSensor },
                 { EDirection.BotRight, _botRightSensor },
             };
+
+            _player = GetComponentInParent<PlayerControl>();
         }
     }
 }

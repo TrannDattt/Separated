@@ -19,28 +19,24 @@ namespace Separated.Player
 
         public override void Enter()
         {
-            // TODO: Use this input here when there are multiple jump
-            // _inputProvider.UseInput(PlayerInput.EInputType.Jump);
+            _inputProvider.UseInput(PlayerInputManager.EActionInputType.Jump);
 
             base.Enter();
 
             _firstVelocityX = _jumpData.JumpSpeedX;
             _acceleration = -_jumpData.JumpSpeedY / _jumpData.PeriodTime;
-            // _firstVelocityX = _player.RigidBody.linearVelocityX;
-            // _firstVelocityY = (_jumpData.JumpDistance - .5f * _jumpData.Acceleration * Mathf.Pow(_jumpData.PeriodTime, 2)) / _jumpData.PeriodTime;
         }
 
         public override void Do()
         {
             base.Do();
-            
+
             var velocityY = _jumpData.JumpSpeedY + _acceleration * PlayedTime;
             _player.RigidBody.linearVelocityY = velocityY;
-            // _bodyPart.RigidBody.AddForce(Vector2.up);
 
             if (PlayedTime >= _curStateData.PeriodTime)
             {
-                _isFinish = true;
+                IsFinished = true;
             }
         }
 
@@ -48,7 +44,7 @@ namespace Separated.Player
         {
             if (base.GetNextState() == EBehaviorState.None)
             {
-                if (_isFinish || _groundSensor.CheckSensor(GroundSensor.EDirection.Up))
+                if (IsFinished || _groundSensor.CheckSensor(GroundSensor.EDirection.Up))
                 {
                     return EBehaviorState.Fall;
                 }

@@ -17,7 +17,6 @@ namespace Separated.Player
         protected Animator _animator;
 
         protected float _startTime;
-        protected bool _isFinish;
 
         public PlayerBaseState(EBehaviorState key, StateDataSO data, Animator animator) : base(key)
         {
@@ -42,7 +41,7 @@ namespace Separated.Player
 
         public override void Enter()
         {
-            _isFinish = false;
+            IsFinished = false;
             _startTime = Time.time;
 
             PlayAnim();

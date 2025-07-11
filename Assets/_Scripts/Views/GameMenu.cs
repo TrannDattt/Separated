@@ -12,7 +12,7 @@ namespace Separated.Views
         [SerializeField] private EAnimationType _animationType;
         [SerializeField] private bool _closeOnStart;
 
-        protected Event<EEventType, EGameState> _menuOpenedEvent => GetEvent<EGameState>(EEventType.UIUpdated);
+        protected GenericEvent<EEventType, EGameState> _menuOpenedEvent => GetGenericEvent<EGameState>(EEventType.UIUpdated);
 
         protected bool _isOpened = true;
 

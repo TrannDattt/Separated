@@ -2,6 +2,7 @@ namespace Separated.Enums
 {
     public enum EBehaviorState
     {
+        // Normal States
         None,
         Idle,
         Run,
@@ -20,5 +21,8 @@ namespace Separated.Enums
         KnockOut,
         GetUp,
         Die,
+
+        // Special States
+        AddtionalJump,
     }
 }

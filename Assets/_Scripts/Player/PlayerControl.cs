@@ -13,6 +13,8 @@ namespace Separated.Player
         public Rigidbody2D RigidBody { get; private set; }
         public PlayerInputManager InputProvider { get; private set; }
 
+        public int FaceDir => InputProvider.FaceDir;
+
         public override void Init()
         {
             base.Init();
@@ -21,17 +23,7 @@ namespace Separated.Player
             InputProvider = GetComponent<PlayerInputManager>();
         }
 
-        public void ChangeFaceDir()
-        {
-            if (InputProvider.FaceDir > 0)
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (InputProvider.FaceDir < 0)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-        }
+        public void ChangeFaceDir() => transform.localScale = new Vector3(FaceDir, 1, 1);
 
         void Awake()
         {
